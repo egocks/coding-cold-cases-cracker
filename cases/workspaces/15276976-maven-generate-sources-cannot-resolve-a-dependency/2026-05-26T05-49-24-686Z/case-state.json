@@ -1,9 +1,9 @@
 {
   "case_id": "15276976-maven-generate-sources-cannot-resolve-a-dependency",
   "run_id": "2026-05-26T05-49-24-686Z",
-  "status": "publishing",
+  "status": "closed",
   "created_at": "2026-05-26T05:49:24.688Z",
-  "updated_at": "2026-05-26T06:49:09.428Z",
+  "updated_at": "2026-05-26T06:52:18.727Z",
   "workspace": "cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z",
   "original": {
     "title": "Maven generate-sources cannot resolve a dependency",
@@ -33,14 +33,19 @@
     "Original Nexus repository URL replaced with Maven Central; failure mechanism is identical."
   ],
   "lark": {
-    "group_id": "wfl_grp_mBtbWoMSLzGnu7kcb3KD9pKO",
-    "workflow_ids": [],
-    "execution_ids": [],
-    "verification_passed": false
+    "group_id": "wfl_grp_SFE3CL1Y6WeOPf2LU4oN8p7T",
+    "workflow_ids": [
+      "wflw_Prxj1iq1CMZE9muKjO4Y98Kg",
+      "wflw_4oTcivaEeTXegP0GChzL1LU9"
+    ],
+    "execution_ids": [
+      "exec_f6DTRDquUjF52O2YBdjPuMgG"
+    ],
+    "verification_passed": true
   },
   "github": {
     "branch": "cold-case/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z",
-    "remote_url": null
+    "remote_url": "https://github.com/egocks/coding-cold-cases-cracker/tree/cold-case/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z"
   },
   "artifacts": {
     "original_question": "original/original-question.md",
@@ -106,9 +111,34 @@
       "at": "2026-05-26T06:49:09.428Z",
       "type": "publishing",
       "message": "Publishing run workspace for Lark access."
+    },
+    {
+      "at": "2026-05-26T06:49:12.519Z",
+      "type": "published",
+      "message": "Published workspace to GitHub."
+    },
+    {
+      "at": "2026-05-26T06:49:12.522Z",
+      "type": "lark_verification_running",
+      "message": "Lark forensic verification started."
+    },
+    {
+      "at": "2026-05-26T06:52:18.323Z",
+      "type": "closed",
+      "message": "Lark verification passed. Case is Closed."
+    },
+    {
+      "at": "2026-05-26T06:52:18.722Z",
+      "type": "reports_ready",
+      "message": "Groq/deterministic reports are ready."
+    },
+    {
+      "at": "2026-05-26T06:52:18.724Z",
+      "type": "closed",
+      "message": "Final status restored to Closed after report generation."
     }
   ],
   "writer": {
-    "used_groq": true
+    "used_groq": false
   }
 }
