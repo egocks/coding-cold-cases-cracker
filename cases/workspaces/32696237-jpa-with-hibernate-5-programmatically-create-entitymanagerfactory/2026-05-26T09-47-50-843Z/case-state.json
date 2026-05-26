@@ -3,7 +3,7 @@
   "run_id": "2026-05-26T09-47-50-843Z",
   "status": "publishing_reproduction",
   "created_at": "2026-05-26T09:47:50.885Z",
-  "updated_at": "2026-05-26T09:50:06.499Z",
+  "updated_at": "2026-05-26T10:00:10.418Z",
   "workspace": "cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z",
   "original": {
     "title": "JPA with Hibernate 5: programmatically create EntityManagerFactory",
@@ -35,12 +35,18 @@
     "Java 11 is used (compatible with Hibernate 5.0.x); Java 21 would require newer Hibernate."
   ],
   "lark": {
-    "group_id": null,
-    "workflow_ids": [],
-    "execution_ids": [],
+    "group_id": "wfl_grp_eaptHVTBg2oHNwsHagaD0EFp",
+    "workflow_ids": [
+      "wflw_GoFbcl4SQPVgSNrPz9olCJ3l"
+    ],
+    "execution_ids": [
+      "wflw_exec_Qe4YtpbALv1KMi9LAKGIoykW"
+    ],
     "reproduction": {
-      "workflow_id": null,
-      "execution_ids": [],
+      "workflow_id": "wflw_GoFbcl4SQPVgSNrPz9olCJ3l",
+      "execution_ids": [
+        "wflw_exec_Qe4YtpbALv1KMi9LAKGIoykW"
+      ],
       "passed": false,
       "output": "lark/reproduction-output.md",
       "evidence": "lark/reproduction-evidence.json"
@@ -73,15 +79,18 @@
     }
   },
   "github": {
-    "branch": null,
-    "remote_url": null
+    "branch": "cold-case/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z",
+    "remote_url": "https://github.com/egocks/coding-cold-cases-cracker/tree/cold-case/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z/cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z"
   },
   "writer": {
     "quality": {
       "accepted": false,
-      "attempts": 0,
-      "issues": []
-    }
+      "attempts": 2,
+      "issues": [
+        "Groq request failed with HTTP 429: {\"error\":{\"message\":\"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01hw4c5z33f7qrqyftb490k8q0` service tier `on_demand` on tokens per minute (TPM): Limit 12000, Used 6144, Requested 5938. Please try again in 410ms. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing\",\"type\":\"tokens\",\"code\":\"rate_limit_exceeded\"}}\n"
+      ]
+    },
+    "used_groq": false
   },
   "artifacts": {
     "original_question": "original/original-question.md",
@@ -130,6 +139,36 @@
       "at": "2026-05-26T09:50:06.499Z",
       "type": "publishing_reproduction",
       "message": "Publishing reproduction workspace for Lark access."
+    },
+    {
+      "at": "2026-05-26T09:50:11.315Z",
+      "type": "publishing_reproduction_done",
+      "message": "Published workspace to GitHub."
+    },
+    {
+      "at": "2026-05-26T09:50:11.321Z",
+      "type": "lark_reproduction_running",
+      "message": "Lark forensic reproduction workflow started."
+    },
+    {
+      "at": "2026-05-26T09:54:15.927Z",
+      "type": "partial",
+      "message": "Lark did not confirm the failing reproduction. Repair is paused to avoid unsupported closure."
+    },
+    {
+      "at": "2026-05-26T09:54:38.345Z",
+      "type": "reports_ready",
+      "message": "Groq/deterministic reports are ready."
+    },
+    {
+      "at": "2026-05-26T09:54:38.350Z",
+      "type": "partial",
+      "message": "Final status restored to partial after report generation."
+    },
+    {
+      "at": "2026-05-26T10:00:10.418Z",
+      "type": "publishing_reproduction",
+      "message": "Publishing existing reproduction workspace for Lark access."
     }
   ]
 }

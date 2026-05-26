@@ -1,0 +1,27 @@
+{
+  "claims": [
+    {
+      "claim": "Original case source",
+      "artifact": "original/original-question.md"
+    },
+    {
+      "claim": "Kiro reconstruction",
+      "artifact": "reports/reconstruction-report.md"
+    },
+    {
+      "claim": "Lark reproduction evidence",
+      "artifact": "lark/reproduction-evidence.json"
+    },
+    {
+      "claim": "Lark verification evidence",
+      "artifact": "lark/verification-evidence.json"
+    }
+  ],
+  "artifacts": [
+    "original/original-question.md",
+    "reports/reconstruction-report.md",
+    "reports/technical-report.md",
+    "lark/reproduction-evidence.json",
+    "lark/verification-evidence.json"
+  ]
+}

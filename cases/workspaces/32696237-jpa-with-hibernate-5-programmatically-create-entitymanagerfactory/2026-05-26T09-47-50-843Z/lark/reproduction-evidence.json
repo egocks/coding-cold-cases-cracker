@@ -1,23 +1,3 @@
-# Coding Cold Cases Cracker: Kiro Repair From Lark Evidence
-
-You are inside an isolated case workspace.
-
-## Cold Case
-
-Title: JPA with Hibernate 5: programmatically create EntityManagerFactory
-URL: https://stackoverflow.com/questions/32696237/jpa-with-hibernate-5-programmatically-create-entitymanagerfactory
-Posted: 2015-09-21
-Score: 10
-Views: 7631
-Answers: 2
-Cold signal: Answers exist; top score 0
-Tags: java, hibernate, jpa, hibernate-entitymanager, hibernate-5.x
-
-Preserved excerpt:
-This question is specifically about programmatically creating a JPA [code] backed by Hibernate 5, meaning without configuration xml files and without using Spring . Also, this question is specifically about creating an [code] with a Hibernate Interceptor .
-
-## Lark Reproduction Evidence
-
 {
   "phase": "reproduction",
   "passed": false,
@@ -30,24 +10,3 @@ This question is specifically about programmatically creating a JPA [code] backe
   "verdict": "Reproduction evidence not confirmed by Lark.",
   "output_excerpt": "{\n  \"id\": \"wfl_grp_eaptHVTBg2oHNwsHagaD0EFp\",\n  \"name\": \"Coding Cold Cases - Hackathon - 32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory - 2026-05-26T09-47-50-843Z\",\n  \"workflow_count\": 0,\n  \"created_at\": \"2026-05-26T09:50:12.777156+00:00\",\n  \"updated_at\": \"2026-05-26T09:50:12.777156+00:00\"\n}\n\n{\n  \"id\": \"wflw_GoFbcl4SQPVgSNrPz9olCJ3l\",\n  \"name\": \"Coding Cold Cases - Hackathon - JPA with Hibernate 5: programmatically create EntityManagerFactory - Reproduction Evidence\",\n  \"status\": \"active\",\n  \"display_status\": \"never_run\",\n  \"description\": \"You are Lark acting as the forensic reproduction lab for Coding Cold Cases Cracker.\\nRemote workspace: https://github.com/egocks/coding-cold-cases-cracker/tree/cold-case/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z/cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z\\nOriginal case: https://stackoverflow.com/questions/32696237/jpa-with-hibernate-5-programmatically-create-entitymanagerfactory\\nReproduction command: cd repro && mvn compile 2>&1\\nInspect the workspace and run or evaluate the reproduction path before any repair occurs.\\nConfirm whether the observed failure matches the Stack Overflow cold case or a responsible minimal model of it.\\nWhen possible, produce or validate red replay/test artifacts: shell replay, unit/integration test, minimal fixture, deterministic assertion, or failure classifier.\\nReturn the exact evidence that Kiro should use for repair. Include logs, assumptions, and any concern that would make the case partial or blocked.\",\n  \"secret_contexts\": null,\n  \"mode\": \"ai_driven\",\n  \"deterministic_details\": null,\n  \"last_execution_id\": null,\n  \"last_execution_started_at\": null,\n  \"last_execution_stopped_at\": null,\n  \"last_execution_result_type\": null,\n  \"last_generation_id\": null,\n  \"last_generation_started_at\": null,\n\n[...truncated...]\n\nse #32696237 has been verified.\n\n### Key Evidence for Kiro Repair\n\n**Failure Location:** `repro/src/main/java/com/example/ReproMain.java:38`\n\n**Error:** Constructor signature mismatch - the Hibernate 4.3 `EntityManagerFactoryImpl` constructor no longer exists in Hibernate 5.0:\n\n| Hibernate 4.3 (broken) | Hibernate 5.0 (expected) |\n|------------------------|--------------------------|\n| `PersistenceUnitTransactionType, boolean, Class, Configuration, ServiceRegistry, String` | `String, SessionFactoryImplementor, MetadataImplementor, SettingsImpl, Map<?,?>` |\n\n**Repair Options:**\n1. Use `HibernatePersistenceProvider` + `PersistenceUnitInfo` API\n2. Use Hibernate 5's `EntityManagerFactoryBuilder` bootstrap API\n3. Use `Persistence.createEntityManagerFactory()` with programmatic properties\n\n**Artifacts Created:**\n- `lark/reproduction-output.md` - Full forensic report\n- `lark/reproduction-evidence.json` - Structured evidence for Kiro\nWorkflow wflw_GoFbcl4SQPVgSNrPz9olCJ3l executed successfully. Execution ID: wflw_exec_Qe4YtpbALv1KMi9LAKGIoykW"
 }
-
-## Required Repair
-
-1. Read `case.json`, `case-state.json`, `reports/reconstruction-report.md`, and all files under `lark/`.
-2. Treat Lark's reproduction evidence as the forensic handoff. Cite the Lark observations that guided each major repair decision.
-3. Apply the smallest justified fix in `repaired/` or update the generated project in place with a clear diff.
-4. Write the exact verification command to `case.json.commands.verify`.
-5. Run verification until it passes, or document why the case remains partial/blocked.
-6. Write `reports/technical-report.md` with:
-   - Lark observations used
-   - reproduced or modeled failure
-   - exact commands
-   - important logs
-   - root cause
-   - fix
-   - verification result
-   - assumptions and caveats
-
-## Closure Rule
-
-Do not claim the case is Closed. Lark verification is the independent forensic gate.
