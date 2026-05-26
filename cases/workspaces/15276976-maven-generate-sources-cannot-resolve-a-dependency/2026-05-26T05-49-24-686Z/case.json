@@ -3,7 +3,7 @@
   "run_id": "2026-05-26T05-49-24-686Z",
   "status": "closed",
   "created_at": "2026-05-26T05:49:24.688Z",
-  "updated_at": "2026-05-26T06:52:18.727Z",
+  "updated_at": "2026-05-26T07:07:59.236Z",
   "workspace": "cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z",
   "original": {
     "title": "Maven generate-sources cannot resolve a dependency",
@@ -30,16 +30,20 @@
     "Running 'mvn generate-sources' in isolation triggers the failure; the fix requires running 'mvn package' so modA is packaged before modB resolves it.",
     "jaxb2-maven-plugin 1.3 has its own dependency resolution bug; upgrading to 3.1.0 is required for Java 21 compatibility.",
     "javax.xml.bind:jaxb-api:2.1 replaced with jakarta.xml.bind:jakarta.xml.bind-api:4.0.0 for Java 21.",
-    "Original Nexus repository URL replaced with Maven Central; failure mechanism is identical."
+    "Original Nexus repository URL replaced with Maven Central; failure mechanism is identical.",
+    "The repaired parent POM declares maven.compiler.source/target 8 so the replay works on modern JDKs used by Lark and judges."
   ],
   "lark": {
     "group_id": "wfl_grp_SFE3CL1Y6WeOPf2LU4oN8p7T",
     "workflow_ids": [
       "wflw_Prxj1iq1CMZE9muKjO4Y98Kg",
-      "wflw_4oTcivaEeTXegP0GChzL1LU9"
+      "wflw_4oTcivaEeTXegP0GChzL1LU9",
+      "wflw_d4p5m92JFJypZQBSkvGqj0e1"
     ],
     "execution_ids": [
-      "exec_f6DTRDquUjF52O2YBdjPuMgG"
+      "exec_f6DTRDquUjF52O2YBdjPuMgG",
+      "wflw_exec_f6DTRDquUjF52O2YBdjPuMgG",
+      "wflw_exec_uyjmnYtSDJA3EZJ8JRt0C6Lw"
     ],
     "verification_passed": true
   },
@@ -136,9 +140,14 @@
       "at": "2026-05-26T06:52:18.724Z",
       "type": "closed",
       "message": "Final status restored to Closed after report generation."
+    },
+    {
+      "at": "2026-05-26T07:07:32.796Z",
+      "type": "closed",
+      "message": "Lark AI verification retry passed against the updated published workspace."
     }
   ],
   "writer": {
-    "used_groq": false
+    "used_groq": true
   }
 }

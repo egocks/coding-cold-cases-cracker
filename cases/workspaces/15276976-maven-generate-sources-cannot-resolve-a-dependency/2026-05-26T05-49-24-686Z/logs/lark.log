@@ -508,3 +508,56 @@ Final Status: FAIL
 ============================================
 
 [wflw_4oTcivaEeTXegP0GChzL1LU9] Status: failure (35s elapsed)
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Status: pending (1s elapsed)
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Status: running (7s elapsed)
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Status: running (14s elapsed)
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Log: I'll clone the repository and verify if the Maven dependency issue has been fixed by running the verification command.
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Status: running (20s elapsed)
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Status: running (27s elapsed)
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Status: running (33s elapsed)
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Log: Let me examine the pom.xml files to understand the structure, then run the verification command.
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Status: running (40s elapsed)
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Status: running (47s elapsed)
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Log: Now running the verification command to test if the Maven build succeeds with the fix.
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Log: Maven is not installed. Let me install Maven and retry.
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Status: running (53s elapsed)
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Status: running (59s elapsed)
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Status: running (1m6s elapsed)
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Status: running (1m12s elapsed)
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Status: running (1m19s elapsed)
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Status: running (1m25s elapsed)
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Status: running (1m32s elapsed)
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Log: **BUILD SUCCESS!** The verification passed. Let me confirm the generated artifacts exist.
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Status: running (1m38s elapsed)
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Log: Let me also verify the original reproduction fails as expected to confirm the fix is valid.
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Status: running (1m46s elapsed)
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Status: running (1m53s elapsed)
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Log: The verification is complete:
+
+**Original Bug Confirmed (repro):** `BUILD FAILURE` with error:
+> `Could not find artifact com.group:modA:jar:1.7.0 in central`
+
+This matches the original Stack Overflow issue exactly - jaxb2-maven-plugin 1.3 bypasses Maven's reactor and tries to resolve modA from Maven Central before it's installed.
+
+**Fix Verified (repaired):** `BUILD SUCCESS` - all modules compiled and packaged.
+
+Let me clean up the cloned repository.
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Status: running (1m59s elapsed)
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Status: running (2m6s elapsed)
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Status: running (2m13s elapsed)
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Status: success (2m20s elapsed)
+[wflw_d4p5m92JFJypZQBSkvGqj0e1] Log: **Verification Complete ✅**
+
+The Maven cold case #15276976 has been successfully verified:
+
+| Check | Result |
+|-------|--------|
+| Repaired build (`mvn package`) | ✅ BUILD SUCCESS |
+| JAR artifacts created | ✅ modA-1.7.0.jar, modB-1.7.0.jar |
+| JAXB sources generated | ✅ com/group/jaxb |
+| Original bug reproduced | ✅ BUILD FAILURE with expected error |
+
+**The Fix:** Upgraded `jaxb2-maven-plugin` from version 1.3 to 3.1.0. Version 1.3 called `resolveDependencies()` directly against the repository system, bypassing Maven's reactor. Version 3.1.0 uses the standard Maven artifact resolver which correctly handles in-progress reactor artifacts.
+
+**Residual Risk:** None identified. The case may be **Closed**.
+Workflow wflw_d4p5m92JFJypZQBSkvGqj0e1 executed successfully. Execution ID: wflw_exec_uyjmnYtSDJA3EZJ8JRt0C6Lw
