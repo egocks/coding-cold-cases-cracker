@@ -1,0 +1,135 @@
+{
+  "case_id": "32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory",
+  "run_id": "2026-05-26T09-47-50-843Z",
+  "status": "publishing_reproduction",
+  "created_at": "2026-05-26T09:47:50.885Z",
+  "updated_at": "2026-05-26T09:50:06.499Z",
+  "workspace": "cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z",
+  "original": {
+    "title": "JPA with Hibernate 5: programmatically create EntityManagerFactory",
+    "url": "https://stackoverflow.com/questions/32696237/jpa-with-hibernate-5-programmatically-create-entitymanagerfactory",
+    "posted": "2015-09-21",
+    "score": 10,
+    "views": 7631,
+    "answers": 2,
+    "tags": [
+      "java",
+      "hibernate",
+      "jpa",
+      "hibernate-entitymanager",
+      "hibernate-5.x"
+    ],
+    "cold_signal": "Answers exist; top score 0",
+    "why_interesting": "This question is specifically about programmatically creating a JPA [code] backed by Hibernate 5, meaning without configuration xml files and without using Spring . Also, this question is specifically about creating an [code] with a Hibernate Interceptor .",
+    "fetched_source": "https://api.stackexchange.com/2.3/questions/32696237?order=desc&sort=activity&site=stackoverflow&filter=withbody",
+    "fetched": true
+  },
+  "commands": {
+    "reproduce": "cd repro && mvn compile 2>&1",
+    "verify": "TO_BE_DISCOVERED_BY_KIRO"
+  },
+  "assumptions": [
+    "Hibernate 5.0.0.Final is the earliest Hibernate 5 release and faithfully represents the breaking change described in the SO question.",
+    "H2 in-memory database is used to avoid requiring an external database server.",
+    "The failure is a compile-time error (constructor signature mismatch), not a runtime error; this is the correct and expected failure mode.",
+    "Java 11 is used (compatible with Hibernate 5.0.x); Java 21 would require newer Hibernate."
+  ],
+  "lark": {
+    "group_id": null,
+    "workflow_ids": [],
+    "execution_ids": [],
+    "reproduction": {
+      "workflow_id": null,
+      "execution_ids": [],
+      "passed": false,
+      "output": "lark/reproduction-output.md",
+      "evidence": "lark/reproduction-evidence.json"
+    },
+    "verification": {
+      "workflow_id": null,
+      "execution_ids": [],
+      "passed": false,
+      "output": "lark/verification-output.md",
+      "evidence": "lark/verification-evidence.json"
+    },
+    "verification_passed": false
+  },
+  "kiro": {
+    "reconstruction": {
+      "agent": ".kiro/agents/case-reconstructor.json",
+      "prompt": "prompts/kiro-reconstruction.md",
+      "report": "reports/reconstruction-report.md",
+      "passed": true,
+      "log": "logs/kiro-reconstruction.log",
+      "command": "kiro-cli chat --no-interactive --agent case-reconstructor --trust-tools=read,write,shell,grep,glob,web_fetch,web_search \"$(cat prompts/kiro-reconstruction.md)\""
+    },
+    "repair": {
+      "agent": ".kiro/agents/case-repairer.json",
+      "prompt": "prompts/kiro-repair-from-lark.md",
+      "report": "reports/technical-report.md"
+    },
+    "debrief": {
+      "agent": ".kiro/agents/case-debriefer.json"
+    }
+  },
+  "github": {
+    "branch": null,
+    "remote_url": null
+  },
+  "writer": {
+    "quality": {
+      "accepted": false,
+      "attempts": 0,
+      "issues": []
+    }
+  },
+  "artifacts": {
+    "original_question": "original/original-question.md",
+    "kiro_reconstruction_prompt": "prompts/kiro-reconstruction.md",
+    "kiro_repair_prompt": "prompts/kiro-repair-from-lark.md",
+    "lark_reproduction_workflow": "lark/reproduction-workflow.json",
+    "lark_verification_workflow": "lark/verification-workflow.json",
+    "lark_reproduction_output": "lark/reproduction-output.md",
+    "lark_verification_output": "lark/verification-output.md",
+    "lark_test_coverage_summary": "lark/test-coverage-summary.md",
+    "lark_red_replay": "tests/lark/red/replay-reproduction.sh",
+    "lark_green_replay": "tests/lark/green/replay-verification.sh",
+    "reconstruction_report": "reports/reconstruction-report.md",
+    "technical_report": "reports/technical-report.md",
+    "case_file": "reports/case-file.md",
+    "judge_summary": "reports/judge-summary.md",
+    "evidence_map": "reports/evidence-map.json"
+  },
+  "timeline": [
+    {
+      "at": "2026-05-26T09:47:50.886Z",
+      "type": "workspace_created",
+      "message": "Created isolated investigation workspace."
+    },
+    {
+      "at": "2026-05-26T09:47:51.979Z",
+      "type": "source_fetched",
+      "message": "Fetched original Stack Overflow question body via Stack Exchange API."
+    },
+    {
+      "at": "2026-05-26T09:47:52.139Z",
+      "type": "prepared",
+      "message": "Generated phase-specific Kiro agent pack and Lark workflow payloads."
+    },
+    {
+      "at": "2026-05-26T09:48:00.025Z",
+      "type": "kiro_reconstruction_started",
+      "message": "Kiro reconstruction started."
+    },
+    {
+      "at": "2026-05-26T09:50:06.495Z",
+      "type": "reproduction_ready",
+      "message": "Kiro produced a failing reproduction for Lark forensic review."
+    },
+    {
+      "at": "2026-05-26T09:50:06.499Z",
+      "type": "publishing_reproduction",
+      "message": "Publishing reproduction workspace for Lark access."
+    }
+  ]
+}

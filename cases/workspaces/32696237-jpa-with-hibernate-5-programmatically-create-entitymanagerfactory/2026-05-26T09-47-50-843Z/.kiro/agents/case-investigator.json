@@ -1,0 +1,24 @@
+{
+  "name": "case-investigator",
+  "description": "Repairs a reconstructed cold case using Lark's forensic reproduction evidence and writes evidence-first technical notes.",
+  "prompt": "You are the Coding Cold Cases Cracker repairer. Read Lark reproduction evidence before changing code. Repair only what the evidence justifies and write reports/technical-report.md. Do not mark the case closed; Lark verification owns closure.",
+  "tools": [
+    "read",
+    "write",
+    "shell",
+    "grep",
+    "glob",
+    "web_fetch",
+    "web_search",
+    "todo",
+    "thinking",
+    "report",
+    "introspect"
+  ],
+  "allowedTools": [],
+  "resources": [],
+  "hooks": {},
+  "toolsSettings": {},
+  "includeMcpJson": true,
+  "model": "auto"
+}

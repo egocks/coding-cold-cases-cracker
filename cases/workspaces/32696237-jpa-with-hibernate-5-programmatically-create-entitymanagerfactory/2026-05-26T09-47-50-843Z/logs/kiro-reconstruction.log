@@ -1,0 +1,395 @@
+
+[38;5;252m[0m[?25l[38;5;141m> [0mLet me start by reading the case files.[0m[0m
+[?25l[0m[0mBatch fs_read operation with [38;5;141m3[0m operations[38;5;244m (using tool: read)[0m
+
+↱ Operation 1: Reading file: [38;5;141m/workspace/cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z/case.json[0m, all lines
+↱ Operation 2: Reading file: [38;5;141m/workspace/cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z/case-state.json[0m, all lines
+↱ Operation 3: Reading file: [38;5;141m/workspace/cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z/original/original-question.md[0m, all lines
+[38;5;10m ✓ [0mSuccessfully read [38;5;244m4185 bytes[0m from /workspace/cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z/case.json
+
+[38;5;10m ✓ [0mSuccessfully read [38;5;244m4185 bytes[0m from /workspace/cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z/case-state.json
+
+[38;5;10m ✓ [0mSuccessfully read [38;5;244m4327 bytes[0m from /workspace/cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z/original/original-question.md
+
+ ⋮ 
+
+[38;5;244m- [0mSummary: 3 operations processed, 3 successful, 0 failed
+[38;5;244m - Completed in 0.167s[0m
+
+[?25l[0m[38;5;141m> [0mNow I have a clear picture. The issue is that [38;5;10mEntityManagerFactoryImpl[0m's constructor changed in Hibernate 5, breaking the programmatic (no [38;5;10mpersistence.xml[0m, no Spring) creation of a JPA [38;5;10mEntityManagerFactory[0m with an [38;5;10mInterceptor[0m. Let me build the minimal reproduction.[0m[0m
+[?25l[0m[0mReading directory: [38;5;141m/workspace/cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z[0m[38;5;244m (using tool: read, max depth: 2, max entries: 1000, excluding: defaults)[0m
+[38;5;10m ✓ [0mSuccessfully read directory [38;5;141m/workspace/cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z[0m [38;5;244m(40 entries)[0m
+[38;5;244m - Completed in 0.32s[0m
+
+[?25l[0m[38;5;141m> [0mNow I'll create the Maven project. The key failure to reproduce: the Hibernate 4.3 hack using [38;5;10mEntityManagerFactoryImpl[0m internal constructor no longer compiles/works with Hibernate 5 because the constructor signature changed.[0m[0m
+[?25l[0m[0mI'll create the following file: [38;5;141m/workspace/cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z/repro/pom.xml[0m[38;5;244m (using tool: write)[0m
+
+[49m[38;5;10m+     1[0m:[38;5;10m[49m <?xml version="1.0" encoding="UTF-8"?>
+[0m[49m[38;5;10m+     2[0m:[38;5;10m[49m <project xmlns="http://maven.apache.org/POM/4.0.0"
+[0m[49m[38;5;10m+     3[0m:[38;5;10m[49m          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+[0m[49m[38;5;10m+     4[0m:[38;5;10m[49m          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+[0m[49m[38;5;10m+     5[0m:[38;5;10m[49m     <modelVersion>4.0.0</modelVersion>
+[0m[49m[38;5;10m+     6[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     7[0m:[38;5;10m[49m     <groupId>com.example</groupId>
+[0m[49m[38;5;10m+     8[0m:[38;5;10m[49m     <artifactId>repro-32696237</artifactId>
+[0m[49m[38;5;10m+     9[0m:[38;5;10m[49m     <version>1.0-SNAPSHOT</version>
+[0m[49m[38;5;10m+    10[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    11[0m:[38;5;10m[49m     <properties>
+[0m[49m[38;5;10m+    12[0m:[38;5;10m[49m         <maven.compiler.source>11</maven.compiler.source>
+[0m[49m[38;5;10m+    13[0m:[38;5;10m[49m         <maven.compiler.target>11</maven.compiler.target>
+[0m[49m[38;5;10m+    14[0m:[38;5;10m[49m         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+[0m[49m[38;5;10m+    15[0m:[38;5;10m[49m     </properties>
+[0m[49m[38;5;10m+    16[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    17[0m:[38;5;10m[49m     <dependencies>
+[0m[49m[38;5;10m+    18[0m:[38;5;10m[49m         <!-- Hibernate 5.x (earliest 5.0 release) -->
+[0m[49m[38;5;10m+    19[0m:[38;5;10m[49m         <dependency>
+[0m[49m[38;5;10m+    20[0m:[38;5;10m[49m             <groupId>org.hibernate</groupId>
+[0m[49m[38;5;10m+    21[0m:[38;5;10m[49m             <artifactId>hibernate-core</artifactId>
+[0m[49m[38;5;10m+    22[0m:[38;5;10m[49m             <version>5.0.0.Final</version>
+[0m[49m[38;5;10m+    23[0m:[38;5;10m[49m         </dependency>
+[0m[49m[38;5;10m+    24[0m:[38;5;10m[49m         <dependency>
+[0m[49m[38;5;10m+    25[0m:[38;5;10m[49m             <groupId>org.hibernate</groupId>
+[0m[49m[38;5;10m+    26[0m:[38;5;10m[49m             <artifactId>hibernate-entitymanager</artifactId>
+[0m[49m[38;5;10m+    27[0m:[38;5;10m[49m             <version>5.0.0.Final</version>
+[0m[49m[38;5;10m+    28[0m:[38;5;10m[49m         </dependency>
+[0m[49m[38;5;10m+    29[0m:[38;5;10m[49m         <!-- H2 in-memory DB so we don't need an external database -->
+[0m[49m[38;5;10m+    30[0m:[38;5;10m[49m         <dependency>
+[0m[49m[38;5;10m+    31[0m:[38;5;10m[49m             <groupId>com.h2database</groupId>
+[0m[49m[38;5;10m+    32[0m:[38;5;10m[49m             <artifactId>h2</artifactId>
+[0m[49m[38;5;10m+    33[0m:[38;5;10m[49m             <version>2.2.224</version>
+[0m[49m[38;5;10m+    34[0m:[38;5;10m[49m         </dependency>
+[0m[49m[38;5;10m+    35[0m:[38;5;10m[49m     </dependencies>
+[0m[49m[38;5;10m+    36[0m:[38;5;10m[49m </project>
+[0m[K
+Creating: [38;5;141m/workspace/cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z/repro/pom.xml[0m
+[38;5;244m - Completed in 0.8s[0m
+
+[?25l[0m[?25l[0m[0mI will run the following command: [38;5;141mmkdir -p /workspace/cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z/repro/src/main/java/com/example[0m[38;5;244m (using tool: shell)[0m
+
+[38;5;244m - Completed in 0.35s[0m
+
+[?25l[0m[38;5;141m> [0mNow create the minimal entity and the reproduction main class that attempts the Hibernate 4.3 hack against Hibernate 5:[0m[0m
+[?25l[0m[0mI'll create the following file: [38;5;141m/workspace/cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z/repro/src/main/java/com/example/Item.java[0m[38;5;244m (using tool: write)[0m
+
+[49m[38;5;10m+     1[0m:[38;5;10m[49m package com.example;
+[0m[49m[38;5;10m+     2[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     3[0m:[38;5;10m[49m import javax.persistence.Entity;
+[0m[49m[38;5;10m+     4[0m:[38;5;10m[49m import javax.persistence.Id;
+[0m[49m[38;5;10m+     5[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     6[0m:[38;5;10m[49m @Entity
+[0m[49m[38;5;10m+     7[0m:[38;5;10m[49m public class Item {
+[0m[49m[38;5;10m+     8[0m:[38;5;10m[49m     @Id
+[0m[49m[38;5;10m+     9[0m:[38;5;10m[49m     private Long id;
+[0m[49m[38;5;10m+    10[0m:[38;5;10m[49m }
+[0m[K
+Creating: [38;5;141m/workspace/cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z/repro/src/main/java/com/example/Item.java[0m
+[38;5;244m - Completed in 0.9s[0m
+
+[?25l[0m[?25l[0m[0mI'll create the following file: [38;5;141m/workspace/cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z/repro/src/main/java/com/example/ReproMain.java[0m[38;5;244m (using tool: write)[0m
+
+[49m[38;5;10m+     1[0m:[38;5;10m[49m package com.example;
+[0m[49m[38;5;10m+     2[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     3[0m:[38;5;10m[49m import org.hibernate.cfg.Configuration;
+[0m[49m[38;5;10m+     4[0m:[38;5;10m[49m import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+[0m[49m[38;5;10m+     5[0m:[38;5;10m[49m import org.hibernate.service.ServiceRegistry;
+[0m[49m[38;5;10m+     6[0m:[38;5;10m[49m import org.hibernate.jpa.internal.EntityManagerFactoryImpl;
+[0m[49m[38;5;10m+     7[0m:[38;5;10m[49m import javax.persistence.EntityManagerFactory;
+[0m[49m[38;5;10m+     8[0m:[38;5;10m[49m import javax.persistence.spi.PersistenceUnitTransactionType;
+[0m[49m[38;5;10m+     9[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    10[0m:[38;5;10m[49m /**
+[0m[49m[38;5;10m+    11[0m:[38;5;10m[49m  * Reproduces SO #32696237:
+[0m[49m[38;5;10m+    12[0m:[38;5;10m[49m  * The Hibernate 4.3 hack of directly instantiating EntityManagerFactoryImpl
+[0m[49m[38;5;10m+    13[0m:[38;5;10m[49m  * breaks in Hibernate 5 because the constructor signature changed.
+[0m[49m[38;5;10m+    14[0m:[38;5;10m[49m  *
+[0m[49m[38;5;10m+    15[0m:[38;5;10m[49m  * In Hibernate 4.3 the constructor was:
+[0m[49m[38;5;10m+    16[0m:[38;5;10m[49m  *   EntityManagerFactoryImpl(PersistenceUnitTransactionType, boolean,
+[0m[49m[38;5;10m+    17[0m:[38;5;10m[49m  *       Class<? extends Interceptor>, Configuration, ServiceRegistry, String)
+[0m[49m[38;5;10m+    18[0m:[38;5;10m[49m  *
+[0m[49m[38;5;10m+    19[0m:[38;5;10m[49m  * In Hibernate 5.0 that constructor no longer exists in the same form,
+[0m[49m[38;5;10m+    20[0m:[38;5;10m[49m  * so this code fails to compile / throws at runtime.
+[0m[49m[38;5;10m+    21[0m:[38;5;10m[49m  */
+[0m[49m[38;5;10m+    22[0m:[38;5;10m[49m public class ReproMain {
+[0m[49m[38;5;10m+    23[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    24[0m:[38;5;10m[49m     public static void main(String[] args) throws Exception {
+[0m[49m[38;5;10m+    25[0m:[38;5;10m[49m         Configuration cfg = new Configuration();
+[0m[49m[38;5;10m+    26[0m:[38;5;10m[49m         cfg.setProperty("hibernate.connection.driver_class", "org.h2.Driver");
+[0m[49m[38;5;10m+    27[0m:[38;5;10m[49m         cfg.setProperty("hibernate.connection.url", "jdbc:h2:mem:repro;DB_CLOSE_DELAY=-1");
+[0m[49m[38;5;10m+    28[0m:[38;5;10m[49m         cfg.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+[0m[49m[38;5;10m+    29[0m:[38;5;10m[49m         cfg.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+[0m[49m[38;5;10m+    30[0m:[38;5;10m[49m         cfg.addAnnotatedClass(Item.class);
+[0m[49m[38;5;10m+    31[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    32[0m:[38;5;10m[49m         StandardServiceRegistryBuilder ssrb = new StandardServiceRegistryBuilder();
+[0m[49m[38;5;10m+    33[0m:[38;5;10m[49m         ssrb.applySettings(cfg.getProperties());
+[0m[49m[38;5;10m+    34[0m:[38;5;10m[49m         ServiceRegistry serviceRegistry = ssrb.build();
+[0m[49m[38;5;10m+    35[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    36[0m:[38;5;10m[49m         // ---- THE HACK FROM HIBERNATE 4.3 ----
+[0m[49m[38;5;10m+    37[0m:[38;5;10m[49m         // This constructor no longer exists in Hibernate 5; compilation fails.
+[0m[49m[38;5;10m+    38[0m:[38;5;10m[49m         EntityManagerFactory emf = new EntityManagerFactoryImpl(
+[0m[49m[38;5;10m+    39[0m:[38;5;10m[49m                 PersistenceUnitTransactionType.RESOURCE_LOCAL,
+[0m[49m[38;5;10m+    40[0m:[38;5;10m[49m                 /*discardOnClose=*/ true,
+[0m[49m[38;5;10m+    41[0m:[38;5;10m[49m                 /*sessionInterceptorClass=*/ null,
+[0m[49m[38;5;10m+    42[0m:[38;5;10m[49m                 cfg,
+[0m[49m[38;5;10m+    43[0m:[38;5;10m[49m                 serviceRegistry,
+[0m[49m[38;5;10m+    44[0m:[38;5;10m[49m                 null
+[0m[49m[38;5;10m+    45[0m:[38;5;10m[49m         );
+[0m[49m[38;5;10m+    46[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    47[0m:[38;5;10m[49m         System.out.println("EntityManagerFactory created: " + emf);
+[0m[49m[38;5;10m+    48[0m:[38;5;10m[49m         emf.close();
+[0m[49m[38;5;10m+    49[0m:[38;5;10m[49m     }
+[0m[49m[38;5;10m+    50[0m:[38;5;10m[49m }
+[0m[K
+Creating: [38;5;141m/workspace/cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z/repro/src/main/java/com/example/ReproMain.java[0m
+[38;5;244m - Completed in 0.5s[0m
+
+[?25l[0m[?25l[0m[0mI will run the following command: [38;5;141mcd /workspace/cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z/repro && mvn compile 2>&1[0m[38;5;244m (using tool: shell)[0m
+Purpose: Attempt to compile the reproduction against Hibernate 5.0.0.Final
+
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.example:repro-32696237 >---------------------
+[INFO] Building repro-32696237 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+Downloading from central: https://repo.maven.apache.org/maven2/org/hibernate/hibernate-core/5.0.0.Final/hibernate-core-5.0.0.Final.pom
+Progress (1): 2.0 kBProgress (1): 3.1 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/hibernate/hibernate-core/5.0.0.Final/hibernate-core-5.0.0.Final.pom (3.1 kB at 2.1 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/jboss/logging/jboss-logging/3.3.0.Final/jboss-logging-3.3.0.Final.pom
+Progress (1): 1.3 kBProgress (1): 3.6 kBProgress (1): 5.9 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/jboss/logging/jboss-logging/3.3.0.Final/jboss-logging-3.3.0.Final.pom (5.9 kB at 35 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/jboss/jboss-parent/15/jboss-parent-15.pom
+Progress (1): 1.0 kBProgress (1): 2.7 kBProgress (1): 5.2 kBProgress (1): 7.2 kBProgress (1): 10 kB Progress (1): 19 kBProgress (1): 25 kBProgress (1): 26 kBProgress (1): 29 kBProgress (1): 32 kB                   Downloaded from central: https://repo.maven.apache.org/maven2/org/jboss/jboss-parent/15/jboss-parent-15.pom (32 kB at 371 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/geronimo/specs/geronimo-jta_1.1_spec/1.1.1/geronimo-jta_1.1_spec-1.1.1.pom
+Progress (1): 864 BProgress (1): 1.8 kBProgress (1): 2.1 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/geronimo/specs/geronimo-jta_1.1_spec/1.1.1/geronimo-jta_1.1_spec-1.1.1.pom (2.1 kB at 15 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/geronimo/specs/specs/1.4/specs-1.4.pom
+Progress (1): 865 BProgress (1): 1.7 kBProgress (1): 4.0 kBProgress (1): 7.9 kBProgress (1): 11 kB Progress (1): 12 kB                   Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/geronimo/specs/specs/1.4/specs-1.4.pom (12 kB at 214 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/geronimo/genesis/config/project-config/1.2/project-config-1.2.pom
+Progress (1): 795 BProgress (1): 1.7 kBProgress (1): 4.4 kBProgress (1): 7.4 kBProgress (1): 11 kB Progress (1): 15 kBProgress (1): 20 kBProgress (1): 22 kB                   Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/geronimo/genesis/config/project-config/1.2/project-config-1.2.pom (22 kB at 299 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/geronimo/genesis/config/config/1.2/config-1.2.pom
+Progress (1): 871 BProgress (1): 1.8 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/geronimo/genesis/config/config/1.2/config-1.2.pom (1.8 kB at 32 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/geronimo/genesis/genesis/1.2/genesis-1.2.pom
+Progress (1): 803 BProgress (1): 1.7 kBProgress (1): 4.4 kBProgress (1): 6.6 kBProgress (1): 10 kB Progress (1): 11 kB                   Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/geronimo/genesis/genesis/1.2/genesis-1.2.pom (11 kB at 171 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/apache/3/apache-3.pom
+Progress (1): 812 BProgress (1): 1.7 kBProgress (1): 3.4 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/apache/3/apache-3.pom (3.4 kB at 47 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/hibernate/javax/persistence/hibernate-jpa-2.1-api/1.0.0.Final/hibernate-jpa-2.1-api-1.0.0.Final.pom
+Progress (1): 1.1 kBProgress (1): 2.2 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/hibernate/javax/persistence/hibernate-jpa-2.1-api/1.0.0.Final/hibernate-jpa-2.1-api-1.0.0.Final.pom (2.2 kB at 12 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/javassist/javassist/3.18.1-GA/javassist-3.18.1-GA.pom
+Progress (1): 911 BProgress (1): 2.8 kBProgress (1): 4.9 kBProgress (1): 7.4 kBProgress (1): 8.8 kBProgress (1): 9.5 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/javassist/javassist/3.18.1-GA/javassist-3.18.1-GA.pom (9.5 kB at 56 kB/s)
+[WARNING] 1 problem was encountered while building the effective model for org.javassist:javassist:jar:3.18.1-GA during dependency collection step for project (use -X to see details)
+Downloading from central: https://repo.maven.apache.org/maven2/antlr/antlr/2.7.7/antlr-2.7.7.pom
+Progress (1): 632 B                   Downloaded from central: https://repo.maven.apache.org/maven2/antlr/antlr/2.7.7/antlr-2.7.7.pom (632 B at 4.0 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/jboss/jandex/1.2.2.Final/jandex-1.2.2.Final.pom
+Progress (1): 1.4 kBProgress (1): 3.5 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/jboss/jandex/1.2.2.Final/jandex-1.2.2.Final.pom (3.5 kB at 16 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/jboss/jboss-parent/12/jboss-parent-12.pom
+Progress (1): 1.0 kBProgress (1): 3.3 kBProgress (1): 5.7 kBProgress (1): 7.7 kBProgress (1): 14 kB Progress (1): 22 kBProgress (1): 26 kBProgress (1): 27 kBProgress (1): 29 kBProgress (1): 32 kB                   Downloaded from central: https://repo.maven.apache.org/maven2/org/jboss/jboss-parent/12/jboss-parent-12.pom (32 kB at 564 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/dom4j/dom4j/1.6.1/dom4j-1.6.1.pom
+Progress (1): 1.9 kBProgress (1): 4.4 kBProgress (1): 6.8 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/dom4j/dom4j/1.6.1/dom4j-1.6.1.pom (6.8 kB at 111 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.pom
+Progress (1): 955 BProgress (1): 2.2 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.pom (2.2 kB at 44 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/hibernate/common/hibernate-commons-annotations/5.0.0.Final/hibernate-commons-annotations-5.0.0.Final.pom
+Progress (1): 1.3 kBProgress (1): 1.9 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/hibernate/common/hibernate-commons-annotations/5.0.0.Final/hibernate-commons-annotations-5.0.0.Final.pom (1.9 kB at 16 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/hibernate/hibernate-entitymanager/5.0.0.Final/hibernate-entitymanager-5.0.0.Final.pom
+Progress (1): 1.9 kBProgress (1): 3.0 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/hibernate/hibernate-entitymanager/5.0.0.Final/hibernate-entitymanager-5.0.0.Final.pom (3.0 kB at 4.4 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/com/h2database/h2/2.2.224/h2-2.2.224.pom
+Progress (1): 1.1 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/com/h2database/h2/2.2.224/h2-2.2.224.pom (1.1 kB at 9.0 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/hibernate/hibernate-core/5.0.0.Final/hibernate-core-5.0.0.Final.jar
+Progress (1): 0/5.5 MBProgress (1): 0/5.5 MBProgress (1): 0/5.5 MBProgress (1): 0/5.5 MBProgress (1): 0/5.5 MBProgress (1): 0/5.5 MBProgress (1): 0/5.5 MBProgress (1): 0/5.5 MBProgress (1): 0/5.5 MBProgress (1): 0/5.5 MBProgress (1): 0/5.5 MBProgress (1): 0.1/5.5 MBProgress (1): 0.1/5.5 MBProgress (1): 0.1/5.5 MBProgress (1): 0.1/5.5 MBProgress (1): 0.1/5.5 MBProgress (1): 0.1/5.5 MBProgress (1): 0.1/5.5 MBProgress (1): 0.1/5.5 MBProgress (1): 0.1/5.5 MBProgress (1): 0.1/5.5 MBProgress (1): 0.1/5.5 MBProgress (1): 0.1/5.5 MBProgress (1): 0.1/5.5 MBProgress (1): 0.1/5.5 MBProgress (1): 0.1/5.5 MBProgress (1): 0.1/5.5 MBProgress (1): 0.1/5.5 MBProgress (1): 0.1/5.5 MBProgress (1): 0.1/5.5 MBProgress (1): 0.2/5.5 MBProgress (1): 0.2/5.5 MBProgress (1): 0.2/5.5 MBProgress (1): 0.2/5.5 MBProgress (1): 0.2/5.5 MBProgress (1): 0.2/5.5 MBProgress (1): 0.3/5.5 MBProgress (1): 0.3/5.5 MBProgress (1): 0.3/5.5 MBProgress (1): 0.3/5.5 MBProgress (1): 0.3/5.5 MBProgress (1): 0.3/5.5 MBProgress (1): 0.4/5.5 MBProgress (1): 0.4/5.5 MBProgress (1): 0.4/5.5 MBProgress (1): 0.4/5.5 MBProgress (1): 0.4/5.5 MBProgress (1): 0.4/5.5 MBProgress (1): 0.5/5.5 MBProgress (1): 0.5/5.5 MBProgress (1): 0.5/5.5 MBProgress (1): 0.5/5.5 MBProgress (1): 0.5/5.5 MBProgress (1): 0.5/5.5 MBProgress (1): 0.6/5.5 MBProgress (1): 0.6/5.5 MBProgress (1): 0.6/5.5 MBProgress (1): 0.6/5.5 MBProgress (1): 0.6/5.5 MBProgress (1): 0.6/5.5 MBProgress (1): 0.7/5.5 MBProgress (1): 0.7/5.5 MBProgress (1): 0.7/5.5 MBProgress (1): 0.7/5.5 MBProgress (1): 0.7/5.5 MBProgress (1): 0.7/5.5 MBProgress (1): 0.8/5.5 MBProgress (1): 0.8/5.5 MBProgress (1): 0.8/5.5 MBProgress (1): 0.8/5.5 MBProgress (1): 0.8/5.5 MBProgress (1): 0.8/5.5 MBProgress (1): 0.9/5.5 MBProgress (1): 0.9/5.5 MBProgress (1): 0.9/5.5 MBProgress (1): 0.9/5.5 MBProgress (1): 0.9/5.5 MBProgress (1): 0.9/5.5 MBProgress (1): 1.0/5.5 MBProgress (1): 1.0/5.5 MBProgress (1): 1.0/5.5 MBProgress (1): 1.0/5.5 MBProgress (1): 1.0/5.5 MBProgress (1): 1.0/5.5 MBProgress (1): 1.0/5.5 MBProgress (1): 1.1/5.5 MBProgress (1): 1.1/5.5 MBProgress (1): 1.1/5.5 MBProgress (1): 1.1/5.5 MBProgress (1): 1.1/5.5 MBProgress (1): 1.1/5.5 MBProgress (1): 1.2/5.5 MBProgress (1): 1.2/5.5 MBProgress (1): 1.2/5.5 MBProgress (1): 1.2/5.5 MBProgress (1): 1.2/5.5 MBProgress (1): 1.2/5.5 MBProgress (1): 1.2/5.5 MBProgress (1): 1.3/5.5 MBProgress (1): 1.3/5.5 MBProgress (1): 1.3/5.5 MBProgress (1): 1.3/5.5 MBProgress (1): 1.3/5.5 MBProgress (1): 1.3/5.5 MBProgress (1): 1.4/5.5 MBProgress (1): 1.4/5.5 MBProgress (1): 1.4/5.5 MBProgress (1): 1.4/5.5 MBProgress (1): 1.4/5.5 MBProgress (1): 1.4/5.5 MBProgress (1): 1.5/5.5 MBProgress (1): 1.5/5.5 MBProgress (1): 1.5/5.5 MBProgress (1): 1.5/5.5 MBProgress (1): 1.5/5.5 MBProgress (1): 1.5/5.5 MBProgress (1): 1.6/5.5 MBProgress (1): 1.6/5.5 MBProgress (1): 1.6/5.5 MBProgress (1): 1.6/5.5 MBProgress (1): 1.6/5.5 MBProgress (1): 1.6/5.5 MBProgress (1): 1.7/5.5 MBProgress (1): 1.7/5.5 MBProgress (1): 1.7/5.5 MBProgress (1): 1.7/5.5 MBProgress (1): 1.7/5.5 MBProgress (1): 1.7/5.5 MBProgress (1): 1.8/5.5 MBProgress (1): 1.8/5.5 MBProgress (1): 1.8/5.5 MBProgress (1): 1.8/5.5 MBProgress (1): 1.8/5.5 MBProgress (1): 1.8/5.5 MBProgress (1): 1.9/5.5 MBProgress (1): 1.9/5.5 MBProgress (1): 1.9/5.5 MBProgress (1): 1.9/5.5 MBProgress (1): 1.9/5.5 MBProgress (1): 1.9/5.5 MBProgress (1): 2.0/5.5 MBProgress (1): 2.0/5.5 MBProgress (1): 2.0/5.5 MBProgress (1): 2.0/5.5 MBProgress (1): 2.0/5.5 MBProgress (1): 2.0/5.5 MBProgress (1): 2.1/5.5 MBProgress (1): 2.1/5.5 MBProgress (1): 2.1/5.5 MBProgress (1): 2.1/5.5 MBProgress (1): 2.1/5.5 MBProgress (1): 2.1/5.5 MBProgress (1): 2.2/5.5 MBProgress (1): 2.2/5.5 MBProgress (1): 2.2/5.5 MBProgress (1): 2.2/5.5 MBProgress (1): 2.2/5.5 MBProgress (1): 2.2/5.5 MBProgress (1): 2.2/5.5 MBProgress (1): 2.3/5.5 MBProgress (1): 2.3/5.5 MBProgress (1): 2.3/5.5 MBProgress (1): 2.3/5.5 MBProgress (1): 2.3/5.5 MBProgress (1): 2.3/5.5 MBProgress (1): 2.4/5.5 MBProgress (1): 2.4/5.5 MBProgress (1): 2.4/5.5 MBProgress (1): 2.4/5.5 MBProgress (1): 2.4/5.5 MBProgress (1): 2.4/5.5 MBProgress (1): 2.5/5.5 MBProgress (1): 2.5/5.5 MBProgress (1): 2.5/5.5 MBProgress (1): 2.5/5.5 MBProgress (1): 2.5/5.5 MBProgress (1): 2.5/5.5 MBProgress (1): 2.6/5.5 MBProgress (1): 2.6/5.5 MBProgress (1): 2.6/5.5 MBProgress (1): 2.6/5.5 MBProgress (1): 2.6/5.5 MBProgress (1): 2.6/5.5 MBProgress (1): 2.7/5.5 MBProgress (1): 2.7/5.5 MBProgress (1): 2.7/5.5 MBProgress (1): 2.7/5.5 MBProgress (1): 2.7/5.5 MBProgress (1): 2.7/5.5 MBProgress (1): 2.8/5.5 MBProgress (1): 2.8/5.5 MBProgress (1): 2.8/5.5 MBProgress (1): 2.8/5.5 MBProgress (1): 2.8/5.5 MBProgress (1): 2.8/5.5 MBProgress (1): 2.9/5.5 MBProgress (1): 2.9/5.5 MBProgress (1): 2.9/5.5 MBProgress (1): 2.9/5.5 MBProgress (1): 2.9/5.5 MBProgress (1): 2.9/5.5 MBProgress (1): 3.0/5.5 MBProgress (1): 3.0/5.5 MBProgress (1): 3.0/5.5 MBProgress (1): 3.0/5.5 MBProgress (1): 3.0/5.5 MBProgress (1): 3.0/5.5 MBProgress (1): 3.1/5.5 MBProgress (1): 3.1/5.5 MBProgress (1): 3.1/5.5 MBProgress (1): 3.1/5.5 MBProgress (1): 3.1/5.5 MBProgress (1): 3.1/5.5 MBProgress (1): 3.1/5.5 MBProgress (1): 3.2/5.5 MBProgress (1): 3.2/5.5 MBProgress (1): 3.2/5.5 MBProgress (1): 3.2/5.5 MBProgress (1): 3.2/5.5 MBProgress (1): 3.2/5.5 MBProgress (1): 3.3/5.5 MBProgress (1): 3.3/5.5 MBProgress (1): 3.3/5.5 MBProgress (1): 3.3/5.5 MBProgress (1): 3.3/5.5 MBProgress (1): 3.3/5.5 MBProgress (1): 3.4/5.5 MBProgress (1): 3.4/5.5 MBProgress (1): 3.4/5.5 MBProgress (1): 3.4/5.5 MBProgress (1): 3.4/5.5 MBProgress (1): 3.4/5.5 MBProgress (1): 3.5/5.5 MBProgress (1): 3.5/5.5 MBProgress (1): 3.5/5.5 MBProgress (1): 3.5/5.5 MBProgress (1): 3.5/5.5 MBProgress (1): 3.5/5.5 MBProgress (1): 3.6/5.5 MBProgress (1): 3.6/5.5 MBProgress (1): 3.6/5.5 MBProgress (1): 3.6/5.5 MBProgress (1): 3.6/5.5 MBProgress (1): 3.6/5.5 MBProgress (1): 3.7/5.5 MBProgress (1): 3.7/5.5 MBProgress (1): 3.7/5.5 MBProgress (1): 3.7/5.5 MBProgress (1): 3.7/5.5 MBProgress (1): 3.7/5.5 MBProgress (1): 3.8/5.5 MBProgress (1): 3.8/5.5 MBProgress (1): 3.8/5.5 MBProgress (1): 3.8/5.5 MBProgress (1): 3.8/5.5 MBProgress (1): 3.8/5.5 MBProgress (1): 3.9/5.5 MBProgress (1): 3.9/5.5 MBProgress (1): 3.9/5.5 MBProgress (1): 3.9/5.5 MBProgress (1): 3.9/5.5 MBProgress (1): 3.9/5.5 MBProgress (1): 4.0/5.5 MBProgress (1): 4.0/5.5 MBProgress (1): 4.0/5.5 MBProgress (1): 4.0/5.5 MBProgress (1): 4.0/5.5 MBProgress (1): 4.0/5.5 MBProgress (1): 4.1/5.5 MBProgress (1): 4.1/5.5 MBProgress (1): 4.1/5.5 MBProgress (1): 4.1/5.5 MBProgress (1): 4.1/5.5 MBProgress (1): 4.1/5.5 MBProgress (1): 4.1/5.5 MBProgress (1): 4.2/5.5 MBProgress (1): 4.2/5.5 MBProgress (1): 4.2/5.5 MBProgress (1): 4.2/5.5 MBProgress (1): 4.2/5.5 MBProgress (1): 4.2/5.5 MBProgress (1): 4.3/5.5 MBProgress (1): 4.3/5.5 MBProgress (1): 4.3/5.5 MBProgress (1): 4.3/5.5 MBProgress (1): 4.3/5.5 MBProgress (1): 4.3/5.5 MBProgress (1): 4.4/5.5 MBProgress (1): 4.4/5.5 MBProgress (1): 4.4/5.5 MBProgress (1): 4.4/5.5 MBProgress (1): 4.4/5.5 MBProgress (1): 4.4/5.5 MBProgress (1): 4.5/5.5 MBProgress (1): 4.5/5.5 MBProgress (1): 4.5/5.5 MBProgress (1): 4.5/5.5 MBProgress (1): 4.5/5.5 MBProgress (1): 4.5/5.5 MBProgress (1): 4.6/5.5 MBProgress (1): 4.6/5.5 MBProgress (1): 4.6/5.5 MBProgress (1): 4.6/5.5 MBProgress (1): 4.6/5.5 MBProgress (1): 4.6/5.5 MBProgress (1): 4.7/5.5 MBProgress (1): 4.7/5.5 MBProgress (1): 4.7/5.5 MBProgress (1): 4.7/5.5 MBProgress (1): 4.7/5.5 MBProgress (1): 4.7/5.5 MBProgress (1): 4.8/5.5 MBProgress (1): 4.8/5.5 MBProgress (1): 4.8/5.5 MBProgress (1): 4.8/5.5 MBProgress (1): 4.8/5.5 MBProgress (1): 4.8/5.5 MBProgress (1): 4.9/5.5 MBProgress (1): 4.9/5.5 MBProgress (1): 4.9/5.5 MBProgress (1): 4.9/5.5 MBProgress (1): 4.9/5.5 MBProgress (1): 4.9/5.5 MBProgress (1): 5.0/5.5 MBProgress (1): 5.0/5.5 MBProgress (1): 5.0/5.5 MBProgress (1): 5.0/5.5 MBProgress (1): 5.0/5.5 MBProgress (1): 5.0/5.5 MBProgress (1): 5.1/5.5 MBProgress (1): 5.1/5.5 MBProgress (1): 5.1/5.5 MBProgress (1): 5.1/5.5 MBProgress (1): 5.1/5.5 MBProgress (1): 5.1/5.5 MBProgress (1): 5.1/5.5 MBProgress (1): 5.2/5.5 MBProgress (1): 5.2/5.5 MBProgress (1): 5.2/5.5 MBProgress (1): 5.2/5.5 MBProgress (1): 5.2/5.5 MBProgress (1): 5.2/5.5 MBProgress (1): 5.3/5.5 MBProgress (1): 5.3/5.5 MBProgress (1): 5.3/5.5 MBProgress (1): 5.3/5.5 MBProgress (1): 5.3/5.5 MBProgress (1): 5.3/5.5 MBProgress (1): 5.4/5.5 MBProgress (1): 5.4/5.5 MBProgress (1): 5.4/5.5 MBProgress (1): 5.4/5.5 MBProgress (1): 5.4/5.5 MBProgress (1): 5.4/5.5 MBProgress (1): 5.5/5.5 MBProgress (1): 5.5/5.5 MBProgress (1): 5.5/5.5 MBProgress (1): 5.5/5.5 MBProgress (1): 5.5/5.5 MBProgress (1): 5.5/5.5 MBProgress (1): 5.5 MB                        Downloaded from central: https://repo.maven.apache.org/maven2/org/hibernate/hibernate-core/5.0.0.Final/hibernate-core-5.0.0.Final.jar (5.5 MB at 3.4 MB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/jboss/logging/jboss-logging/3.3.0.Final/jboss-logging-3.3.0.Final.jar
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/geronimo/specs/geronimo-jta_1.1_spec/1.1.1/geronimo-jta_1.1_spec-1.1.1.jar
+Downloading from central: https://repo.maven.apache.org/maven2/org/hibernate/javax/persistence/hibernate-jpa-2.1-api/1.0.0.Final/hibernate-jpa-2.1-api-1.0.0.Final.jar
+Downloading from central: https://repo.maven.apache.org/maven2/org/javassist/javassist/3.18.1-GA/javassist-3.18.1-GA.jar
+Downloading from central: https://repo.maven.apache.org/maven2/antlr/antlr/2.7.7/antlr-2.7.7.jar
+Progress (1): 7.7/67 kBProgress (1): 11/67 kB Progress (1): 28/67 kBProgress (1): 44/67 kBProgress (1): 61/67 kBProgress (1): 67 kB                      Downloaded from central: https://repo.maven.apache.org/maven2/org/jboss/logging/jboss-logging/3.3.0.Final/jboss-logging-3.3.0.Final.jar (67 kB at 57 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/jboss/jandex/1.2.2.Final/jandex-1.2.2.Final.jar
+Progress (1): 3.2/79 kBProgress (1): 11/79 kB Progress (1): 28/79 kBProgress (1): 44/79 kBProgress (1): 61/79 kBProgress (1): 77/79 kBProgress (1): 79 kB                      Downloaded from central: https://repo.maven.apache.org/maven2/org/jboss/jandex/1.2.2.Final/jandex-1.2.2.Final.jar (79 kB at 61 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar
+Progress (1): 0.9/445 kBProgress (1): 2.3/445 kBProgress (1): 3.6/445 kBProgress (1): 5.0/445 kBProgress (1): 6.4/445 kBProgress (1): 7.7/445 kBProgress (1): 8.2/445 kBProgress (1): 9.6/445 kBProgress (1): 11/445 kB Progress (1): 12/445 kBProgress (1): 14/445 kBProgress (1): 15/445 kBProgress (1): 16/445 kBProgress (1): 18/445 kBProgress (1): 19/445 kBProgress (1): 21/445 kBProgress (1): 22/445 kBProgress (1): 23/445 kBProgress (1): 25/445 kBProgress (1): 26/445 kBProgress (1): 27/445 kBProgress (1): 29/445 kBProgress (1): 30/445 kBProgress (1): 31/445 kBProgress (1): 33/445 kBProgress (1): 34/445 kBProgress (1): 36/445 kBProgress (1): 37/445 kBProgress (1): 38/445 kBProgress (1): 40/445 kBProgress (1): 41/445 kBProgress (1): 42/445 kBProgress (1): 44/445 kBProgress (1): 45/445 kBProgress (1): 47/445 kBProgress (1): 48/445 kBProgress (1): 49/445 kBProgress (1): 51/445 kBProgress (1): 52/445 kBProgress (1): 53/445 kBProgress (1): 55/445 kBProgress (1): 57/445 kBProgress (2): 57/445 kB | 1.4/714 kBProgress (2): 57/445 kB | 2.7/714 kBProgress (2): 62/445 kB | 2.7/714 kBProgress (2): 62/445 kB | 4.1/714 kBProgress (2): 62/445 kB | 5.5/714 kBProgress (2): 62/445 kB | 6.8/714 kBProgress (2): 62/445 kB | 8.2/714 kBProgress (2): 62/445 kB | 9.6/714 kBProgress (2): 62/445 kB | 11/714 kB Progress (2): 66/445 kB | 11/714 kBProgress (2): 66/445 kB | 12/714 kBProgress (2): 66/445 kB | 14/714 kBProgress (2): 70/445 kB | 14/714 kBProgress (2): 70/445 kB | 15/714 kBProgress (2): 74/445 kB | 15/714 kBProgress (3): 74/445 kB | 15/714 kB | 0.9/113 kBProgress (3): 74/445 kB | 15/714 kB | 2.3/113 kBProgress (3): 74/445 kB | 15/714 kB | 3.6/113 kBProgress (3): 74/445 kB | 15/714 kB | 5.0/113 kBProgress (3): 74/445 kB | 15/714 kB | 6.4/113 kBProgress (3): 74/445 kB | 15/714 kB | 7.7/113 kBProgress (3): 74/445 kB | 15/714 kB | 9.1/113 kBProgress (3): 74/445 kB | 15/714 kB | 10/113 kB Progress (3): 74/445 kB | 15/714 kB | 12/113 kBProgress (3): 74/445 kB | 15/714 kB | 12/113 kBProgress (3): 74/445 kB | 15/714 kB | 14/113 kBProgress (3): 74/445 kB | 15/714 kB | 15/113 kBProgress (3): 74/445 kB | 15/714 kB | 16/113 kBProgress (3): 74/445 kB | 15/714 kB | 18/113 kBProgress (3): 74/445 kB | 16/714 kB | 18/113 kBProgress (3): 74/445 kB | 18/714 kB | 18/113 kBProgress (3): 74/445 kB | 18/714 kB | 19/113 kBProgress (3): 74/445 kB | 18/714 kB | 21/113 kBProgress (3): 74/445 kB | 19/714 kB | 21/113 kBProgress (3): 74/445 kB | 19/714 kB | 22/113 kBProgress (3): 74/445 kB | 20/714 kB | 22/113 kBProgress (3): 74/445 kB | 20/714 kB | 23/113 kBProgress (3): 74/445 kB | 22/714 kB | 23/113 kBProgress (3): 74/445 kB | 22/714 kB | 25/113 kBProgress (3): 74/445 kB | 23/714 kB | 25/113 kBProgress (3): 74/445 kB | 23/714 kB | 26/113 kBProgress (3): 74/445 kB | 25/714 kB | 26/113 kBProgress (3): 74/445 kB | 26/714 kB | 26/113 kBProgress (3): 74/445 kB | 26/714 kB | 27/113 kBProgress (3): 74/445 kB | 26/714 kB | 29/113 kBProgress (3): 74/445 kB | 26/714 kB | 30/113 kBProgress (3): 74/445 kB | 26/714 kB | 31/113 kBProgress (3): 74/445 kB | 26/714 kB | 33/113 kBProgress (3): 74/445 kB | 27/714 kB | 33/113 kBProgress (3): 74/445 kB | 27/714 kB | 34/113 kBProgress (3): 74/445 kB | 27/714 kB | 36/113 kBProgress (3): 74/445 kB | 27/714 kB | 37/113 kBProgress (3): 74/445 kB | 27/714 kB | 38/113 kBProgress (3): 74/445 kB | 27/714 kB | 40/113 kBProgress (3): 74/445 kB | 27/714 kB | 41/113 kBProgress (3): 74/445 kB | 29/714 kB | 41/113 kBProgress (3): 74/445 kB | 29/714 kB | 42/113 kBProgress (3): 74/445 kB | 30/714 kB | 42/113 kBProgress (3): 74/445 kB | 30/714 kB | 44/113 kBProgress (3): 74/445 kB | 31/714 kB | 44/113 kBProgress (3): 74/445 kB | 33/714 kB | 44/113 kBProgress (3): 74/445 kB | 34/714 kB | 44/113 kBProgress (3): 78/445 kB | 34/714 kB | 44/113 kBProgress (3): 78/445 kB | 36/714 kB | 44/113 kBProgress (3): 78/445 kB | 37/714 kB | 44/113 kBProgress (3): 78/445 kB | 38/714 kB | 44/113 kBProgress (3): 83/445 kB | 38/714 kB | 44/113 kBProgress (3): 83/445 kB | 40/714 kB | 44/113 kBProgress (3): 87/445 kB | 40/714 kB | 44/113 kBProgress (3): 91/445 kB | 40/714 kB | 44/113 kBProgress (3): 91/445 kB | 41/714 kB | 44/113 kBProgress (3): 91/445 kB | 42/714 kB | 44/113 kBProgress (3): 95/445 kB | 42/714 kB | 44/113 kBProgress (3): 100/445 kB | 42/714 kB | 44/113 kBProgress (3): 100/445 kB | 42/714 kB | 45/113 kBProgress (3): 104/445 kB | 42/714 kB | 45/113 kBProgress (3): 104/445 kB | 42/714 kB | 47/113 kBProgress (3): 104/445 kB | 42/714 kB | 48/113 kBProgress (3): 104/445 kB | 42/714 kB | 49/113 kBProgress (3): 104/445 kB | 42/714 kB | 51/113 kBProgress (3): 104/445 kB | 42/714 kB | 52/113 kBProgress (3): 104/445 kB | 42/714 kB | 53/113 kBProgress (3): 104/445 kB | 42/714 kB | 55/113 kBProgress (3): 104/445 kB | 42/714 kB | 59/113 kBProgress (3): 104/445 kB | 44/714 kB | 59/113 kBProgress (3): 104/445 kB | 45/714 kB | 59/113 kBProgress (3): 104/445 kB | 46/714 kB | 59/113 kBProgress (3): 104/445 kB | 48/714 kB | 59/113 kBProgress (3): 104/445 kB | 49/714 kB | 59/113 kBProgress (3): 104/445 kB | 51/714 kB | 59/113 kBProgress (3): 104/445 kB | 52/714 kB | 59/113 kBProgress (3): 104/445 kB | 52/714 kB | 63/113 kBProgress (3): 104/445 kB | 52/714 kB | 67/113 kBProgress (3): 108/445 kB | 52/714 kB | 67/113 kBProgress (3): 112/445 kB | 52/714 kB | 67/113 kBProgress (3): 112/445 kB | 53/714 kB | 67/113 kBProgress (3): 112/445 kB | 55/714 kB | 67/113 kBProgress (3): 112/445 kB | 59/714 kB | 67/113 kBProgress (3): 112/445 kB | 63/714 kB | 67/113 kBProgress (3): 112/445 kB | 67/714 kB | 67/113 kBProgress (3): 112/445 kB | 72/714 kB | 67/113 kBProgress (3): 112/445 kB | 76/714 kB | 67/113 kBProgress (3): 112/445 kB | 80/714 kB | 67/113 kBProgress (3): 112/445 kB | 82/714 kB | 67/113 kBProgress (3): 112/445 kB | 86/714 kB | 67/113 kBProgress (3): 112/445 kB | 90/714 kB | 67/113 kBProgress (3): 112/445 kB | 95/714 kB | 67/113 kBProgress (3): 112/445 kB | 99/714 kB | 67/113 kBProgress (3): 112/445 kB | 103/714 kB | 67/113 kBProgress (3): 112/445 kB | 107/714 kB | 67/113 kBProgress (3): 112/445 kB | 112/714 kB | 67/113 kBProgress (3): 112/445 kB | 116/714 kB | 67/113 kBProgress (3): 112/445 kB | 120/714 kB | 67/113 kBProgress (3): 112/445 kB | 124/714 kB | 67/113 kBProgress (3): 112/445 kB | 128/714 kB | 67/113 kBProgress (4): 112/445 kB | 128/714 kB | 67/113 kB | 0.9/16 kBProgress (4): 112/445 kB | 128/714 kB | 67/113 kB | 2.3/16 kBProgress (4): 112/445 kB | 128/714 kB | 67/113 kB | 3.6/16 kBProgress (4): 112/445 kB | 128/714 kB | 67/113 kB | 5.0/16 kBProgress (4): 112/445 kB | 128/714 kB | 67/113 kB | 6.4/16 kBProgress (4): 112/445 kB | 128/714 kB | 67/113 kB | 7.7/16 kBProgress (4): 112/445 kB | 128/714 kB | 67/113 kB | 8.2/16 kBProgress (4): 112/445 kB | 133/714 kB | 67/113 kB | 8.2/16 kBProgress (4): 112/445 kB | 137/714 kB | 67/113 kB | 8.2/16 kBProgress (4): 112/445 kB | 141/714 kB | 67/113 kB | 8.2/16 kBProgress (4): 112/445 kB | 141/714 kB | 67/113 kB | 9.6/16 kBProgress (4): 112/445 kB | 145/714 kB | 67/113 kB | 9.6/16 kBProgress (4): 112/445 kB | 147/714 kB | 67/113 kB | 9.6/16 kBProgress (4): 112/445 kB | 152/714 kB | 67/113 kB | 9.6/16 kBProgress (4): 112/445 kB | 156/714 kB | 67/113 kB | 9.6/16 kBProgress (4): 112/445 kB | 156/714 kB | 72/113 kB | 9.6/16 kBProgress (4): 112/445 kB | 160/714 kB | 72/113 kB | 9.6/16 kBProgress (4): 112/445 kB | 160/714 kB | 76/113 kB | 9.6/16 kBProgress (4): 112/445 kB | 164/714 kB | 76/113 kB | 9.6/16 kBProgress (4): 117/445 kB | 164/714 kB | 76/113 kB | 9.6/16 kBProgress (4): 117/445 kB | 164/714 kB | 76/113 kB | 11/16 kB Progress (4): 117/445 kB | 164/714 kB | 76/113 kB | 12/16 kBProgress (4): 117/445 kB | 164/714 kB | 76/113 kB | 14/16 kBProgress (4): 121/445 kB | 164/714 kB | 76/113 kB | 14/16 kBProgress (4): 121/445 kB | 164/714 kB | 76/113 kB | 15/16 kBProgress (4): 121/445 kB | 164/714 kB | 76/113 kB | 16 kB   Progress (4): 123/445 kB | 164/714 kB | 76/113 kB | 16 kBProgress (4): 127/445 kB | 164/714 kB | 76/113 kB | 16 kBProgress (4): 131/445 kB | 164/714 kB | 76/113 kB | 16 kBProgress (4): 136/445 kB | 164/714 kB | 76/113 kB | 16 kBProgress (4): 140/445 kB | 164/714 kB | 76/113 kB | 16 kBProgress (4): 140/445 kB | 169/714 kB | 76/113 kB | 16 kBProgress (4): 140/445 kB | 173/714 kB | 76/113 kB | 16 kBProgress (4): 140/445 kB | 177/714 kB | 76/113 kB | 16 kBProgress (4): 140/445 kB | 181/714 kB | 76/113 kB | 16 kB                                                         Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/geronimo/specs/geronimo-jta_1.1_spec/1.1.1/geronimo-jta_1.1_spec-1.1.1.jar (16 kB at 9.5 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar
+Progress (3): 144/445 kB | 181/714 kB | 76/113 kBProgress (3): 148/445 kB | 181/714 kB | 76/113 kBProgress (3): 152/445 kB | 181/714 kB | 76/113 kBProgress (3): 157/445 kB | 181/714 kB | 76/113 kBProgress (3): 161/445 kB | 181/714 kB | 76/113 kBProgress (3): 165/445 kB | 181/714 kB | 76/113 kBProgress (3): 165/445 kB | 186/714 kB | 76/113 kBProgress (4): 165/445 kB | 186/714 kB | 76/113 kB | 7.7/314 kBProgress (4): 165/445 kB | 186/714 kB | 76/113 kB | 8.2/314 kBProgress (4): 165/445 kB | 190/714 kB | 76/113 kB | 8.2/314 kBProgress (4): 165/445 kB | 190/714 kB | 76/113 kB | 25/314 kB Progress (4): 165/445 kB | 190/714 kB | 76/113 kB | 41/314 kBProgress (4): 165/445 kB | 190/714 kB | 76/113 kB | 57/314 kBProgress (4): 165/445 kB | 190/714 kB | 76/113 kB | 74/314 kBProgress (4): 165/445 kB | 190/714 kB | 76/113 kB | 90/314 kBProgress (4): 165/445 kB | 190/714 kB | 80/113 kB | 90/314 kBProgress (4): 165/445 kB | 190/714 kB | 84/113 kB | 90/314 kBProgress (4): 165/445 kB | 190/714 kB | 89/113 kB | 90/314 kBProgress (4): 165/445 kB | 190/714 kB | 93/113 kB | 90/314 kBProgress (4): 165/445 kB | 190/714 kB | 97/113 kB | 90/314 kBProgress (4): 165/445 kB | 190/714 kB | 101/113 kB | 90/314 kBProgress (4): 165/445 kB | 190/714 kB | 105/113 kB | 90/314 kBProgress (4): 165/445 kB | 190/714 kB | 110/113 kB | 90/314 kBProgress (4): 165/445 kB | 190/714 kB | 113 kB | 90/314 kB                                                              Downloaded from central: https://repo.maven.apache.org/maven2/org/hibernate/javax/persistence/hibernate-jpa-2.1-api/1.0.0.Final/hibernate-jpa-2.1-api-1.0.0.Final.jar (113 kB at 66 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/hibernate/common/hibernate-commons-annotations/5.0.0.Final/hibernate-commons-annotations-5.0.0.Final.jar
+Progress (3): 169/445 kB | 190/714 kB | 90/314 kBProgress (3): 174/445 kB | 190/714 kB | 90/314 kBProgress (3): 178/445 kB | 190/714 kB | 90/314 kBProgress (3): 182/445 kB | 190/714 kB | 90/314 kBProgress (3): 182/445 kB | 194/714 kB | 90/314 kBProgress (3): 186/445 kB | 194/714 kB | 90/314 kBProgress (3): 186/445 kB | 198/714 kB | 90/314 kBProgress (3): 191/445 kB | 198/714 kB | 90/314 kBProgress (3): 195/445 kB | 198/714 kB | 90/314 kBProgress (3): 195/445 kB | 202/714 kB | 90/314 kBProgress (3): 199/445 kB | 202/714 kB | 90/314 kBProgress (3): 203/445 kB | 202/714 kB | 90/314 kBProgress (3): 207/445 kB | 202/714 kB | 90/314 kBProgress (3): 212/445 kB | 202/714 kB | 90/314 kBProgress (3): 216/445 kB | 202/714 kB | 90/314 kBProgress (3): 220/445 kB | 202/714 kB | 90/314 kBProgress (3): 220/445 kB | 202/714 kB | 106/314 kBProgress (3): 220/445 kB | 207/714 kB | 106/314 kBProgress (3): 220/445 kB | 211/714 kB | 106/314 kBProgress (3): 220/445 kB | 215/714 kB | 106/314 kBProgress (3): 220/445 kB | 215/714 kB | 123/314 kBProgress (3): 220/445 kB | 219/714 kB | 123/314 kBProgress (3): 237/445 kB | 219/714 kB | 123/314 kBProgress (3): 237/445 kB | 219/714 kB | 139/314 kBProgress (3): 237/445 kB | 219/714 kB | 156/314 kBProgress (3): 253/445 kB | 219/714 kB | 156/314 kBProgress (3): 253/445 kB | 219/714 kB | 172/314 kBProgress (3): 253/445 kB | 219/714 kB | 188/314 kBProgress (3): 254/445 kB | 219/714 kB | 188/314 kBProgress (3): 254/445 kB | 236/714 kB | 188/314 kBProgress (3): 254/445 kB | 252/714 kB | 188/314 kBProgress (3): 254/445 kB | 269/714 kB | 188/314 kBProgress (3): 254/445 kB | 279/714 kB | 188/314 kBProgress (3): 270/445 kB | 279/714 kB | 188/314 kBProgress (3): 270/445 kB | 295/714 kB | 188/314 kBProgress (3): 270/445 kB | 295/714 kB | 205/314 kBProgress (3): 270/445 kB | 311/714 kB | 205/314 kBProgress (3): 287/445 kB | 311/714 kB | 205/314 kBProgress (3): 287/445 kB | 328/714 kB | 205/314 kBProgress (3): 303/445 kB | 328/714 kB | 205/314 kBProgress (3): 303/445 kB | 344/714 kB | 205/314 kBProgress (3): 303/445 kB | 360/714 kB | 205/314 kBProgress (3): 303/445 kB | 377/714 kB | 205/314 kBProgress (3): 303/445 kB | 393/714 kB | 205/314 kBProgress (3): 303/445 kB | 410/714 kB | 205/314 kBProgress (3): 303/445 kB | 426/714 kB | 205/314 kBProgress (3): 303/445 kB | 426/714 kB | 221/314 kBProgress (3): 303/445 kB | 426/714 kB | 238/314 kBProgress (3): 319/445 kB | 426/714 kB | 238/314 kBProgress (3): 336/445 kB | 426/714 kB | 238/314 kBProgress (3): 352/445 kB | 426/714 kB | 238/314 kBProgress (3): 369/445 kB | 426/714 kB | 238/314 kBProgress (4): 369/445 kB | 426/714 kB | 238/314 kB | 0.9/109 kBProgress (4): 369/445 kB | 426/714 kB | 238/314 kB | 2.3/109 kBProgress (4): 369/445 kB | 426/714 kB | 238/314 kB | 3.6/109 kBProgress (4): 369/445 kB | 426/714 kB | 238/314 kB | 5.0/109 kBProgress (4): 369/445 kB | 426/714 kB | 238/314 kB | 6.4/109 kBProgress (4): 369/445 kB | 426/714 kB | 238/314 kB | 7.7/109 kBProgress (4): 369/445 kB | 426/714 kB | 238/314 kB | 9.1/109 kBProgress (4): 369/445 kB | 426/714 kB | 238/314 kB | 10/109 kB Progress (4): 369/445 kB | 426/714 kB | 238/314 kB | 12/109 kBProgress (4): 369/445 kB | 426/714 kB | 238/314 kB | 13/109 kBProgress (4): 385/445 kB | 426/714 kB | 238/314 kB | 13/109 kBProgress (4): 401/445 kB | 426/714 kB | 238/314 kB | 13/109 kBProgress (4): 418/445 kB | 426/714 kB | 238/314 kB | 13/109 kBProgress (4): 418/445 kB | 426/714 kB | 254/314 kB | 13/109 kBProgress (4): 418/445 kB | 426/714 kB | 270/314 kB | 13/109 kBProgress (4): 418/445 kB | 426/714 kB | 270/314 kB | 15/109 kBProgress (4): 418/445 kB | 426/714 kB | 270/314 kB | 16/109 kBProgress (4): 418/445 kB | 426/714 kB | 270/314 kB | 17/109 kBProgress (4): 418/445 kB | 426/714 kB | 270/314 kB | 19/109 kBProgress (4): 418/445 kB | 426/714 kB | 270/314 kB | 20/109 kBProgress (4): 418/445 kB | 426/714 kB | 270/314 kB | 21/109 kBProgress (4): 418/445 kB | 426/714 kB | 270/314 kB | 23/109 kBProgress (4): 434/445 kB | 426/714 kB | 270/314 kB | 23/109 kBProgress (4): 445 kB | 426/714 kB | 270/314 kB | 23/109 kB    Progress (4): 445 kB | 426/714 kB | 270/314 kB | 24/109 kBProgress (4): 445 kB | 426/714 kB | 270/314 kB | 26/109 kBProgress (4): 445 kB | 426/714 kB | 270/314 kB | 27/109 kBProgress (4): 445 kB | 426/714 kB | 270/314 kB | 28/109 kBProgress (4): 445 kB | 426/714 kB | 270/314 kB | 30/109 kBProgress (4): 445 kB | 426/714 kB | 270/314 kB | 31/109 kBProgress (4): 445 kB | 426/714 kB | 270/314 kB | 32/109 kBProgress (4): 445 kB | 426/714 kB | 270/314 kB | 34/109 kBProgress (4): 445 kB | 426/714 kB | 270/314 kB | 35/109 kBProgress (4): 445 kB | 426/714 kB | 270/314 kB | 36/109 kBProgress (4): 445 kB | 426/714 kB | 270/314 kB | 38/109 kBProgress (4): 445 kB | 426/714 kB | 270/314 kB | 42/109 kBProgress (4): 445 kB | 426/714 kB | 270/314 kB | 46/109 kB                                                          Downloaded from central: https://repo.maven.apache.org/maven2/antlr/antlr/2.7.7/antlr-2.7.7.jar (445 kB at 249 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/hibernate/hibernate-entitymanager/5.0.0.Final/hibernate-entitymanager-5.0.0.Final.jar
+Progress (3): 426/714 kB | 287/314 kB | 46/109 kBProgress (4): 426/714 kB | 287/314 kB | 46/109 kB | 4.2/75 kBProgress (4): 426/714 kB | 287/314 kB | 46/109 kB | 8.2/75 kBProgress (4): 426/714 kB | 287/314 kB | 46/109 kB | 12/75 kB Progress (4): 426/714 kB | 287/314 kB | 46/109 kB | 16/75 kBProgress (4): 426/714 kB | 287/314 kB | 46/109 kB | 21/75 kBProgress (4): 426/714 kB | 287/314 kB | 46/109 kB | 25/75 kBProgress (4): 426/714 kB | 287/314 kB | 46/109 kB | 29/75 kBProgress (4): 426/714 kB | 287/314 kB | 46/109 kB | 33/75 kBProgress (4): 426/714 kB | 303/314 kB | 46/109 kB | 33/75 kBProgress (4): 426/714 kB | 314 kB | 46/109 kB | 33/75 kB                                                            Downloaded from central: https://repo.maven.apache.org/maven2/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar (314 kB at 177 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/com/h2database/h2/2.2.224/h2-2.2.224.jar
+Progress (3): 426/714 kB | 46/109 kB | 37/75 kBProgress (3): 426/714 kB | 46/109 kB | 41/75 kBProgress (3): 426/714 kB | 46/109 kB | 45/75 kBProgress (3): 426/714 kB | 46/109 kB | 49/75 kBProgress (3): 426/714 kB | 46/109 kB | 53/75 kBProgress (3): 426/714 kB | 46/109 kB | 58/75 kBProgress (3): 426/714 kB | 51/109 kB | 58/75 kBProgress (3): 426/714 kB | 55/109 kB | 58/75 kBProgress (3): 426/714 kB | 55/109 kB | 62/75 kBProgress (3): 426/714 kB | 55/109 kB | 66/75 kBProgress (3): 426/714 kB | 59/109 kB | 66/75 kBProgress (3): 426/714 kB | 63/109 kB | 66/75 kBProgress (3): 426/714 kB | 67/109 kB | 66/75 kBProgress (3): 442/714 kB | 67/109 kB | 66/75 kBProgress (3): 459/714 kB | 67/109 kB | 66/75 kBProgress (3): 459/714 kB | 72/109 kB | 66/75 kBProgress (3): 459/714 kB | 76/109 kB | 66/75 kBProgress (3): 459/714 kB | 80/109 kB | 66/75 kBProgress (3): 459/714 kB | 84/109 kB | 66/75 kBProgress (3): 475/714 kB | 84/109 kB | 66/75 kBProgress (3): 475/714 kB | 89/109 kB | 66/75 kBProgress (3): 475/714 kB | 93/109 kB | 66/75 kBProgress (3): 475/714 kB | 97/109 kB | 66/75 kBProgress (3): 475/714 kB | 101/109 kB | 66/75 kBProgress (3): 475/714 kB | 106/109 kB | 66/75 kBProgress (3): 475/714 kB | 109 kB | 66/75 kB    Progress (3): 492/714 kB | 109 kB | 66/75 kBProgress (3): 508/714 kB | 109 kB | 66/75 kB                                            Downloaded from central: https://repo.maven.apache.org/maven2/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar (109 kB at 61 kB/s)
+Progress (2): 524/714 kB | 66/75 kBProgress (2): 541/714 kB | 66/75 kBProgress (2): 557/714 kB | 66/75 kBProgress (2): 573/714 kB | 66/75 kBProgress (2): 590/714 kB | 66/75 kBProgress (2): 606/714 kB | 66/75 kBProgress (2): 623/714 kB | 66/75 kBProgress (2): 639/714 kB | 66/75 kBProgress (2): 655/714 kB | 66/75 kBProgress (2): 672/714 kB | 66/75 kBProgress (2): 688/714 kB | 66/75 kBProgress (2): 705/714 kB | 66/75 kBProgress (2): 714 kB | 66/75 kB                                   Downloaded from central: https://repo.maven.apache.org/maven2/org/javassist/javassist/3.18.1-GA/javassist-3.18.1-GA.jar (714 kB at 389 kB/s)
+Progress (1): 70/75 kBProgress (1): 74/75 kBProgress (1): 75 kB                      Downloaded from central: https://repo.maven.apache.org/maven2/org/hibernate/common/hibernate-commons-annotations/5.0.0.Final/hibernate-commons-annotations-5.0.0.Final.jar (75 kB at 41 kB/s)
+Progress (1): 0/2.6 MBProgress (1): 0/2.6 MBProgress (1): 0/2.6 MBProgress (1): 0/2.6 MBProgress (1): 0/2.6 MBProgress (1): 0.1/2.6 MBProgress (1): 0.1/2.6 MBProgress (1): 0.1/2.6 MBProgress (1): 0.1/2.6 MBProgress (1): 0.1/2.6 MBProgress (1): 0.1/2.6 MBProgress (1): 0.1/2.6 MBProgress (1): 0.2/2.6 MBProgress (1): 0.2/2.6 MBProgress (1): 0.2/2.6 MBProgress (1): 0.2/2.6 MBProgress (1): 0.2/2.6 MBProgress (1): 0.2/2.6 MBProgress (1): 0.2/2.6 MBProgress (1): 0.3/2.6 MBProgress (1): 0.3/2.6 MBProgress (1): 0.3/2.6 MBProgress (1): 0.3/2.6 MBProgress (1): 0.3/2.6 MBProgress (1): 0.3/2.6 MBProgress (1): 0.4/2.6 MBProgress (1): 0.4/2.6 MBProgress (1): 0.4/2.6 MBProgress (1): 0.4/2.6 MBProgress (1): 0.4/2.6 MBProgress (1): 0.4/2.6 MBProgress (1): 0.5/2.6 MBProgress (1): 0.5/2.6 MBProgress (1): 0.5/2.6 MBProgress (1): 0.5/2.6 MBProgress (1): 0.5/2.6 MBProgress (1): 0.5/2.6 MBProgress (1): 0.6/2.6 MBProgress (1): 0.6/2.6 MBProgress (1): 0.6/2.6 MBProgress (1): 0.6/2.6 MBProgress (1): 0.6/2.6 MBProgress (1): 0.6/2.6 MBProgress (1): 0.7/2.6 MBProgress (1): 0.7/2.6 MBProgress (1): 0.7/2.6 MBProgress (1): 0.7/2.6 MBProgress (1): 0.7/2.6 MBProgress (1): 0.7/2.6 MBProgress (1): 0.8/2.6 MBProgress (1): 0.8/2.6 MBProgress (1): 0.8/2.6 MBProgress (1): 0.8/2.6 MBProgress (1): 0.8/2.6 MBProgress (1): 0.8/2.6 MBProgress (1): 0.9/2.6 MBProgress (1): 0.9/2.6 MBProgress (1): 0.9/2.6 MBProgress (1): 0.9/2.6 MBProgress (1): 0.9/2.6 MBProgress (1): 0.9/2.6 MBProgress (1): 1.0/2.6 MBProgress (1): 1.0/2.6 MBProgress (1): 1.0/2.6 MBProgress (1): 1.0/2.6 MBProgress (1): 1.0/2.6 MBProgress (1): 1.0/2.6 MBProgress (1): 1.0/2.6 MBProgress (1): 1.1/2.6 MBProgress (1): 1.1/2.6 MBProgress (1): 1.1/2.6 MBProgress (1): 1.1/2.6 MBProgress (1): 1.1/2.6 MBProgress (1): 1.1/2.6 MBProgress (1): 1.2/2.6 MBProgress (1): 1.2/2.6 MBProgress (1): 1.2/2.6 MBProgress (1): 1.2/2.6 MBProgress (1): 1.2/2.6 MBProgress (1): 1.2/2.6 MBProgress (1): 1.3/2.6 MBProgress (1): 1.3/2.6 MBProgress (1): 1.3/2.6 MBProgress (1): 1.3/2.6 MBProgress (1): 1.3/2.6 MBProgress (1): 1.3/2.6 MBProgress (1): 1.4/2.6 MBProgress (1): 1.4/2.6 MBProgress (1): 1.4/2.6 MBProgress (1): 1.4/2.6 MBProgress (1): 1.4/2.6 MBProgress (1): 1.4/2.6 MBProgress (1): 1.5/2.6 MBProgress (1): 1.5/2.6 MBProgress (1): 1.5/2.6 MBProgress (1): 1.5/2.6 MBProgress (1): 1.5/2.6 MBProgress (2): 1.5/2.6 MB | 7.7/590 kBProgress (2): 1.5/2.6 MB | 7.7/590 kBProgress (2): 1.5/2.6 MB | 15/590 kB Progress (2): 1.6/2.6 MB | 15/590 kBProgress (2): 1.6/2.6 MB | 15/590 kBProgress (2): 1.6/2.6 MB | 32/590 kBProgress (2): 1.6/2.6 MB | 32/590 kBProgress (2): 1.6/2.6 MB | 48/590 kBProgress (2): 1.6/2.6 MB | 48/590 kBProgress (2): 1.6/2.6 MB | 48/590 kBProgress (2): 1.6/2.6 MB | 65/590 kBProgress (2): 1.6/2.6 MB | 65/590 kBProgress (2): 1.6/2.6 MB | 81/590 kBProgress (2): 1.6/2.6 MB | 97/590 kBProgress (2): 1.6/2.6 MB | 97/590 kBProgress (2): 1.7/2.6 MB | 97/590 kBProgress (2): 1.7/2.6 MB | 114/590 kBProgress (2): 1.7/2.6 MB | 130/590 kBProgress (2): 1.7/2.6 MB | 147/590 kBProgress (2): 1.7/2.6 MB | 147/590 kBProgress (2): 1.7/2.6 MB | 163/590 kBProgress (2): 1.7/2.6 MB | 164/590 kBProgress (2): 1.7/2.6 MB | 164/590 kBProgress (2): 1.7/2.6 MB | 164/590 kBProgress (2): 1.7/2.6 MB | 180/590 kBProgress (2): 1.7/2.6 MB | 197/590 kBProgress (2): 1.7/2.6 MB | 213/590 kBProgress (2): 1.7/2.6 MB | 229/590 kBProgress (2): 1.7/2.6 MB | 246/590 kBProgress (2): 1.7/2.6 MB | 262/590 kBProgress (2): 1.7/2.6 MB | 262/590 kBProgress (2): 1.7/2.6 MB | 279/590 kBProgress (2): 1.7/2.6 MB | 295/590 kBProgress (2): 1.7/2.6 MB | 295/590 kBProgress (2): 1.7/2.6 MB | 295/590 kBProgress (2): 1.8/2.6 MB | 295/590 kBProgress (2): 1.8/2.6 MB | 295/590 kBProgress (2): 1.8/2.6 MB | 311/590 kBProgress (2): 1.8/2.6 MB | 311/590 kBProgress (2): 1.8/2.6 MB | 311/590 kBProgress (2): 1.8/2.6 MB | 311/590 kBProgress (2): 1.8/2.6 MB | 311/590 kBProgress (2): 1.8/2.6 MB | 328/590 kBProgress (2): 1.8/2.6 MB | 344/590 kBProgress (2): 1.8/2.6 MB | 360/590 kBProgress (2): 1.9/2.6 MB | 360/590 kBProgress (2): 1.9/2.6 MB | 377/590 kBProgress (2): 1.9/2.6 MB | 393/590 kBProgress (2): 1.9/2.6 MB | 410/590 kBProgress (2): 1.9/2.6 MB | 426/590 kBProgress (2): 1.9/2.6 MB | 442/590 kBProgress (2): 1.9/2.6 MB | 459/590 kBProgress (2): 1.9/2.6 MB | 475/590 kBProgress (2): 1.9/2.6 MB | 492/590 kBProgress (2): 1.9/2.6 MB | 508/590 kBProgress (2): 1.9/2.6 MB | 524/590 kBProgress (2): 1.9/2.6 MB | 541/590 kBProgress (2): 1.9/2.6 MB | 541/590 kBProgress (2): 1.9/2.6 MB | 557/590 kBProgress (2): 1.9/2.6 MB | 573/590 kBProgress (2): 1.9/2.6 MB | 590 kB                                     Downloaded from central: https://repo.maven.apache.org/maven2/org/hibernate/hibernate-entitymanager/5.0.0.Final/hibernate-entitymanager-5.0.0.Final.jar (590 kB at 258 kB/s)
+Progress (1): 1.9/2.6 MBProgress (1): 1.9/2.6 MBProgress (1): 1.9/2.6 MBProgress (1): 1.9/2.6 MBProgress (1): 2.0/2.6 MBProgress (1): 2.0/2.6 MBProgress (1): 2.0/2.6 MBProgress (1): 2.0/2.6 MBProgress (1): 2.0/2.6 MBProgress (1): 2.0/2.6 MBProgress (1): 2.1/2.6 MBProgress (1): 2.1/2.6 MBProgress (1): 2.1/2.6 MBProgress (1): 2.1/2.6 MBProgress (1): 2.1/2.6 MBProgress (1): 2.1/2.6 MBProgress (1): 2.2/2.6 MBProgress (1): 2.2/2.6 MBProgress (1): 2.2/2.6 MBProgress (1): 2.2/2.6 MBProgress (1): 2.2/2.6 MBProgress (1): 2.2/2.6 MBProgress (1): 2.3/2.6 MBProgress (1): 2.3/2.6 MBProgress (1): 2.3/2.6 MBProgress (1): 2.3/2.6 MBProgress (1): 2.3/2.6 MBProgress (1): 2.3/2.6 MBProgress (1): 2.4/2.6 MBProgress (1): 2.4/2.6 MBProgress (1): 2.4/2.6 MBProgress (1): 2.4/2.6 MBProgress (1): 2.4/2.6 MBProgress (1): 2.4/2.6 MBProgress (1): 2.4/2.6 MBProgress (1): 2.5/2.6 MBProgress (1): 2.5/2.6 MBProgress (1): 2.5/2.6 MBProgress (1): 2.5/2.6 MBProgress (1): 2.5/2.6 MBProgress (1): 2.5/2.6 MBProgress (1): 2.6/2.6 MBProgress (1): 2.6/2.6 MBProgress (1): 2.6/2.6 MBProgress (1): 2.6/2.6 MBProgress (1): 2.6 MB                        Downloaded from central: https://repo.maven.apache.org/maven2/com/h2database/h2/2.2.224/h2-2.2.224.jar (2.6 MB at 1.1 MB/s)
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ repro-32696237 ---
+[INFO] skip non existing resourceDirectory /workspace/cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z/repro/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ repro-32696237 ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 2 source files with javac [debug target 11] to target/classes
+[INFO] -------------------------------------------------------------
+[WARNING] COMPILATION WARNING : 
+[INFO] -------------------------------------------------------------
+[WARNING] system modules path not set in conjunction with -source 11
+[INFO] 1 warning
+[INFO] -------------------------------------------------------------
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /workspace/cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z/repro/src/main/java/com/example/ReproMain.java:[38,36] constructor EntityManagerFactoryImpl in class org.hibernate.jpa.internal.EntityManagerFactoryImpl cannot be applied to given types;
+  required: java.lang.String,org.hibernate.engine.spi.SessionFactoryImplementor,org.hibernate.boot.spi.MetadataImplementor,org.hibernate.jpa.boot.internal.SettingsImpl,java.util.Map<?,?>
+  found:    javax.persistence.spi.PersistenceUnitTransactionType,boolean,<nulltype>,org.hibernate.cfg.Configuration,org.hibernate.service.ServiceRegistry,<nulltype>
+  reason: actual and formal argument lists differ in length
+[INFO] 1 error
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  16.081 s
+[INFO] Finished at: 2026-05-26T09:49:19Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.13.0:compile (default-compile) on project repro-32696237: Compilation failure
+[ERROR] /workspace/cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z/repro/src/main/java/com/example/ReproMain.java:[38,36] constructor EntityManagerFactoryImpl in class org.hibernate.jpa.internal.EntityManagerFactoryImpl cannot be applied to given types;
+[ERROR]   required: java.lang.String,org.hibernate.engine.spi.SessionFactoryImplementor,org.hibernate.boot.spi.MetadataImplementor,org.hibernate.jpa.boot.internal.SettingsImpl,java.util.Map<?,?>
+[ERROR]   found:    javax.persistence.spi.PersistenceUnitTransactionType,boolean,<nulltype>,org.hibernate.cfg.Configuration,org.hibernate.service.ServiceRegistry,<nulltype>
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] 
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+[38;5;244m - Completed in 22.470s[0m
+
+[?25l[0m[38;5;141m> [0mThe compilation failure is exactly the bug from the SO question. The error message is clear and precise. Now update [38;5;10mcase.json[0m and write the report.[0m[0m
+[?25l[0m[0mI'll modify the following file: [38;5;141mcase.json[0m[38;5;244m (using tool: write)[0m
+
+[49m[39m  27, 27[0m:[39m[49m   "commands": {
+[0m[49m[38;5;9m- 28    [0m:[38;5;9m[49m     "reproduce": "TO_BE_DISCOVERED_BY_KIRO",
+[0m[49m[38;5;10m+     28[0m:[38;5;10m[49m     "reproduce": "cd repro && mvn compile 2>&1",
+[0m[49m[39m  29, 29[0m:[39m[49m     "verify": "TO_BE_DISCOVERED_BY_KIRO"
+[0m[49m[39m  30, 30[0m:[39m[49m   },
+[0m[49m[38;5;9m- 31    [0m:[38;5;9m[49m   "assumptions": [],
+[0m[49m[38;5;10m+     31[0m:[38;5;10m[49m   "assumptions": [
+[0m[49m[38;5;10m+     32[0m:[38;5;10m[49m     "Hibernate 5.0.0.Final is the earliest Hibernate 5 release and faithfully represents the breaking change described in the SO question.",
+[0m[49m[38;5;10m+     33[0m:[38;5;10m[49m     "H2 in-memory database is used to avoid requiring an external database server.",
+[0m[49m[38;5;10m+     34[0m:[38;5;10m[49m     "The failure is a compile-time error (constructor signature mismatch), not a runtime error; this is the correct and expected failure mode.",
+[0m[49m[38;5;10m+     35[0m:[38;5;10m[49m     "Java 11 is used (compatible with Hibernate 5.0.x); Java 21 would require newer Hibernate."
+[0m[49m[38;5;10m+     36[0m:[38;5;10m[49m   ],
+[0m[K
+Updating: [38;5;141mcase.json[0m
+[38;5;244m - Completed in 0.8s[0m
+
+[?25l[0m[?25l[0m[0mI will run the following command: [38;5;141mmkdir -p /workspace/cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z/reports[0m[38;5;244m (using tool: shell)[0m
+
+[38;5;244m - Completed in 0.190s[0m
+
+[?25l[0m[?25l[0m[0mI'll create the following file: [38;5;141m/workspace/cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z/reports/reconstruction-report.md[0m[38;5;244m (using tool: write)[0m
+
+[49m[38;5;10m+     1[0m:[38;5;10m[49m # Reconstruction Report
+[0m[49m[38;5;10m+     2[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     3[0m:[38;5;10m[49m ## Case
+[0m[49m[38;5;10m+     4[0m:[38;5;10m[49m SO #32696237 — JPA with Hibernate 5: programmatically create EntityManagerFactory
+[0m[49m[38;5;10m+     5[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     6[0m:[38;5;10m[49m ## What Was Reconstructed
+[0m[49m[38;5;10m+     7[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     8[0m:[38;5;10m[49m The question describes a pattern used since Hibernate 4.3 to programmatically build a JPA
+[0m[49m[38;5;10m+     9[0m:[38;5;10m[49m `EntityManagerFactory` (with a Hibernate `Interceptor`, no `persistence.xml`, no Spring) by
+[0m[49m[38;5;10m+    10[0m:[38;5;10m[49m directly instantiating the internal class `org.hibernate.jpa.internal.EntityManagerFactoryImpl`.
+[0m[49m[38;5;10m+    11[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    12[0m:[38;5;10m[49m In Hibernate 4.3 the constructor accepted:
+[0m[49m[38;5;10m+    13[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    14[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+    15[0m:[38;5;10m[49m EntityManagerFactoryImpl(
+[0m[49m[38;5;10m+    16[0m:[38;5;10m[49m     PersistenceUnitTransactionType transactionType,
+[0m[49m[38;5;10m+    17[0m:[38;5;10m[49m     boolean discardOnClose,
+[0m[49m[38;5;10m+    18[0m:[38;5;10m[49m     Class<? extends Interceptor> sessionInterceptorClass,
+[0m[49m[38;5;10m+    19[0m:[38;5;10m[49m     Configuration cfg,
+[0m[49m[38;5;10m+    20[0m:[38;5;10m[49m     ServiceRegistry serviceRegistry,
+[0m[49m[38;5;10m+    21[0m:[38;5;10m[49m     String persistenceUnitName)
+[0m[49m[38;5;10m+    22[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+    23[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    24[0m:[38;5;10m[49m In Hibernate 5.0 that constructor was replaced with:
+[0m[49m[38;5;10m+    25[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    26[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+    27[0m:[38;5;10m[49m EntityManagerFactoryImpl(
+[0m[49m[38;5;10m+    28[0m:[38;5;10m[49m     String persistenceUnitName,
+[0m[49m[38;5;10m+    29[0m:[38;5;10m[49m     SessionFactoryImplementor underlyingFactory,
+[0m[49m[38;5;10m+    30[0m:[38;5;10m[49m     MetadataImplementor metadata,
+[0m[49m[38;5;10m+    31[0m:[38;5;10m[49m     SettingsImpl settings,
+[0m[49m[38;5;10m+    32[0m:[38;5;10m[49m     Map<?, ?> configurationValues)
+[0m[49m[38;5;10m+    33[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+    34[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    35[0m:[38;5;10m[49m The reproduction (`repro/`) contains:
+[0m[49m[38;5;10m+    36[0m:[38;5;10m[49m - `pom.xml` — Maven project pulling in `hibernate-core:5.0.0.Final`,
+[0m[49m[38;5;10m+    37[0m:[38;5;10m[49m   `hibernate-entitymanager:5.0.0.Final`, and H2 for an in-memory database.
+[0m[49m[38;5;10m+    38[0m:[38;5;10m[49m - `src/main/java/com/example/Item.java` — minimal `@Entity` class.
+[0m[49m[38;5;10m+    39[0m:[38;5;10m[49m - `src/main/java/com/example/ReproMain.java` — calls the Hibernate 4.3 constructor
+[0m[49m[38;5;10m+    40[0m:[38;5;10m[49m   against Hibernate 5, triggering the compile-time failure.
+[0m[49m[38;5;10m+    41[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    42[0m:[38;5;10m[49m ## Reproduction Command
+[0m[49m[38;5;10m+    43[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    44[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+    45[0m:[38;5;10m[49m cd repro && mvn compile 2>&1
+[0m[49m[38;5;10m+    46[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+    47[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    48[0m:[38;5;10m[49m ## Failure Log
+[0m[49m[38;5;10m+    49[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    50[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+    51[0m:[38;5;10m[49m [ERROR] COMPILATION ERROR :
+[0m[49m[38;5;10m+    52[0m:[38;5;10m[49m [ERROR] /…/ReproMain.java:[38,36] constructor EntityManagerFactoryImpl in class
+[0m[49m[38;5;10m+    53[0m:[38;5;10m[49m   org.hibernate.jpa.internal.EntityManagerFactoryImpl cannot be applied to given types;
+[0m[49m[38;5;10m+    54[0m:[38;5;10m[49m   required: java.lang.String,org.hibernate.engine.spi.SessionFactoryImplementor,
+[0m[49m[38;5;10m+    55[0m:[38;5;10m[49m             org.hibernate.boot.spi.MetadataImplementor,
+[0m[49m[38;5;10m+    56[0m:[38;5;10m[49m             org.hibernate.jpa.boot.internal.SettingsImpl,java.util.Map<?,?>
+[0m[49m[38;5;10m+    57[0m:[38;5;10m[49m   found:    javax.persistence.spi.PersistenceUnitTransactionType,boolean,<nulltype>,
+[0m[49m[38;5;10m+    58[0m:[38;5;10m[49m             org.hibernate.cfg.Configuration,org.hibernate.service.ServiceRegistry,<nulltype>
+[0m[49m[38;5;10m+    59[0m:[38;5;10m[49m   reason: actual and formal argument lists differ in length
+[0m[49m[38;5;10m+    60[0m:[38;5;10m[49m [INFO] BUILD FAILURE
+[0m[49m[38;5;10m+    61[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+    62[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    63[0m:[38;5;10m[49m ## Assumptions and Caveats
+[0m[49m[38;5;10m+    64[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    65[0m:[38;5;10m[49m - **Hibernate 5.0.0.Final** is the earliest Hibernate 5 release; it faithfully represents the
+[0m[49m[38;5;10m+    66[0m:[38;5;10m[49m   breaking change described in the question (the constructor was changed between 4.3 and 5.0).
+[0m[49m[38;5;10m+    67[0m:[38;5;10m[49m - **Java 11** is used. Java 21 is incompatible with Hibernate 5.0.x (requires newer bytecode
+[0m[49m[38;5;10m+    68[0m:[38;5;10m[49m   and API changes); Java 11 is the highest LTS that compiles cleanly against this Hibernate
+[0m[49m[38;5;10m+    69[0m:[38;5;10m[49m   version.
+[0m[49m[38;5;10m+    70[0m:[38;5;10m[49m - **H2 in-memory database** is used so no external database server is required.
+[0m[49m[38;5;10m+    71[0m:[38;5;10m[49m - The failure is a **compile-time error**, not a runtime error. This is the correct failure
+[0m[49m[38;5;10m+    72[0m:[38;5;10m[49m   mode: the old constructor simply does not exist in Hibernate 5, so the code cannot compile.
+[0m[49m[38;5;10m+    73[0m:[38;5;10m[49m - The `Interceptor` aspect of the question (passing an interceptor) is represented by the
+[0m[49m[38;5;10m+    74[0m:[38;5;10m[49m   `null` argument for `sessionInterceptorClass` in the Hibernate 4.3 call signature. The
+[0m[49m[38;5;10m+    75[0m:[38;5;10m[49m   deeper problem — that there is no clean public API to attach an interceptor when building
+[0m[49m[38;5;10m+    76[0m:[38;5;10m[49m   an `EntityManagerFactory` programmatically — is the open question the SO post asks about.
+[0m[49m[38;5;10m+    77[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    78[0m:[38;5;10m[49m ## Why This Is a Responsible Model of the SO Case
+[0m[49m[38;5;10m+    79[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    80[0m:[38;5;10m[49m The SO question is precisely about the Hibernate 4.3 hack (`new EntityManagerFactoryImpl(...)`)
+[0m[49m[38;5;10m+    81[0m:[38;5;10m[49m breaking in Hibernate 5 due to a constructor signature change. The reproduction:
+[0m[49m[38;5;10m+    82[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    83[0m:[38;5;10m[49m 1. Uses the exact Hibernate 5.0.0.Final artifact that introduced the break.
+[0m[49m[38;5;10m+    84[0m:[38;5;10m[49m 2. Calls the exact constructor signature that worked in Hibernate 4.3.
+[0m[49m[38;5;10m+    85[0m:[38;5;10m[49m 3. Produces the exact compiler error that a developer upgrading from Hibernate 4.3 to 5 would
+[0m[49m[38;5;10m+    86[0m:[38;5;10m[49m    encounter.
+[0m[49m[38;5;10m+    87[0m:[38;5;10m[49m 4. Requires no external services, no XML configuration, and no Spring — matching the
+[0m[49m[38;5;10m+    88[0m:[38;5;10m[49m    constraints stated in the question.
+[0m[49m[38;5;10m+    89[0m:[38;5;10m[49m 5. Does not repair the issue; it stops at the failing `mvn compile` step.
+[0m[K
+Creating: [38;5;141m/workspace/cases/workspaces/32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory/2026-05-26T09-47-50-843Z/reports/reconstruction-report.md[0m
+[38;5;244m - Completed in 0.9s[0m
+
+[?25l[0m[38;5;141m> [0mThe reconstruction is complete. Here's a summary of what was done:[0m[0m
+[0m[0m
+[1mFailure reproduced:[22m [38;5;10mmvn compile[0m in [38;5;10mrepro/[0m fails with a compile-time error:[0m[0m
+[0m[0m
+[38;5;10mconstructor EntityManagerFactoryImpl cannot be applied to given types;
+  required: String, SessionFactoryImplementor, MetadataImplementor, SettingsImpl, Map<?,?>
+  found:    PersistenceUnitTransactionType, boolean, <nulltype>, Configuration, ServiceRegistry, <nulltype>
+[0m[0m[0m
+[0m[0m
+[1mWhat the repro contains:[22m[0m[0m
+- [38;5;10mrepro/pom.xml[0m — Hibernate 5.0.0.Final + H2, Java 11[0m[0m
+- [38;5;10mrepro/src/main/java/com/example/Item.java[0m — minimal [38;5;10m@Entity[0m[0m[0m
+- [38;5;10mrepro/src/main/java/com/example/ReproMain.java[0m — calls the Hibernate 4.3 [38;5;10mEntityManagerFactoryImpl[0m constructor against Hibernate 5[0m[0m
+[0m[0m
+[1mRoot cause:[22m Hibernate 5 completely replaced the internal [38;5;10mEntityManagerFactoryImpl[0m constructor. The 4.3 signature took [38;5;10m(PersistenceUnitTransactionType, boolean, Class<Interceptor>, Configuration, ServiceRegistry, String)[0m. Hibernate 5 replaced it with [38;5;10m(String, SessionFactoryImplementor, MetadataImplementor, SettingsImpl, Map)[0m — different arity, different types, no migration path via the internal API. The question asks for a clean public API to do this; none existed at the time.[0m[0m
+[38;5;8m
+ ▸ Credits: 1.16 • Time: 1m 51s
+
+[0m[1G[0m[0m[?25h

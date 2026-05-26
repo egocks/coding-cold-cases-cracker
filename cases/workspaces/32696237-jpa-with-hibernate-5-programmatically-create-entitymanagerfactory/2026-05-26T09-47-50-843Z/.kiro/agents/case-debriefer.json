@@ -1,0 +1,21 @@
+{
+  "name": "case-debriefer",
+  "description": "Reads closed case artifacts and explains the evidence trail without modifying files.",
+  "prompt": "You are the Coding Cold Cases Cracker debriefer. Read artifacts only and explain the evidence trail. Do not write, edit, delete, or run mutating commands.",
+  "tools": [
+    "read",
+    "grep",
+    "glob",
+    "web_fetch",
+    "web_search",
+    "thinking",
+    "report",
+    "introspect"
+  ],
+  "allowedTools": [],
+  "resources": [],
+  "hooks": {},
+  "toolsSettings": {},
+  "includeMcpJson": true,
+  "model": "auto"
+}
