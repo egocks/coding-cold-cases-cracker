@@ -1,0 +1,153 @@
+{
+  "case_id": "15276976-maven-generate-sources-cannot-resolve-a-dependency",
+  "run_id": "2026-05-26T05-49-24-686Z",
+  "status": "closed",
+  "created_at": "2026-05-26T05:49:24.688Z",
+  "updated_at": "2026-05-26T07:07:59.238Z",
+  "workspace": "cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z",
+  "original": {
+    "title": "Maven generate-sources cannot resolve a dependency",
+    "url": "https://stackoverflow.com/questions/15276976/maven-generate-sources-cannot-resolve-a-dependency",
+    "posted": "2013-03-07",
+    "score": 10,
+    "views": 2573,
+    "answers": 0,
+    "tags": [
+      "java",
+      "maven",
+      "jaxb2"
+    ],
+    "cold_signal": "No answers",
+    "why_interesting": "I have a multi-module project in maven which uses JAXB generated sources: [code block] Without JAXB everything compiles fine. When I add the JAXB plugin to module B, maven complains: [code block] As far as I can tell, this is because the jaxb maven plugins...",
+    "fetched_source": "https://api.stackexchange.com/2.3/questions/15276976?order=desc&sort=activity&site=stackoverflow&filter=withbody",
+    "fetched": true
+  },
+  "commands": {
+    "reproduce": "cd repro && mvn generate-sources",
+    "verify": "cd repaired && mvn package"
+  },
+  "assumptions": [
+    "Running 'mvn generate-sources' in isolation triggers the failure; the fix requires running 'mvn package' so modA is packaged before modB resolves it.",
+    "jaxb2-maven-plugin 1.3 has its own dependency resolution bug; upgrading to 3.1.0 is required for Java 21 compatibility.",
+    "javax.xml.bind:jaxb-api:2.1 replaced with jakarta.xml.bind:jakarta.xml.bind-api:4.0.0 for Java 21.",
+    "Original Nexus repository URL replaced with Maven Central; failure mechanism is identical.",
+    "The repaired parent POM declares maven.compiler.source/target 8 so the replay works on modern JDKs used by Lark and judges."
+  ],
+  "lark": {
+    "group_id": "wfl_grp_SFE3CL1Y6WeOPf2LU4oN8p7T",
+    "workflow_ids": [
+      "wflw_Prxj1iq1CMZE9muKjO4Y98Kg",
+      "wflw_4oTcivaEeTXegP0GChzL1LU9",
+      "wflw_d4p5m92JFJypZQBSkvGqj0e1"
+    ],
+    "execution_ids": [
+      "exec_f6DTRDquUjF52O2YBdjPuMgG",
+      "wflw_exec_f6DTRDquUjF52O2YBdjPuMgG",
+      "wflw_exec_uyjmnYtSDJA3EZJ8JRt0C6Lw"
+    ],
+    "verification_passed": true
+  },
+  "github": {
+    "branch": "cold-case/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z",
+    "remote_url": "https://github.com/egocks/coding-cold-cases-cracker/tree/cold-case/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z"
+  },
+  "artifacts": {
+    "original_question": "original/original-question.md",
+    "kiro_prompt": "prompts/kiro-handoff.md",
+    "lark_reproduction_workflow": "lark/reproduction-workflow.json",
+    "lark_verification_workflow": "lark/verification-workflow.json",
+    "technical_report": "reports/technical-report.md",
+    "case_file": "reports/case-file.md",
+    "judge_summary": "reports/judge-summary.md"
+  },
+  "timeline": [
+    {
+      "at": "2026-05-26T05:49:24.688Z",
+      "type": "workspace_created",
+      "message": "Created isolated investigation workspace."
+    },
+    {
+      "at": "2026-05-26T05:49:25.067Z",
+      "type": "source_fetched",
+      "message": "Fetched original Stack Overflow question body via Stack Exchange API."
+    },
+    {
+      "at": "2026-05-26T05:49:25.073Z",
+      "type": "prepared",
+      "message": "Generated Kiro agent pack and Lark workflow payloads."
+    },
+    {
+      "at": "2026-05-26T06:38:55.821Z",
+      "type": "repair_ready",
+      "message": "Existing Kiro investigation artifacts are ready for Lark verification."
+    },
+    {
+      "at": "2026-05-26T06:38:55.824Z",
+      "type": "publishing",
+      "message": "Publishing run workspace for Lark access."
+    },
+    {
+      "at": "2026-05-26T06:38:57.484Z",
+      "type": "local_only",
+      "message": "GitHub publish unavailable; continuing with local evidence only."
+    },
+    {
+      "at": "2026-05-26T06:38:57.488Z",
+      "type": "lark_verification_running",
+      "message": "Lark forensic verification started."
+    },
+    {
+      "at": "2026-05-26T06:39:01.620Z",
+      "type": "partial",
+      "message": "Lark verification did not pass or could not run; case remains Partial."
+    },
+    {
+      "at": "2026-05-26T06:39:06.949Z",
+      "type": "reports_ready",
+      "message": "Groq/deterministic reports are ready."
+    },
+    {
+      "at": "2026-05-26T06:49:09.425Z",
+      "type": "repair_ready",
+      "message": "Existing Kiro investigation artifacts are ready for Lark verification."
+    },
+    {
+      "at": "2026-05-26T06:49:09.428Z",
+      "type": "publishing",
+      "message": "Publishing run workspace for Lark access."
+    },
+    {
+      "at": "2026-05-26T06:49:12.519Z",
+      "type": "published",
+      "message": "Published workspace to GitHub."
+    },
+    {
+      "at": "2026-05-26T06:49:12.522Z",
+      "type": "lark_verification_running",
+      "message": "Lark forensic verification started."
+    },
+    {
+      "at": "2026-05-26T06:52:18.323Z",
+      "type": "closed",
+      "message": "Lark verification passed. Case is Closed."
+    },
+    {
+      "at": "2026-05-26T06:52:18.722Z",
+      "type": "reports_ready",
+      "message": "Groq/deterministic reports are ready."
+    },
+    {
+      "at": "2026-05-26T06:52:18.724Z",
+      "type": "closed",
+      "message": "Final status restored to Closed after report generation."
+    },
+    {
+      "at": "2026-05-26T07:07:32.803Z",
+      "type": "closed",
+      "message": "Lark AI verification retry passed against the updated published workspace."
+    }
+  ],
+  "writer": {
+    "used_groq": true
+  }
+}

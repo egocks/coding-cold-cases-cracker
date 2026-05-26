@@ -1,0 +1,97 @@
+Cloning into 'repo'...
+warning: You appear to have cloned an empty repository.
+
+Switched to a new branch 'cold-case/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z'
+
+[cold-case/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z (root-commit) 41c0a78] Add cold case run 15276976-maven-generate-sources-cannot-resolve-a-dependency 2026-05-26T05-49-24-686Z
+ 43 files changed, 1050 insertions(+)
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/.kiro/agents/case-investigator.json
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/.kiro/steering/product.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/.kiro/steering/structure.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/.kiro/steering/tech.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/README.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/case-state.json
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/case.json
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/lark/README.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/lark/reproduction-workflow.json
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/lark/verification-workflow.json
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/logs/pipeline-live.log
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/original/original-question.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/original/source-fetch-note.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/prompts/kiro-handoff.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modA/pom.xml
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modA/src/main/java/com/group/moda/ModAClass.java
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modA/target/classes/com/group/moda/ModAClass.class
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modA/target/maven-archiver/pom.properties
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modA/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modA/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modA/target/modA-1.7.0.jar
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/pom.xml
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/classes/META-INF/JAXB/episode_xjc_raw.xjb
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/classes/com/group/jaxb/Greeting.class
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/classes/com/group/jaxb/ObjectFactory.class
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/classes/com/group/jaxb/package-info.class
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/generated-sources/jaxb/META-INF/JAXB/episode_xjc_raw.xjb
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/generated-sources/jaxb/com/group/jaxb/Greeting.java
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/generated-sources/jaxb/com/group/jaxb/ObjectFactory.java
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/generated-sources/jaxb/com/group/jaxb/package-info.java
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/jaxb2/.xjc_raw-xjcStaleFlag
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/maven-archiver/pom.properties
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/modB-1.7.0.jar
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/xsd/greeting.xsd
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/pom.xml
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/reports/technical-report.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repro/modA/pom.xml
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repro/modA/src/main/java/com/group/moda/ModAClass.java
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repro/modB/pom.xml
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repro/modB/xsd/greeting.xsd
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repro/pom.xml
+remote: Permission to egocks/coding-cold-cases-cracker.git denied to egocks.
+fatal: unable to access 'https://github.com/egocks/coding-cold-cases-cracker.git/': The requested URL returned error: 403
+
+Cloning into 'repo'...
+
+Switched to a new branch 'cold-case/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z'
+
+[cold-case/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z 3db5813] Add cold case run 15276976-maven-generate-sources-cannot-resolve-a-dependency 2026-05-26T05-49-24-686Z
+ 31 files changed, 1078 insertions(+)
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/.kiro/agents/case-investigator.json
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/.kiro/steering/product.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/.kiro/steering/structure.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/.kiro/steering/tech.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/README.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/case-state.json
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/case.json
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/lark/README.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/lark/reproduction-workflow.json
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/lark/verification-workflow.json
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/logs/github.log
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/logs/lark.log
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/logs/pipeline-live.log
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/logs/writer.log
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/original/original-question.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/original/source-fetch-note.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/prompts/kiro-handoff.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modA/pom.xml
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modA/src/main/java/com/group/moda/ModAClass.java
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/pom.xml
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/xsd/greeting.xsd
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/pom.xml
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/reports/case-file.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/reports/judge-summary.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/reports/technical-report.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/reports/writer-note.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repro/modA/pom.xml
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repro/modA/src/main/java/com/group/moda/ModAClass.java
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repro/modB/pom.xml
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repro/modB/xsd/greeting.xsd
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repro/pom.xml
+remote: 
+remote: Create a pull request for 'cold-case/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z' on GitHub by visiting:        
+remote:      https://github.com/egocks/coding-cold-cases-cracker/pull/new/cold-case/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z        
+remote: 
+To https://github.com/egocks/coding-cold-cases-cracker.git
+ * [new branch]      cold-case/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z -> cold-case/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z
+

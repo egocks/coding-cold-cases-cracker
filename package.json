@@ -1,0 +1,14 @@
+{
+  "name": "coding-cold-cases-cracker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Docker-first support incident reproduction lab powered by Kiro, Lark CLI, and Groq.",
+  "scripts": {
+    "start": "node app/server.js",
+    "tui": "node app/cli.js tui",
+    "index": "node app/cli.js index",
+    "smoke": "node app/test.js",
+    "check": "node --check app/server.js && node --check app/cli.js && node --check app/test.js && node --check app/lib/*.js"
+  }
+}

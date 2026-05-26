@@ -1,0 +1,4102 @@
+{
+  "generated_at": "2026-05-26T07:09:21.378Z",
+  "source": "coding-cold-cases-java-stackoverflow.md",
+  "count": 148,
+  "shortlist_count": 20,
+  "cases": [
+    {
+      "id": "10700340-how-can-i-parse-an-inbound-message-with-mtom-attachments-under-metro-without-pull",
+      "question_id": "10700340",
+      "status": "indexed",
+      "rank": 1,
+      "title": "How can I parse an inbound message with MTOM attachments under Metro without pulling in all the attachment data?",
+      "url": "https://stackoverflow.com/questions/10700340/how-can-i-parse-an-inbound-message-with-mtom-attachments-under-metro-without-pul",
+      "posted": "2012-05-22",
+      "score": 6,
+      "views": 4908,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "jax-ws",
+        "mtom",
+        "xop"
+      ],
+      "why_interesting": "Using JAX-WS-RI or Metro I can write a WebService using the com. I can choose to get the whole message including the SOAP headers [code block] I can then write something which parses the message and processes accordingly [code block] However part of the...",
+      "shortlist": true,
+      "candidate_rank": 2,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "30529578-gradle-compile-dependency-is-not-added-to-classpath",
+      "question_id": "30529578",
+      "status": "indexed",
+      "rank": 2,
+      "title": "Gradle compile dependency is not added to classpath",
+      "url": "https://stackoverflow.com/questions/30529578/gradle-compile-dependency-is-not-added-to-classpath",
+      "posted": "2015-05-29",
+      "score": 25,
+      "views": 21505,
+      "answers": 2,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "android",
+        "gradle",
+        "android-gradle-plugin"
+      ],
+      "why_interesting": "I've added the reflections framework to my android project. However it wasn't added to the classpath.",
+      "shortlist": true,
+      "candidate_rank": 7,
+      "runtime_hints": [
+        "java21",
+        "gradle"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Gradle classpath/build output, failing assertion or dependency graph evidence, then passing verification."
+    },
+    {
+      "id": "33871335-how-to-add-context-xml-file-to-embedded-tomcat-server",
+      "question_id": "33871335",
+      "status": "indexed",
+      "rank": 3,
+      "title": "How to add context.xml file to embedded tomcat server",
+      "url": "https://stackoverflow.com/questions/33871335/how-to-add-context-xml-file-to-embedded-tomcat-server",
+      "posted": "2015-11-23",
+      "score": 23,
+      "views": 15044,
+      "answers": 4,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "spring",
+        "tomcat",
+        "spring-boot",
+        "embedded-tomcat-8"
+      ],
+      "why_interesting": "I'm trying to run my application in an embedded tomcat server using Spring-boot. I'm having my JNDI Resources and Environments configured in an XML file, placed under src/main/webapp/META-INF/context.",
+      "shortlist": true,
+      "candidate_rank": 4,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Executable test or integration harness showing the original behavior and the fixed behavior."
+    },
+    {
+      "id": "23677459-excluding-class-files-from-gradle-dependency",
+      "question_id": "23677459",
+      "status": "indexed",
+      "rank": 4,
+      "title": "Excluding .class files from Gradle dependency",
+      "url": "https://stackoverflow.com/questions/23677459/excluding-class-files-from-gradle-dependency",
+      "posted": "2014-05-15",
+      "score": 21,
+      "views": 6400,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score -1, lowest -1",
+      "tags": [
+        "java",
+        "android",
+        "jar",
+        "gradle",
+        "dependencies"
+      ],
+      "why_interesting": "I'm trying to import https://github. com/Kickflip/kickflip-android-sdk using gradle into my android build and I'm getting : UNEXPECTED TOP-LEVEL EXCEPTION: com.",
+      "shortlist": true,
+      "candidate_rank": 29,
+      "runtime_hints": [
+        "java21",
+        "gradle"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Gradle classpath/build output, failing assertion or dependency graph evidence, then passing verification."
+    },
+    {
+      "id": "32696237-jpa-with-hibernate-5-programmatically-create-entitymanagerfactory",
+      "question_id": "32696237",
+      "status": "indexed",
+      "rank": 5,
+      "title": "JPA with Hibernate 5: programmatically create EntityManagerFactory",
+      "url": "https://stackoverflow.com/questions/32696237/jpa-with-hibernate-5-programmatically-create-entitymanagerfactory",
+      "posted": "2015-09-21",
+      "score": 10,
+      "views": 7631,
+      "answers": 2,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "hibernate",
+        "jpa",
+        "hibernate-entitymanager",
+        "hibernate-5.x"
+      ],
+      "why_interesting": "This question is specifically about programmatically creating a JPA [code] backed by Hibernate 5, meaning without configuration xml files and without using Spring . Also, this question is specifically about creating an [code] with a Hibernate Interceptor .",
+      "shortlist": true,
+      "candidate_rank": 18,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Executable test or integration harness showing the original behavior and the fixed behavior."
+    },
+    {
+      "id": "26919612-avoid-duplicates-when-eager-loading-from-hibernate-with-shared-objects",
+      "question_id": "26919612",
+      "status": "indexed",
+      "rank": 6,
+      "title": "Avoid duplicates when eager loading from hibernate with shared objects?",
+      "url": "https://stackoverflow.com/questions/26919612/avoid-duplicates-when-eager-loading-from-hibernate-with-shared-objects",
+      "posted": "2014-11-13",
+      "score": 0,
+      "views": 305,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "hibernate",
+        "design-patterns",
+        "orm"
+      ],
+      "why_interesting": "A Java command-line app reloads two Hibernate inheritance trees that reference the same shared entity, but eager loading through separate queries produces distinct in-memory object instances.",
+      "shortlist": true,
+      "candidate_rank": 148,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Executable test or integration harness showing the original behavior and the fixed behavior."
+    },
+    {
+      "id": "26927833-is-it-possible-to-clone-a-git-repository-using-ssh-git-protocol-from-kie-drools-w",
+      "question_id": "26927833",
+      "status": "indexed",
+      "rank": 7,
+      "title": "Is it possible to clone a git repository using ssh/git protocol from KIE Drools Workbench",
+      "url": "https://stackoverflow.com/questions/26927833/is-it-possible-to-clone-a-git-repository-using-ssh-git-protocol-from-kie-drools",
+      "posted": "2014-11-14",
+      "score": 2,
+      "views": 896,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "git",
+        "drools",
+        "drools-guvnor",
+        "kie"
+      ],
+      "why_interesting": "KIE Drools Workbench can clone a Maven rules module over HTTPS, but git/SSH URLs fail with JGit URI-not-supported errors, raising a concrete protocol-support question.",
+      "shortlist": true,
+      "candidate_rank": 147,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "33696378-connect-android-device-via-mqtt-with-ssl",
+      "question_id": "33696378",
+      "status": "indexed",
+      "rank": 8,
+      "title": "connect android device via MQTT with ssl",
+      "url": "https://stackoverflow.com/questions/33696378/connect-android-device-via-mqtt-with-ssl",
+      "posted": "2015-11-13",
+      "score": 9,
+      "views": 5460,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "android",
+        "ssl",
+        "mqtt",
+        "paho"
+      ],
+      "why_interesting": "I have created an MQTT Broker and a client in java. With a broker server and a client both written in java using paho libs, enabling SSL is easy.",
+      "shortlist": true,
+      "candidate_rank": 12,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction.",
+        "Network/security configuration may require synthetic fixtures."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "15276976-maven-generate-sources-cannot-resolve-a-dependency",
+      "question_id": "15276976",
+      "status": "indexed",
+      "rank": 9,
+      "title": "Maven generate-sources cannot resolve a dependency",
+      "url": "https://stackoverflow.com/questions/15276976/maven-generate-sources-cannot-resolve-a-dependency",
+      "posted": "2013-03-07",
+      "score": 10,
+      "views": 2573,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "maven",
+        "jaxb2"
+      ],
+      "why_interesting": "I have a multi-module project in maven which uses JAXB generated sources: [code block] Without JAXB everything compiles fine. When I add the JAXB plugin to module B, maven complains: [code block] As far as I can tell, this is because the jaxb maven plugins...",
+      "shortlist": true,
+      "candidate_rank": 11,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Build lifecycle command output, dependency-resolution failure, then passing verification."
+    },
+    {
+      "id": "26850266-docker-image-creation-exception-this-archives-contains-unclosed-entries",
+      "question_id": "26850266",
+      "status": "indexed",
+      "rank": 10,
+      "title": "Docker image creation exception: \"This archives contains unclosed entries\"",
+      "url": "https://stackoverflow.com/questions/26850266/docker-image-creation-exception-this-archives-contains-unclosed-entries",
+      "posted": "2014-11-10",
+      "score": 13,
+      "views": 3575,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "docker"
+      ],
+      "why_interesting": "I'm working with Docker and I'm trying to build an image from a dockerfile, using the docker-java API. Here you can find how to do it and I did the same: [code block] But i got this exception: [code block] I thought that the problem was the Dockerfile, but...",
+      "shortlist": true,
+      "candidate_rank": 26,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Docker-specific case may require the optional Docker socket profile."
+      ],
+      "expected_lark_evidence": "Container/API command logs demonstrating the original failure and corrected archive/build behavior."
+    },
+    {
+      "id": "14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests",
+      "question_id": "14456547",
+      "status": "indexed",
+      "rank": 11,
+      "title": "How to Unit Test handling of incoming Jersey MultiPart requests",
+      "url": "https://stackoverflow.com/questions/14456547/how-to-unit-test-handling-of-incoming-jersey-multipart-requests",
+      "posted": "2013-01-22",
+      "score": 9,
+      "views": 5859,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "rest",
+        "testing",
+        "jersey",
+        "multipart"
+      ],
+      "why_interesting": "We have a REST service that accepts [code] POST requests containing [code] that hold [code] s. Inside the REST service a file might be created based on the provided data.",
+      "shortlist": true,
+      "candidate_rank": 31,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "33470297-how-to-make-my-jersey-https-client-connection-persistent",
+      "question_id": "33470297",
+      "status": "indexed",
+      "rank": 12,
+      "title": "How to make my Jersey HTTPS client connection persistent?",
+      "url": "https://stackoverflow.com/questions/33470297/how-to-make-my-jersey-https-client-connection-persistent",
+      "posted": "2015-11-02",
+      "score": 5,
+      "views": 1366,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "jersey"
+      ],
+      "why_interesting": "] Is there a way in Jersey to make an HTTPS client connection persistent? (I am reading that HTTPS connections are persistent, but that is not the behavior I'm seeing with my client.",
+      "shortlist": true,
+      "candidate_rank": 37,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "28065489-diagnosing-issues-with-spring-websocket-user-destinations",
+      "question_id": "28065489",
+      "status": "indexed",
+      "rank": 13,
+      "title": "Diagnosing issues with Spring WebSocket user destinations",
+      "url": "https://stackoverflow.com/questions/28065489/diagnosing-issues-with-spring-websocket-user-destinations",
+      "posted": "2015-01-21",
+      "score": 7,
+      "views": 2153,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "spring",
+        "spring-boot",
+        "stomp",
+        "spring-websocket"
+      ],
+      "why_interesting": "I'm having trouble getting user destinations to work with Spring STOMP websockets. I seem to have the general configuration working.",
+      "shortlist": true,
+      "candidate_rank": 66,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Executable test or integration harness showing the original behavior and the fixed behavior."
+    },
+    {
+      "id": "31885618-cannot-connect-to-localhost-using-service-jmx-rmi-when-using-visual-vm-with-tomca",
+      "question_id": "31885618",
+      "status": "indexed",
+      "rank": 14,
+      "title": "Cannot connect to localhost using service:jmx/rmi//..... When Using Visual VM with Tomcat within Vagrant",
+      "url": "https://stackoverflow.com/questions/31885618/cannot-connect-to-localhost-using-servicejmx-rmi-when-using-visual-vm-wi",
+      "posted": "2015-08-07",
+      "score": 8,
+      "views": 9019,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "tomcat",
+        "vagrant",
+        "port",
+        "visualvm"
+      ],
+      "why_interesting": "I've got a vagrant VM which is running tomcat and I wanted to connect VisualVM to monitor the performance of the VM during some tests. I followed this guide to setup this configuration which recommended creating a setenv.",
+      "shortlist": true,
+      "candidate_rank": 46,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "VM or desktop-tool dependency may make full closure harder."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "31724445-mockito-mock-for-context-and-getapplicationcontext",
+      "question_id": "31724445",
+      "status": "indexed",
+      "rank": 15,
+      "title": "Mockito - mock for Context and getApplicationContext()",
+      "url": "https://stackoverflow.com/questions/31724445/mockito-mock-for-context-and-getapplicationcontext",
+      "posted": "2015-07-30",
+      "score": 8,
+      "views": 8259,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "android",
+        "unit-testing",
+        "mockito",
+        "powermock"
+      ],
+      "why_interesting": "Just started creating UTs for my app and using PowerMock, Mockito and Junit4. Im having a very fundamental problem of mocking Context and getApplicationContext().",
+      "shortlist": true,
+      "candidate_rank": 49,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "28881943-malformed-reply-from-socks-server-whereas-i-use-a-http-proxy-with-apache-http-lib",
+      "question_id": "28881943",
+      "status": "indexed",
+      "rank": 16,
+      "title": "Malformed reply from SOCKS server whereas I use a HTTP proxy (with Apache HTTP library)",
+      "url": "https://stackoverflow.com/questions/28881943/malformed-reply-from-socks-server-whereas-i-use-a-http-proxy-with-apache-http-l",
+      "posted": "2015-03-05",
+      "score": 9,
+      "views": 2929,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "proxy",
+        "apache-httpclient-4.x",
+        "http-proxy"
+      ],
+      "why_interesting": "I know that there are a lot of questions regarding the error [code] which mostly point to a wrong configuration for the proxy. However, in my case, I'm using the system HTTP(!",
+      "shortlist": true,
+      "candidate_rank": 53,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "27051034-using-optaplanner-to-solve-vrptwpd",
+      "question_id": "27051034",
+      "status": "indexed",
+      "rank": 17,
+      "title": "Using Optaplanner to solve VRPTWPD",
+      "url": "https://stackoverflow.com/questions/27051034/using-optaplanner-to-solve-vrptwpd",
+      "posted": "2014-11-20",
+      "score": 24,
+      "views": 2234,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "drools",
+        "optaplanner"
+      ],
+      "why_interesting": "I'm new to optaplanner, and am hoping to use it to solve the VRPTW problem with pickups and deliveries (VRPTWPD). I started by taking the VRPTW code from the examples repo.",
+      "shortlist": true,
+      "candidate_rank": 1,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "31947118-spring-saml-signature-validation-issue",
+      "question_id": "31947118",
+      "status": "indexed",
+      "rank": 18,
+      "title": "Spring SAML signature validation issue",
+      "url": "https://stackoverflow.com/questions/31947118/spring-saml-signature-validation-issue",
+      "posted": "2015-08-11",
+      "score": 8,
+      "views": 4436,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "spring",
+        "spring-security",
+        "saml",
+        "xml-signature"
+      ],
+      "why_interesting": "I'm trying to use the Spring SAML sample app to connect to a Shibboleth IdP but have run into a signature validation issue that I haven't been able to resolve. When the sample app gets the response from the IdP, an exception is thrown with the following:...",
+      "shortlist": true,
+      "candidate_rank": 67,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [
+        "Network/security configuration may require synthetic fixtures."
+      ],
+      "expected_lark_evidence": "Executable test or integration harness showing the original behavior and the fixed behavior."
+    },
+    {
+      "id": "33365237-java-vm-fails-with-heap-size-increase",
+      "question_id": "33365237",
+      "status": "indexed",
+      "rank": 19,
+      "title": "Java VM fails with heap size increase",
+      "url": "https://stackoverflow.com/questions/33365237/java-vm-fails-with-heap-size-increase",
+      "posted": "2015-10-27",
+      "score": 6,
+      "views": 30880,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "jvm"
+      ],
+      "why_interesting": "S0 the command I am trying to run is; [code block] The machine I am running it on has access to 500G RAM so shouldnt be an issue, however I keep getting this error message; [code block] Has anyone else experienced this issue and if so did you resolve it? Oh...",
+      "shortlist": true,
+      "candidate_rank": 141,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "29645613-jpa-2-1-namedsubgraph-in-hibernate-ignoring-nested-subgraphs",
+      "question_id": "29645613",
+      "status": "indexed",
+      "rank": 20,
+      "title": "JPA 2.1 NamedSubgraph in Hibernate ignoring nested subgraphs",
+      "url": "https://stackoverflow.com/questions/29645613/jpa-2-1-namedsubgraph-in-hibernate-ignoring-nested-subgraphs",
+      "posted": "2015-04-15",
+      "score": 11,
+      "views": 2498,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "spring",
+        "hibernate",
+        "jpa",
+        "jpa-2.1"
+      ],
+      "why_interesting": "FINAL and have the following model where a Department has many Employees, and an Employee can be a Manager. Manager has a set of Foo which can be either Foo or Bar.",
+      "shortlist": true,
+      "candidate_rank": 40,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Executable test or integration harness showing the original behavior and the fixed behavior."
+    },
+    {
+      "id": "31524084-aem-performance-issues-slow-memory-leak-org-slf4j-helpers-basicmarker-and-org-slf",
+      "question_id": "31524084",
+      "status": "indexed",
+      "rank": 3,
+      "candidate_rank": 3,
+      "title": "AEM performance issues (slow memory leak) org.slf4j.helpers.BasicMarker and org.slf4j.helpers.BasicMarkerFactory",
+      "url": "https://stackoverflow.com/questions/31524084/aem-performance-issues-slow-memory-leak-org-slf4j-helpers-basicmarker-and-org",
+      "posted": "2015-07-20",
+      "score": 17,
+      "views": 2861,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "performance",
+        "memory-leaks",
+        "slf4j",
+        "aem"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "12380229-encoding-a-pound-sign-in-a-java-uri",
+      "question_id": "12380229",
+      "status": "indexed",
+      "rank": 5,
+      "candidate_rank": 5,
+      "title": "Encoding a pound sign in a java URI",
+      "url": "https://stackoverflow.com/questions/12380229/encoding-a-pound-sign-in-a-java-uri",
+      "posted": "2012-09-12",
+      "score": 8,
+      "views": 5935,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "uri",
+        "urlencode"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "32044257-post-form-via-ajax-and-get-a-form-object-in-play-framework-java",
+      "question_id": "32044257",
+      "status": "indexed",
+      "rank": 6,
+      "candidate_rank": 6,
+      "title": "Post form via ajax and get a form object in play framework java",
+      "url": "https://stackoverflow.com/questions/32044257/post-form-via-ajax-and-get-a-form-object-in-play-framework-java",
+      "posted": "2015-08-17",
+      "score": 24,
+      "views": 2616,
+      "answers": 2,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "jquery",
+        "ajax",
+        "forms",
+        "playframework"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "10859567-unexpected-results-implementing-simple-motion-blur-in-libgdx",
+      "question_id": "10859567",
+      "status": "indexed",
+      "rank": 8,
+      "candidate_rank": 8,
+      "title": "Unexpected results implementing simple motion blur in Libgdx",
+      "url": "https://stackoverflow.com/questions/10859567/unexpected-results-implementing-simple-motion-blur-in-libgdx",
+      "posted": "2012-06-02",
+      "score": 23,
+      "views": 3166,
+      "answers": 2,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "android",
+        "opengl-es",
+        "libgdx"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "31007597-how-to-use-spark-java-api-to-read-binary-file-stream-from-hdfs",
+      "question_id": "31007597",
+      "status": "indexed",
+      "rank": 9,
+      "candidate_rank": 9,
+      "title": "How to use spark Java API to read binary file stream from HDFS?",
+      "url": "https://stackoverflow.com/questions/31007597/how-to-use-spark-java-api-to-read-binary-file-stream-from-hdfs",
+      "posted": "2015-06-23",
+      "score": 19,
+      "views": 3627,
+      "answers": 2,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "hadoop",
+        "apache-spark",
+        "streaming"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "29500133-websocket-error-during-handshake-unexpected-code-200",
+      "question_id": "29500133",
+      "status": "indexed",
+      "rank": 10,
+      "candidate_rank": 10,
+      "title": "WebSocket Error during Handshake Unexpected code 200",
+      "url": "https://stackoverflow.com/questions/29500133/websocket-error-during-handshake-unexpected-code-200",
+      "posted": "2015-04-07",
+      "score": 17,
+      "views": 6791,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "http",
+        "jakarta-ee",
+        "websocket",
+        "glassfish"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "11930142-apk-expansion-files-application-licensing-developer-account-not-licensed-response",
+      "question_id": "11930142",
+      "status": "indexed",
+      "rank": 13,
+      "candidate_rank": 13,
+      "title": "Apk Expansion Files - Application Licensing - Developer account - NOT_LICENSED response",
+      "url": "https://stackoverflow.com/questions/11930142/apk-expansion-files-application-licensing-developer-account-not-licensed-r",
+      "posted": "2012-08-13",
+      "score": 17,
+      "views": 2317,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "android"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "33186004-jackson-jsonpropertyorder-is-ignored",
+      "question_id": "33186004",
+      "status": "indexed",
+      "rank": 14,
+      "candidate_rank": 14,
+      "title": "Jackson @JsonPropertyOrder is ignored",
+      "url": "https://stackoverflow.com/questions/33186004/jackson-jsonpropertyorder-is-ignored",
+      "posted": "2015-10-17",
+      "score": 14,
+      "views": 25391,
+      "answers": 3,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "json",
+        "jackson"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "32676758-making-android-ble-bluetooth-le-apprently-stable",
+      "question_id": "32676758",
+      "status": "indexed",
+      "rank": 15,
+      "candidate_rank": 15,
+      "title": "Making Android BLE (Bluetooth LE) apprently stable",
+      "url": "https://stackoverflow.com/questions/32676758/making-android-ble-bluetooth-le-apprently-stable",
+      "posted": "2015-09-20",
+      "score": 7,
+      "views": 829,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "android",
+        "bluetooth",
+        "connection",
+        "stability"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "12763746-linearlayout-minheight-not-working-with-weigth-1",
+      "question_id": "12763746",
+      "status": "indexed",
+      "rank": 16,
+      "candidate_rank": 16,
+      "title": "LinearLayout minHeight not working with weigth=\"1\"",
+      "url": "https://stackoverflow.com/questions/12763746/linearlayout-minheight-not-working-with-weigth-1",
+      "posted": "2012-10-06",
+      "score": 20,
+      "views": 3835,
+      "answers": 3,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "android",
+        "xml",
+        "layout"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "32338134-java-multithreading-for-ivrs-with-gsm-modem-rxtx-playing-voice-file-making-event-",
+      "question_id": "32338134",
+      "status": "indexed",
+      "rank": 17,
+      "candidate_rank": 17,
+      "title": "Java Multithreading for IVRS with GSM Modem rxtx (playing voice file making event listener stop working)",
+      "url": "https://stackoverflow.com/questions/32338134/java-multithreading-for-ivrs-with-gsm-modem-rxtx-playing-voice-file-making-even",
+      "posted": "2015-09-01",
+      "score": 15,
+      "views": 798,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "multithreading",
+        "audio",
+        "rxtx"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "26656370-gwt-editor-framework-for-polymorphic-types",
+      "question_id": "26656370",
+      "status": "indexed",
+      "rank": 19,
+      "candidate_rank": 19,
+      "title": "GWT Editor Framework for polymorphic types",
+      "url": "https://stackoverflow.com/questions/26656370/gwt-editor-framework-for-polymorphic-types",
+      "posted": "2014-10-30",
+      "score": 11,
+      "views": 568,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "gwt",
+        "gwt-editors"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "27647167-android-app-crashed-by-using-texureview",
+      "question_id": "27647167",
+      "status": "indexed",
+      "rank": 20,
+      "candidate_rank": 20,
+      "title": "Android App Crashed by using texureview",
+      "url": "https://stackoverflow.com/questions/27647167/android-app-crashed-by-using-texureview",
+      "posted": "2014-12-25",
+      "score": 6,
+      "views": 1185,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "android",
+        "opengl-es"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "30487257-is-there-a-documentation-on-hibernate-s-event-types",
+      "question_id": "30487257",
+      "status": "indexed",
+      "rank": 21,
+      "candidate_rank": 21,
+      "title": "Is there a documentation on Hibernate's event types?",
+      "url": "https://stackoverflow.com/questions/30487257/is-there-a-documentation-on-hibernates-event-types",
+      "posted": "2015-05-27",
+      "score": 8,
+      "views": 1009,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "hibernate"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Executable test or integration harness showing the original behavior and the fixed behavior."
+    },
+    {
+      "id": "14491309-deserializing-nested-objects-using-resttemplate",
+      "question_id": "14491309",
+      "status": "indexed",
+      "rank": 22,
+      "candidate_rank": 22,
+      "title": "Deserializing Nested objects using RestTemplate",
+      "url": "https://stackoverflow.com/questions/14491309/deserializing-nested-objects-using-resttemplate",
+      "posted": "2013-01-23",
+      "score": 12,
+      "views": 12074,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "web-services",
+        "spring",
+        "jackson",
+        "resttemplate"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Executable test or integration harness showing the original behavior and the fixed behavior."
+    },
+    {
+      "id": "14953356-quartz-scheduler-db-lock-exception",
+      "question_id": "14953356",
+      "status": "indexed",
+      "rank": 23,
+      "candidate_rank": 23,
+      "title": "Quartz-scheduler DB Lock Exception",
+      "url": "https://stackoverflow.com/questions/14953356/quartz-scheduler-db-lock-exception",
+      "posted": "2013-02-19",
+      "score": 9,
+      "views": 10564,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "quartz-scheduler",
+        "spring-roo"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "32205657-hibernate-entity-filters-with-spring-data-repositories",
+      "question_id": "32205657",
+      "status": "indexed",
+      "rank": 24,
+      "candidate_rank": 24,
+      "title": "Hibernate entity filters with Spring data repositories",
+      "url": "https://stackoverflow.com/questions/32205657/hibernate-entity-filters-with-spring-data-repositories",
+      "posted": "2015-08-25",
+      "score": 12,
+      "views": 4170,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "spring",
+        "hibernate",
+        "jpa",
+        "spring-data"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Executable test or integration harness showing the original behavior and the fixed behavior."
+    },
+    {
+      "id": "31279000-java-gc-understanding-targetsurivorratio",
+      "question_id": "31279000",
+      "status": "indexed",
+      "rank": 25,
+      "candidate_rank": 25,
+      "title": "Java GC - Understanding TargetSurivorRatio",
+      "url": "https://stackoverflow.com/questions/31279000/java-gc-understanding-targetsurivorratio",
+      "posted": "2015-07-07",
+      "score": 9,
+      "views": 8602,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "garbage-collection"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "34476223-nomessagebodywriterfoundfailure-could-not-find-messagebodywriter-for-response-obj",
+      "question_id": "34476223",
+      "status": "indexed",
+      "rank": 27,
+      "candidate_rank": 27,
+      "title": "NoMessageBodyWriterFoundFailure: Could not find MessageBodyWriter for response object",
+      "url": "https://stackoverflow.com/questions/34476223/nomessagebodywriterfoundfailure-could-not-find-messagebodywriter-for-response-o",
+      "posted": "2015-12-26",
+      "score": 11,
+      "views": 7680,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "rest",
+        "jakarta-ee",
+        "jax-rs",
+        "resteasy"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "25262449-rabbitmq-java-client-how-to-sensibly-handle-exceptions-and-shutdowns",
+      "question_id": "25262449",
+      "status": "indexed",
+      "rank": 28,
+      "candidate_rank": 28,
+      "title": "RabbitMQ Java client - How to sensibly handle exceptions and shutdowns?",
+      "url": "https://stackoverflow.com/questions/25262449/rabbitmq-java-client-how-to-sensibly-handle-exceptions-and-shutdowns",
+      "posted": "2014-08-12",
+      "score": 10,
+      "views": 7652,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "rabbitmq",
+        "amqp"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "13897050-android-analogclock-setting-drawables-programmatically",
+      "question_id": "13897050",
+      "status": "indexed",
+      "rank": 30,
+      "candidate_rank": 30,
+      "title": "Android AnalogClock : setting drawables programmatically",
+      "url": "https://stackoverflow.com/questions/13897050/android-analogclock-setting-drawables-programmatically",
+      "posted": "2012-12-15",
+      "score": 23,
+      "views": 1349,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "android",
+        "xml",
+        "widget",
+        "clock"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "22715285-new-google-play-services-api-holding-connection-through-activities",
+      "question_id": "22715285",
+      "status": "indexed",
+      "rank": 32,
+      "candidate_rank": 32,
+      "title": "New Google Play Services API, Holding connection through activities",
+      "url": "https://stackoverflow.com/questions/22715285/new-google-play-services-api-holding-connection-through-activities",
+      "posted": "2014-03-28",
+      "score": 29,
+      "views": 479,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "android",
+        "google-play-services"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "22029815-how-to-use-the-qt-jni-class-qandroidjniobject",
+      "question_id": "22029815",
+      "status": "indexed",
+      "rank": 33,
+      "candidate_rank": 33,
+      "title": "How to use the Qt Jni class \"QAndroidJniObject\"",
+      "url": "https://stackoverflow.com/questions/22029815/how-to-use-the-qt-jni-class-qandroidjniobject",
+      "posted": "2014-02-26",
+      "score": 8,
+      "views": 4751,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "android",
+        "c++",
+        "qt",
+        "qandroidjniobject"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "33709849-beancreationexception-cannot-determine-embedded-database-driver-class-for-databas",
+      "question_id": "33709849",
+      "status": "indexed",
+      "rank": 34,
+      "candidate_rank": 34,
+      "title": "BeanCreationException: Cannot determine embedded database driver class for database type NONE",
+      "url": "https://stackoverflow.com/questions/33709849/beancreationexception-cannot-determine-embedded-database-driver-class-for-datab",
+      "posted": "2015-11-14",
+      "score": 12,
+      "views": 21128,
+      "answers": 3,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "mysql",
+        "gradle",
+        "spring-data-jpa"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "gradle"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Gradle classpath/build output, failing assertion or dependency graph evidence, then passing verification."
+    },
+    {
+      "id": "29706208-java-8-maven-javadoc-plugin-error-fetching-url",
+      "question_id": "29706208",
+      "status": "indexed",
+      "rank": 35,
+      "candidate_rank": 35,
+      "title": "Java 8 + Maven Javadoc plugin: Error fetching URL",
+      "url": "https://stackoverflow.com/questions/29706208/java-8-maven-javadoc-plugin-error-fetching-url",
+      "posted": "2015-04-17",
+      "score": 7,
+      "views": 4118,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "maven",
+        "java-8",
+        "javadoc",
+        "maven-javadoc-plugin"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Build lifecycle command output, dependency-resolution failure, then passing verification."
+    },
+    {
+      "id": "33655627-empty-response-from-server-running-inside-docker-container",
+      "question_id": "33655627",
+      "status": "indexed",
+      "rank": 36,
+      "candidate_rank": 36,
+      "title": "Empty response from server running inside Docker container",
+      "url": "https://stackoverflow.com/questions/33655627/empty-response-from-server-running-inside-docker-container",
+      "posted": "2015-11-11",
+      "score": 10,
+      "views": 7115,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "macos",
+        "docker"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Docker-specific case may require the optional Docker socket profile."
+      ],
+      "expected_lark_evidence": "Container/API command logs demonstrating the original failure and corrected archive/build behavior."
+    },
+    {
+      "id": "11669722-disabling-jpa-hibernate-schema-validation-for-a-single-entity",
+      "question_id": "11669722",
+      "status": "indexed",
+      "rank": 38,
+      "candidate_rank": 38,
+      "title": "Disabling JPA Hibernate schema validation for a single entity",
+      "url": "https://stackoverflow.com/questions/11669722/disabling-jpa-hibernate-schema-validation-for-a-single-entity",
+      "posted": "2012-07-26",
+      "score": 10,
+      "views": 5590,
+      "answers": 3,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "hibernate",
+        "jpa",
+        "hibernate-mapping"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Executable test or integration harness showing the original behavior and the fixed behavior."
+    },
+    {
+      "id": "9927542-setting-annotation-attribute-from-properties-file",
+      "question_id": "9927542",
+      "status": "indexed",
+      "rank": 39,
+      "candidate_rank": 39,
+      "title": "Setting annotation attribute from properties file",
+      "url": "https://stackoverflow.com/questions/9927542/setting-annotation-attribute-from-properties-file",
+      "posted": "2012-03-29",
+      "score": 9,
+      "views": 2517,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "properties",
+        "annotations"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "27358851-android-content-provider-and-gradle-productflavours",
+      "question_id": "27358851",
+      "status": "indexed",
+      "rank": 41,
+      "candidate_rank": 41,
+      "title": "Android Content Provider and Gradle productFlavours",
+      "url": "https://stackoverflow.com/questions/27358851/android-content-provider-and-gradle-productflavours",
+      "posted": "2014-12-08",
+      "score": 12,
+      "views": 2298,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "android",
+        "gradle",
+        "android-contentprovider",
+        "android-productflavors"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "gradle"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Gradle classpath/build output, failing assertion or dependency graph evidence, then passing verification."
+    },
+    {
+      "id": "10377704-spring-aspectj-fails-when-double-proxying-interface-could-not-generate-cglib-subc",
+      "question_id": "10377704",
+      "status": "indexed",
+      "rank": 42,
+      "candidate_rank": 42,
+      "title": "Spring AspectJ fails when double-proxying interface: Could not generate CGLIB subclass of class",
+      "url": "https://stackoverflow.com/questions/10377704/spring-aspectj-fails-when-double-proxying-interface-could-not-generate-cglib-su",
+      "posted": "2012-04-30",
+      "score": 8,
+      "views": 4806,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "spring",
+        "aspectj"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Executable test or integration harness showing the original behavior and the fixed behavior."
+    },
+    {
+      "id": "27942679-how-do-i-terminate-a-process-normally-when-created-by-processbuilder",
+      "question_id": "27942679",
+      "status": "indexed",
+      "rank": 43,
+      "candidate_rank": 43,
+      "title": "How do I terminate a process normally when created by ProcessBuilder?",
+      "url": "https://stackoverflow.com/questions/27942679/how-do-i-terminate-a-process-normally-when-created-by-processbuilder",
+      "posted": "2015-01-14",
+      "score": 9,
+      "views": 11809,
+      "answers": 2,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "windows",
+        "processbuilder",
+        "kill-process"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "11687174-xml-validation-against-xsd-s-in-java",
+      "question_id": "11687174",
+      "status": "indexed",
+      "rank": 44,
+      "candidate_rank": 44,
+      "title": "XML validation against xsd's in Java",
+      "url": "https://stackoverflow.com/questions/11687174/xml-validation-against-xsds-in-java",
+      "posted": "2012-07-27",
+      "score": 8,
+      "views": 12067,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "xml",
+        "xsd"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "29230841-how-to-acknowledge-websocket-spring-websocket-stomp-sockjs-message-delivery",
+      "question_id": "29230841",
+      "status": "indexed",
+      "rank": 45,
+      "candidate_rank": 45,
+      "title": "How to acknowledge websocket (spring websocket + stomp + sockjs) message delivery",
+      "url": "https://stackoverflow.com/questions/29230841/how-to-acknowledge-websocket-spring-websocket-stomp-sockjs-message-deliver",
+      "posted": "2015-03-24",
+      "score": 12,
+      "views": 2068,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "spring",
+        "stomp",
+        "sockjs",
+        "spring-websocket"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Executable test or integration harness showing the original behavior and the fixed behavior."
+    },
+    {
+      "id": "27763111-thread-blocked-on-org-apache-log4j-category-callappenders-but-not-waiting-for-any",
+      "question_id": "27763111",
+      "status": "indexed",
+      "rank": 47,
+      "candidate_rank": 47,
+      "title": "Thread BLOCKED on org.apache.log4j.Category.callAppenders, but not waiting for any lock",
+      "url": "https://stackoverflow.com/questions/27763111/thread-blocked-on-org-apache-log4j-category-callappenders-but-not-waiting-for-a",
+      "posted": "2015-01-04",
+      "score": 10,
+      "views": 8514,
+      "answers": 2,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "multithreading",
+        "log4j"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "21698128-birt-report-with-two-or-three-deep-nested-tables-from-pojo-datasource",
+      "question_id": "21698128",
+      "status": "indexed",
+      "rank": 48,
+      "candidate_rank": 48,
+      "title": "BIRT report with two or three-deep nested tables from POJO datasource",
+      "url": "https://stackoverflow.com/questions/21698128/birt-report-with-two-or-three-deep-nested-tables-from-pojo-datasource",
+      "posted": "2014-02-11",
+      "score": 11,
+      "views": 1811,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "eclipse",
+        "nested",
+        "reporting",
+        "birt"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "7544979-h2-database-how-to-compact-vacuum-while-running",
+      "question_id": "7544979",
+      "status": "indexed",
+      "rank": 50,
+      "candidate_rank": 50,
+      "title": "H2 database> How to compact / vacuum while running?",
+      "url": "https://stackoverflow.com/questions/7544979/h2-database-how-to-compact-vacuum-while-running",
+      "posted": "2011-09-25",
+      "score": 11,
+      "views": 7079,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "h2"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "21757191-jdbc-getupdatecount-is-returning-0-but-1-row-is-updated-in-sql-server",
+      "question_id": "21757191",
+      "status": "indexed",
+      "rank": 51,
+      "candidate_rank": 51,
+      "title": "JDBC getUpdateCount is returning 0, but 1 row is updated, in SQL Server",
+      "url": "https://stackoverflow.com/questions/21757191/jdbc-getupdatecount-is-returning-0-but-1-row-is-updated-in-sql-server",
+      "posted": "2014-02-13",
+      "score": 16,
+      "views": 6967,
+      "answers": 2,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "sql-server",
+        "sql-server-2008",
+        "jdbc",
+        "jooq"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "19999746-running-junit-tests-with-hadoop-2-2-on-windows-7",
+      "question_id": "19999746",
+      "status": "indexed",
+      "rank": 52,
+      "candidate_rank": 52,
+      "title": "Running JUnit tests with Hadoop 2.2 on Windows 7",
+      "url": "https://stackoverflow.com/questions/19999746/running-junit-tests-with-hadoop-2-2-on-windows-7",
+      "posted": "2013-11-15",
+      "score": 12,
+      "views": 2981,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "windows",
+        "hadoop",
+        "junit"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "8817813-webdriver-gettext-throws-exceptions",
+      "question_id": "8817813",
+      "status": "indexed",
+      "rank": 54,
+      "candidate_rank": 54,
+      "title": "WebDriver getText throws exceptions",
+      "url": "https://stackoverflow.com/questions/8817813/webdriver-gettext-throws-exceptions",
+      "posted": "2012-01-11",
+      "score": 9,
+      "views": 2704,
+      "answers": 2,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "exception",
+        "selenium",
+        "webdriver",
+        "gettext"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "20100276-adding-spring-security-jsptaglib-to-a-freemarker-template-issues-with-controller-",
+      "question_id": "20100276",
+      "status": "indexed",
+      "rank": 55,
+      "candidate_rank": 55,
+      "title": "Adding Spring Security JspTagLib to a Freemarker template - issues with controller unit tests",
+      "url": "https://stackoverflow.com/questions/20100276/adding-spring-security-jsptaglib-to-a-freemarker-template-issues-with-controll",
+      "posted": "2013-11-20",
+      "score": 7,
+      "views": 2660,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "spring",
+        "spring-security",
+        "jsp-tags",
+        "freemarker"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Executable test or integration harness showing the original behavior and the fixed behavior."
+    },
+    {
+      "id": "24022125-spring-security-requires-channel-https-causes-redirect-loop",
+      "question_id": "24022125",
+      "status": "indexed",
+      "rank": 56,
+      "candidate_rank": 56,
+      "title": "Spring Security: requires-channel=\"https\" causes redirect loop",
+      "url": "https://stackoverflow.com/questions/24022125/spring-security-requires-channel-https-causes-redirect-loop",
+      "posted": "2014-06-03",
+      "score": 10,
+      "views": 2656,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "spring",
+        "ssl",
+        "spring-security",
+        "websphere"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [
+        "Network/security configuration may require synthetic fixtures."
+      ],
+      "expected_lark_evidence": "Executable test or integration harness showing the original behavior and the fixed behavior."
+    },
+    {
+      "id": "2749378-when-to-use-singleton-in-a-jersey-resource",
+      "question_id": "2749378",
+      "status": "indexed",
+      "rank": 57,
+      "candidate_rank": 57,
+      "title": "When to use @Singleton in a Jersey resource",
+      "url": "https://stackoverflow.com/questions/2749378/when-to-use-singleton-in-a-jersey-resource",
+      "posted": "2010-05-01",
+      "score": 10,
+      "views": 5597,
+      "answers": 2,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "database",
+        "web-services",
+        "jersey"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "13037422-how-can-i-set-up-connection-with-dvr-and-decode-the-data",
+      "question_id": "13037422",
+      "status": "indexed",
+      "rank": 58,
+      "candidate_rank": 58,
+      "title": "How can I set up connection with DVR and decode the data?",
+      "url": "https://stackoverflow.com/questions/13037422/how-can-i-set-up-connection-with-dvr-and-decode-the-data",
+      "posted": "2012-10-23",
+      "score": 9,
+      "views": 5241,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "android"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "26968721-manage-connection-pooling-in-multi-tenant-app-using-hibernate",
+      "question_id": "26968721",
+      "status": "indexed",
+      "rank": 59,
+      "candidate_rank": 59,
+      "title": "Manage Connection Pooling in multi tenant app using Hibernate",
+      "url": "https://stackoverflow.com/questions/26968721/manage-connection-pooling-in-multi-tenant-app-using-hibernate",
+      "posted": "2014-11-17",
+      "score": 6,
+      "views": 2224,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "hibernate",
+        "multi-tenant",
+        "c3p0"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Executable test or integration harness showing the original behavior and the fixed behavior."
+    },
+    {
+      "id": "21934427-ejb-3-1-binding-does-not-work-on-websphere-application-server",
+      "question_id": "21934427",
+      "status": "indexed",
+      "rank": 60,
+      "candidate_rank": 60,
+      "title": "EJB 3.1 Binding does not work on Websphere Application Server",
+      "url": "https://stackoverflow.com/questions/21934427/ejb-3-1-binding-does-not-work-on-websphere-application-server",
+      "posted": "2014-02-21",
+      "score": 8,
+      "views": 20161,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "jakarta-ee",
+        "ejb-3.1",
+        "websphere-8"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "28573700-javafx-use-computed-size-for-stage-without-using-fxml",
+      "question_id": "28573700",
+      "status": "indexed",
+      "rank": 61,
+      "candidate_rank": 61,
+      "title": "JavaFx USE_COMPUTED_SIZE for Stage without using FXML",
+      "url": "https://stackoverflow.com/questions/28573700/javafx-use-computed-size-for-stage-without-using-fxml",
+      "posted": "2015-02-18",
+      "score": 8,
+      "views": 16424,
+      "answers": 2,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "user-interface",
+        "javafx",
+        "height",
+        "width"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "13729840-javac-ignoring-suppresswarnings-all",
+      "question_id": "13729840",
+      "status": "indexed",
+      "rank": 62,
+      "candidate_rank": 62,
+      "title": "javac ignoring @SuppressWarnings(\"all\")",
+      "url": "https://stackoverflow.com/questions/13729840/javac-ignoring-suppresswarningsall",
+      "posted": "2012-12-05",
+      "score": 8,
+      "views": 11195,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score -2, lowest -2",
+      "tags": [
+        "java",
+        "annotations",
+        "compiler-warnings"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "7444157-sqlite-connection-pool",
+      "question_id": "7444157",
+      "status": "indexed",
+      "rank": 63,
+      "candidate_rank": 63,
+      "title": "SQLite connection pool",
+      "url": "https://stackoverflow.com/questions/7444157/sqlite-connection-pool",
+      "posted": "2011-09-16",
+      "score": 7,
+      "views": 17961,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "android",
+        "sqlite"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "34163634-i-m-getting-javax-crypto-aeadbadtagexception-tag-mismatch-when-decrypting-large-f",
+      "question_id": "34163634",
+      "status": "indexed",
+      "rank": 64,
+      "candidate_rank": 64,
+      "title": "I'm getting javax.crypto.AEADBadTagException: Tag mismatch! when decrypting large files using AES/GCM/NoPadding",
+      "url": "https://stackoverflow.com/questions/34163634/im-getting-javax-crypto-aeadbadtagexception-tag-mismatch-when-decrypting-larg",
+      "posted": "2015-12-08",
+      "score": 7,
+      "views": 10083,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "encryption"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "28345538-jsonmappingexception-root-name-does-not-match-expected",
+      "question_id": "28345538",
+      "status": "indexed",
+      "rank": 65,
+      "candidate_rank": 65,
+      "title": "JsonMappingException: Root name does not match expected",
+      "url": "https://stackoverflow.com/questions/28345538/jsonmappingexception-root-name-does-not-match-expected",
+      "posted": "2015-02-05",
+      "score": 6,
+      "views": 10282,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "json",
+        "jersey",
+        "jackson",
+        "jersey-client"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "27035858-detect-boundaries-of-a-document-in-an-image-using-opencv-java",
+      "question_id": "27035858",
+      "status": "indexed",
+      "rank": 68,
+      "candidate_rank": 68,
+      "title": "Detect boundaries of a document in an image using opencv java",
+      "url": "https://stackoverflow.com/questions/27035858/detect-boundaries-of-a-document-in-an-image-using-opencv-java",
+      "posted": "2014-11-20",
+      "score": 9,
+      "views": 9398,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "android",
+        "opencv",
+        "image-processing",
+        "feature-detection"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "6752548-set-line-width-and-file-type-in-output-xml",
+      "question_id": "6752548",
+      "status": "indexed",
+      "rank": 69,
+      "candidate_rank": 69,
+      "title": "Set line width and file type in output XML",
+      "url": "https://stackoverflow.com/questions/6752548/set-line-width-and-file-type-in-output-xml",
+      "posted": "2011-07-19",
+      "score": 8,
+      "views": 2020,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "xml"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "6887165-setting-up-a-file-for-download-on-a-tomcat-server",
+      "question_id": "6887165",
+      "status": "indexed",
+      "rank": 70,
+      "candidate_rank": 70,
+      "title": "Setting up a file for download on a tomcat server.",
+      "url": "https://stackoverflow.com/questions/6887165/setting-up-a-file-for-download-on-a-tomcat-server",
+      "posted": "2011-07-31",
+      "score": 6,
+      "views": 9354,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "tomcat",
+        "download",
+        "docx"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "28167740-how-to-specify-git-remote-s-url-for-maven-release-plugin-using-standard-ssh-synta",
+      "question_id": "28167740",
+      "status": "indexed",
+      "rank": 71,
+      "candidate_rank": 71,
+      "title": "How to specify Git remote's URL for Maven Release plugin using standard SSH syntax?",
+      "url": "https://stackoverflow.com/questions/28167740/how-to-specify-git-remotes-url-for-maven-release-plugin-using-standard-ssh-synt",
+      "posted": "2015-01-27",
+      "score": 8,
+      "views": 4105,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "git",
+        "maven",
+        "ssh"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Build lifecycle command output, dependency-resolution failure, then passing verification."
+    },
+    {
+      "id": "34213003-change-spring-ws-fault-status-code-from-500-to-400",
+      "question_id": "34213003",
+      "status": "indexed",
+      "rank": 72,
+      "candidate_rank": 72,
+      "title": "Change Spring WS Fault status code from 500 to 400",
+      "url": "https://stackoverflow.com/questions/34213003/change-spring-ws-fault-status-code-from-500-to-400",
+      "posted": "2015-12-10",
+      "score": 8,
+      "views": 4030,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "spring",
+        "web-services",
+        "soap",
+        "spring-ws"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Executable test or integration harness showing the original behavior and the fixed behavior."
+    },
+    {
+      "id": "28231312-using-static-nested-class-in-jsp-tag",
+      "question_id": "28231312",
+      "status": "indexed",
+      "rank": 73,
+      "candidate_rank": 73,
+      "title": "Using Static Nested Class in JSP Tag",
+      "url": "https://stackoverflow.com/questions/28231312/using-static-nested-class-in-jsp-tag",
+      "posted": "2015-01-30",
+      "score": 7,
+      "views": 1856,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "jsp",
+        "jsp-tags"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "32275898-java-spring-boot-simpmessagingtemplate-send-messages-are-not-received-by-stomp-en",
+      "question_id": "32275898",
+      "status": "indexed",
+      "rank": 74,
+      "candidate_rank": 74,
+      "title": "Java Spring Boot: SimpMessagingTemplate send messages are not received by Stomp Endpoints",
+      "url": "https://stackoverflow.com/questions/32275898/java-spring-boot-simpmessagingtemplate-send-messages-are-not-received-by-stomp",
+      "posted": "2015-08-28",
+      "score": 9,
+      "views": 3935,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "spring",
+        "websocket",
+        "stomp"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Executable test or integration harness showing the original behavior and the fixed behavior."
+    },
+    {
+      "id": "26170281-set-of-objects-in-avro-schema",
+      "question_id": "26170281",
+      "status": "indexed",
+      "rank": 75,
+      "candidate_rank": 75,
+      "title": "set of objects in avro schema",
+      "url": "https://stackoverflow.com/questions/26170281/set-of-objects-in-avro-schema",
+      "posted": "2014-10-02",
+      "score": 11,
+      "views": 1717,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "avro"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "19376195-java-print-multiple-copies-but-only-one-ends-up-at-the-printer",
+      "question_id": "19376195",
+      "status": "indexed",
+      "rank": 76,
+      "candidate_rank": 76,
+      "title": "Java print multiple copies but only one ends up at the printer",
+      "url": "https://stackoverflow.com/questions/19376195/java-print-multiple-copies-but-only-one-ends-up-at-the-printer",
+      "posted": "2013-10-15",
+      "score": 6,
+      "views": 3523,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "pdf",
+        "printing"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "29044711-mongodb-acknowledged-write-concern-faster-than-unacknowledged",
+      "question_id": "29044711",
+      "status": "indexed",
+      "rank": 77,
+      "candidate_rank": 77,
+      "title": "MongoDB ACKNOWLEDGED write concern faster than UNACKNOWLEDGED?",
+      "url": "https://stackoverflow.com/questions/29044711/mongodb-acknowledged-write-concern-faster-than-unacknowledged",
+      "posted": "2015-03-14",
+      "score": 6,
+      "views": 3371,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "mongodb",
+        "bulkinsert",
+        "database-performance"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "10430925-java-thread-dump-prio-value-doesn-t-correspond-with-real-thread-priority-on-linux",
+      "question_id": "10430925",
+      "status": "indexed",
+      "rank": 78,
+      "candidate_rank": 78,
+      "title": "Java thread dump prio value doesn't correspond with real thread priority on linux?",
+      "url": "https://stackoverflow.com/questions/10430925/java-thread-dump-prio-value-doesnt-correspond-with-real-thread-priority-on-linu",
+      "posted": "2012-05-03",
+      "score": 8,
+      "views": 1505,
+      "answers": 2,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "linux",
+        "multithreading",
+        "pthreads",
+        "jstack"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "28928793-android-bluetooth-le-connection-issue",
+      "question_id": "28928793",
+      "status": "indexed",
+      "rank": 79,
+      "candidate_rank": 79,
+      "title": "Android Bluetooth LE connection issue",
+      "url": "https://stackoverflow.com/questions/28928793/android-bluetooth-le-connection-issue",
+      "posted": "2015-03-08",
+      "score": 8,
+      "views": 3186,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "android",
+        "bluetooth",
+        "wear-os"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "33820732-android-camera2-api-error-in-call-to-createcapturesession",
+      "question_id": "33820732",
+      "status": "indexed",
+      "rank": 80,
+      "candidate_rank": 80,
+      "title": "Android camera2 API error in call to createCaptureSession",
+      "url": "https://stackoverflow.com/questions/33820732/android-camera2-api-error-in-call-to-createcapturesession",
+      "posted": "2015-11-20",
+      "score": 5,
+      "views": 1471,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "android",
+        "android-camera"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "12798265-handling-range-content-requests-of-a-file-with-java-servlet",
+      "question_id": "12798265",
+      "status": "indexed",
+      "rank": 81,
+      "candidate_rank": 81,
+      "title": "Handling Range content requests of a file with Java Servlet",
+      "url": "https://stackoverflow.com/questions/12798265/handling-range-content-requests-of-a-file-with-java-servlet",
+      "posted": "2012-10-09",
+      "score": 9,
+      "views": 6788,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "file",
+        "servlets",
+        "range"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "19675931-tomcat-class-loading-order-when-serving-modules-without-publishing",
+      "question_id": "19675931",
+      "status": "indexed",
+      "rank": 82,
+      "candidate_rank": 82,
+      "title": "Tomcat class loading order when serving modules without publishing",
+      "url": "https://stackoverflow.com/questions/19675931/tomcat-class-loading-order-when-serving-modules-without-publishing",
+      "posted": "2013-10-30",
+      "score": 8,
+      "views": 3087,
+      "answers": 2,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "eclipse",
+        "tomcat"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "498943-different-form-actions-based-on-select-change-events",
+      "question_id": "498943",
+      "status": "indexed",
+      "rank": 83,
+      "candidate_rank": 83,
+      "title": "Different form actions based on select change events",
+      "url": "https://stackoverflow.com/questions/498943/different-form-actions-based-on-select-change-events",
+      "posted": "2009-01-31",
+      "score": 8,
+      "views": 2997,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "beehive",
+        "netui"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "7366852-how-to-set-system-properties-through-a-file-with-oracle-s-jvm",
+      "question_id": "7366852",
+      "status": "indexed",
+      "rank": 84,
+      "candidate_rank": 84,
+      "title": "How to set system properties through a file with Oracle's JVM",
+      "url": "https://stackoverflow.com/questions/7366852/how-to-set-system-properties-through-a-file-with-oracles-jvm",
+      "posted": "2011-09-09",
+      "score": 7,
+      "views": 2906,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "command-line",
+        "virtual-machine"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "8253938-what-s-the-correct-and-working-way-to-broadcast-an-udp-packet-in-java",
+      "question_id": "8253938",
+      "status": "indexed",
+      "rank": 85,
+      "candidate_rank": 85,
+      "title": "What's the correct and working way to broadcast an UDP packet in Java?",
+      "url": "https://stackoverflow.com/questions/8253938/whats-the-correct-and-working-way-to-broadcast-an-udp-packet-in-java",
+      "posted": "2011-11-24",
+      "score": 8,
+      "views": 2849,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "sockets",
+        "network-programming",
+        "udp",
+        "broadcast"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "32877081-oauth2-and-email-authorization-for-rest-api-backend",
+      "question_id": "32877081",
+      "status": "indexed",
+      "rank": 86,
+      "candidate_rank": 86,
+      "title": "OAuth2 and email authorization for REST API backend",
+      "url": "https://stackoverflow.com/questions/32877081/oauth2-and-email-authorization-for-rest-api-backend",
+      "posted": "2015-09-30",
+      "score": 5,
+      "views": 613,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "spring",
+        "security",
+        "oauth",
+        "mobile-application"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Executable test or integration harness showing the original behavior and the fixed behavior."
+    },
+    {
+      "id": "24644990-camel-mongodb-save-java-util-date-as-isodate-instead-of-numberlong",
+      "question_id": "24644990",
+      "status": "indexed",
+      "rank": 87,
+      "candidate_rank": 87,
+      "title": "camel-mongodb save java.util.Date as ISODate instead of NumberLong",
+      "url": "https://stackoverflow.com/questions/24644990/camel-mongodb-save-java-util-date-as-isodate-instead-of-numberlong",
+      "posted": "2014-07-09",
+      "score": 12,
+      "views": 1309,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "mongodb",
+        "date",
+        "apache-camel",
+        "isodate"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "10374289-httpurlconnection-performs-always-a-get-request-instead-of-a-post-request-in-spit",
+      "question_id": "10374289",
+      "status": "indexed",
+      "rank": 88,
+      "candidate_rank": 88,
+      "title": "HttpURLConnection performs always a GET request instead of a POST request in spite of setDoOutput(true) and setRequestMethod(\"POST\")",
+      "url": "https://stackoverflow.com/questions/10374289/httpurlconnection-performs-always-a-get-request-instead-of-a-post-request-in-spi",
+      "posted": "2012-04-29",
+      "score": 9,
+      "views": 5925,
+      "answers": 2,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "android",
+        "http",
+        "android-4.0-ice-cream-sandwich"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "21686930-how-does-intellij-know-if-a-directory-is-a-source-or-a-test-source",
+      "question_id": "21686930",
+      "status": "indexed",
+      "rank": 89,
+      "candidate_rank": 89,
+      "title": "How does IntelliJ know if a directory is a 'source' or a 'test source'?",
+      "url": "https://stackoverflow.com/questions/21686930/how-does-intellij-know-if-a-directory-is-a-source-or-a-test-source",
+      "posted": "2014-02-10",
+      "score": 10,
+      "views": 5884,
+      "answers": 2,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "intellij-idea",
+        "gradle"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "gradle"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Gradle classpath/build output, failing assertion or dependency graph evidence, then passing verification."
+    },
+    {
+      "id": "25487092-setting-android-proxy-settings-programmatically-using-system-global-method",
+      "question_id": "25487092",
+      "status": "indexed",
+      "rank": 90,
+      "candidate_rank": 90,
+      "title": "Setting Android proxy settings programmatically using System.Global method",
+      "url": "https://stackoverflow.com/questions/25487092/setting-android-proxy-settings-programmatically-using-system-global-method",
+      "posted": "2014-08-25",
+      "score": 8,
+      "views": 2706,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "android",
+        "proxy",
+        "settings",
+        "android-4.4-kitkat"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "34138201-how-do-i-add-an-icc-to-an-existing-pdf-document",
+      "question_id": "34138201",
+      "status": "indexed",
+      "rank": 91,
+      "candidate_rank": 91,
+      "title": "How do I add an ICC to an existing PDF document",
+      "url": "https://stackoverflow.com/questions/34138201/how-do-i-add-an-icc-to-an-existing-pdf-document",
+      "posted": "2015-12-07",
+      "score": 5,
+      "views": 2239,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "pdf",
+        "pdfbox"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "33729591-posting-a-file-and-json-data-to-spring-rest-service",
+      "question_id": "33729591",
+      "status": "indexed",
+      "rank": 92,
+      "candidate_rank": 92,
+      "title": "Posting a file and JSON data to Spring rest service",
+      "url": "https://stackoverflow.com/questions/33729591/posting-a-file-and-json-data-to-spring-rest-service",
+      "posted": "2015-11-16",
+      "score": 10,
+      "views": 13194,
+      "answers": 4,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "json",
+        "spring",
+        "rest",
+        "multipartform-data"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Executable test or integration harness showing the original behavior and the fixed behavior."
+    },
+    {
+      "id": "14484657-how-do-i-design-a-generic-response-builder-restful-web-service-using-spring-mvc",
+      "question_id": "14484657",
+      "status": "indexed",
+      "rank": 93,
+      "candidate_rank": 93,
+      "title": "How do I design a generic Response builder / RESTful Web Service using Spring MVC?",
+      "url": "https://stackoverflow.com/questions/14484657/how-do-i-design-a-generic-response-builder-restful-web-service-using-spring-mv",
+      "posted": "2013-01-23",
+      "score": 9,
+      "views": 17571,
+      "answers": 3,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "rest",
+        "spring-mvc"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "19706788-jersey-rest-web-service-with-activemq-middleware-integration",
+      "question_id": "19706788",
+      "status": "indexed",
+      "rank": 94,
+      "candidate_rank": 94,
+      "title": "jersey rest web Service with Activemq middleware integration",
+      "url": "https://stackoverflow.com/questions/19706788/jersey-rest-web-service-with-activemq-middleware-integration",
+      "posted": "2013-10-31",
+      "score": 9,
+      "views": 10374,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "rest",
+        "jms",
+        "jax-rs",
+        "activemq-classic"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "16700900-unexpected-wrapper-element-when-using-cxf-generated-client",
+      "question_id": "16700900",
+      "status": "indexed",
+      "rank": 95,
+      "candidate_rank": 95,
+      "title": "Unexpected wrapper element when using CXF generated client",
+      "url": "https://stackoverflow.com/questions/16700900/unexpected-wrapper-element-when-using-cxf-generated-client",
+      "posted": "2013-05-22",
+      "score": 9,
+      "views": 10344,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "soap",
+        "wsdl",
+        "cxf"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "28348513-how-to-load-a-yaml-directly-into-a-map-string-car-with-snakeyaml",
+      "question_id": "28348513",
+      "status": "indexed",
+      "rank": 96,
+      "candidate_rank": 96,
+      "title": "How to load a yaml directly into a Map<String, Car> with SnakeYAML?",
+      "url": "https://stackoverflow.com/questions/28348513/how-to-load-a-yaml-directly-into-a-mapstring-car-with-snakeyaml",
+      "posted": "2015-02-05",
+      "score": 8,
+      "views": 19223,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "yaml",
+        "snakeyaml"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "26621299-java-modbus-rtu-master-example-code",
+      "question_id": "26621299",
+      "status": "indexed",
+      "rank": 97,
+      "candidate_rank": 97,
+      "title": "Java MODBUS RTU master example code",
+      "url": "https://stackoverflow.com/questions/26621299/java-modbus-rtu-master-example-code",
+      "posted": "2014-10-29",
+      "score": 8,
+      "views": 17561,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "serial-port",
+        "rxtx",
+        "modbus"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "18680360-configuration-failures-resulting-into-test-skip-in-testng-with-no-information-in-",
+      "question_id": "18680360",
+      "status": "indexed",
+      "rank": 98,
+      "candidate_rank": 98,
+      "title": "Configuration failures resulting into Test skip in TestNG with no information in XMLs",
+      "url": "https://stackoverflow.com/questions/18680360/configuration-failures-resulting-into-test-skip-in-testng-with-no-information-in",
+      "posted": "2013-09-08",
+      "score": 8,
+      "views": 10148,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "junit",
+        "testng"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "5641091-spring-3-exception-handling-using-json",
+      "question_id": "5641091",
+      "status": "indexed",
+      "rank": 99,
+      "candidate_rank": 99,
+      "title": "Spring 3 exception handling using JSON",
+      "url": "https://stackoverflow.com/questions/5641091/spring-3-exception-handling-using-json",
+      "posted": "2011-04-12",
+      "score": 6,
+      "views": 25839,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "jquery",
+        "json",
+        "spring-mvc"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "13292186-what-is-the-structure-pattern-for-android-java-to-organise-http-web-service-calls",
+      "question_id": "13292186",
+      "status": "indexed",
+      "rank": 100,
+      "candidate_rank": 100,
+      "title": "What is the structure/pattern for android/java to organise http web service calls in the project?",
+      "url": "https://stackoverflow.com/questions/13292186/what-is-the-structure-pattern-for-android-java-to-organise-http-web-service-call",
+      "posted": "2012-11-08",
+      "score": 8,
+      "views": 2107,
+      "answers": 2,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "android",
+        "design-patterns"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "33301036-gson-ignore-null-when-deserializing-object",
+      "question_id": "33301036",
+      "status": "indexed",
+      "rank": 101,
+      "candidate_rank": 101,
+      "title": "Gson ignore null when deserializing object",
+      "url": "https://stackoverflow.com/questions/33301036/gson-ignore-null-when-deserializing-object",
+      "posted": "2015-10-23",
+      "score": 10,
+      "views": 9211,
+      "answers": 3,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "json",
+        "gson",
+        "deserialization"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "13012031-why-are-all-jar-files-not-compressed-in-the-jre-installer",
+      "question_id": "13012031",
+      "status": "indexed",
+      "rank": 102,
+      "candidate_rank": 102,
+      "title": "Why are all jar files not compressed in the JRE installer?",
+      "url": "https://stackoverflow.com/questions/13012031/why-are-all-jar-files-not-compressed-in-the-jre-installer",
+      "posted": "2012-10-22",
+      "score": 8,
+      "views": 909,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "installation",
+        "compression",
+        "java"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "34072774-android-okhttp-library-get-request-exception-eofexception-n-not-found-size-0-cont",
+      "question_id": "34072774",
+      "status": "indexed",
+      "rank": 103,
+      "candidate_rank": 103,
+      "title": "Android OkHttp library: GET Request - Exception EOFException: \\n not found: size=0 content=",
+      "url": "https://stackoverflow.com/questions/34072774/android-okhttp-library-get-request-exception-eofexception-n-not-found-size",
+      "posted": "2015-12-03",
+      "score": 9,
+      "views": 8923,
+      "answers": 2,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "android",
+        "http",
+        "get",
+        "okhttp"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "7220160-getting-an-el-in-a-javascript-file-loaded-by-resourcedependency",
+      "question_id": "7220160",
+      "status": "indexed",
+      "rank": 104,
+      "candidate_rank": 104,
+      "title": "Getting an EL in a Javascript file, loaded by @ResourceDependency",
+      "url": "https://stackoverflow.com/questions/7220160/getting-an-el-in-a-javascript-file-loaded-by-resourcedependency",
+      "posted": "2011-08-28",
+      "score": 8,
+      "views": 884,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "javascript",
+        "jsf-2",
+        "el"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "11444609-how-to-avoid-code-duplication-using-jaxb-with-container-like-elements-with-a-simi",
+      "question_id": "11444609",
+      "status": "indexed",
+      "rank": 105,
+      "candidate_rank": 105,
+      "title": "How to avoid code duplication using JAXB with container-like elements with a similar structure",
+      "url": "https://stackoverflow.com/questions/11444609/how-to-avoid-code-duplication-using-jaxb-with-container-like-elements-with-a-sim",
+      "posted": "2012-07-12",
+      "score": 8,
+      "views": 871,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "xml",
+        "jaxb"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "27941522-how-to-set-pdf-file-size-using-pdfdocument-on-android",
+      "question_id": "27941522",
+      "status": "indexed",
+      "rank": 106,
+      "candidate_rank": 106,
+      "title": "How to set PDF file size using PdfDocument on Android",
+      "url": "https://stackoverflow.com/questions/27941522/how-to-set-pdf-file-size-using-pdfdocument-on-android",
+      "posted": "2015-01-14",
+      "score": 10,
+      "views": 8395,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "android",
+        "pdf"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "15992882-android-searchview-empty-string",
+      "question_id": "15992882",
+      "status": "indexed",
+      "rank": 107,
+      "candidate_rank": 107,
+      "title": "Android SearchView empty string",
+      "url": "https://stackoverflow.com/questions/15992882/android-searchview-empty-string",
+      "posted": "2013-04-13",
+      "score": 8,
+      "views": 7761,
+      "answers": 2,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "android",
+        "searchview"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "31011354-effectively-get-line-numbers-in-java-source-code-at-compile-time",
+      "question_id": "31011354",
+      "status": "indexed",
+      "rank": 108,
+      "candidate_rank": 108,
+      "title": "Effectively get line numbers in java source code at compile time",
+      "url": "https://stackoverflow.com/questions/31011354/effectively-get-line-numbers-in-java-source-code-at-compile-time",
+      "posted": "2015-06-23",
+      "score": 11,
+      "views": 1622,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "eclipse",
+        "gradle"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "gradle"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Gradle classpath/build output, failing assertion or dependency graph evidence, then passing verification."
+    },
+    {
+      "id": "11960961-what-causes-the-jsessionid-changing-with-every-request",
+      "question_id": "11960961",
+      "status": "indexed",
+      "rank": 109,
+      "candidate_rank": 109,
+      "title": "What causes the JSessionID changing with every request?",
+      "url": "https://stackoverflow.com/questions/11960961/what-causes-the-jsessionid-changing-with-every-request",
+      "posted": "2012-08-14",
+      "score": 6,
+      "views": 7453,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "jsf",
+        "jakarta-ee",
+        "glassfish",
+        "ejb"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "14556569-make-sure-photos-are-saved-with-the-same-orientation-they-were-taken",
+      "question_id": "14556569",
+      "status": "indexed",
+      "rank": 110,
+      "candidate_rank": 110,
+      "title": "Make sure photos are saved with the same orientation they were taken?",
+      "url": "https://stackoverflow.com/questions/14556569/make-sure-photos-are-saved-with-the-same-orientation-they-were-taken",
+      "posted": "2013-01-28",
+      "score": 14,
+      "views": 1574,
+      "answers": 3,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "android",
+        "camera",
+        "arrays",
+        "photo"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "21339686-eclipse-setting-to-leave-java-static-imports-alone",
+      "question_id": "21339686",
+      "status": "indexed",
+      "rank": 111,
+      "candidate_rank": 111,
+      "title": "Eclipse setting to leave Java static imports alone?",
+      "url": "https://stackoverflow.com/questions/21339686/eclipse-setting-to-leave-java-static-imports-alone",
+      "posted": "2014-01-24",
+      "score": 7,
+      "views": 1551,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "eclipse"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "21986976-iabhelper-android-bug-nullpointerexception-launchpurchaseflow",
+      "question_id": "21986976",
+      "status": "indexed",
+      "rank": 112,
+      "candidate_rank": 112,
+      "title": "IabHelper Android bug (NullPointerException) launchPurchaseFlow?",
+      "url": "https://stackoverflow.com/questions/21986976/iabhelper-android-bug-nullpointerexception-launchpurchaseflow",
+      "posted": "2014-02-24",
+      "score": 8,
+      "views": 1509,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "android",
+        "nullpointerexception",
+        "in-app-billing",
+        "android-billing"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "31059947-ec2-storm-cluster-netty-problems",
+      "question_id": "31059947",
+      "status": "indexed",
+      "rank": 113,
+      "candidate_rank": 113,
+      "title": "EC2 Storm cluster Netty problems",
+      "url": "https://stackoverflow.com/questions/31059947/ec2-storm-cluster-netty-problems",
+      "posted": "2015-06-25",
+      "score": 8,
+      "views": 1474,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "amazon-ec2",
+        "netty",
+        "apache-storm"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "34427522-better-way-to-match-list-of-strings-using-jsonpath-and-hamcrest-matchers",
+      "question_id": "34427522",
+      "status": "indexed",
+      "rank": 114,
+      "candidate_rank": 114,
+      "title": "Better way to match list of strings using JsonPath and Hamcrest Matchers",
+      "url": "https://stackoverflow.com/questions/34427522/better-way-to-match-list-of-strings-using-jsonpath-and-hamcrest-matchers",
+      "posted": "2015-12-23",
+      "score": 5,
+      "views": 6803,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "hamcrest",
+        "jsonpath"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "32448791-passing-a-custom-java-security-policy-file-to-surefire-maven-test-fails-results-i",
+      "question_id": "32448791",
+      "status": "indexed",
+      "rank": 115,
+      "candidate_rank": 115,
+      "title": "Passing a custom java security policy file to surefire maven test fails, results in access control error for everything",
+      "url": "https://stackoverflow.com/questions/32448791/passing-a-custom-java-security-policy-file-to-surefire-maven-test-fails-results",
+      "posted": "2015-09-08",
+      "score": 7,
+      "views": 1380,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "maven",
+        "security",
+        "surefire"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Build lifecycle command output, dependency-resolution failure, then passing verification."
+    },
+    {
+      "id": "32195856-searching-a-grid-of-points-visting-each-point-once-only",
+      "question_id": "32195856",
+      "status": "indexed",
+      "rank": 116,
+      "candidate_rank": 116,
+      "title": "Searching a grid of points, visting each point once only",
+      "url": "https://stackoverflow.com/questions/32195856/searching-a-grid-of-points-visting-each-point-once-only",
+      "posted": "2015-08-25",
+      "score": 7,
+      "views": 1353,
+      "answers": 3,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "search",
+        "grid"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "27319423-gradle-transitive-dependency-to-jar-inside-of-a-library-module",
+      "question_id": "27319423",
+      "status": "indexed",
+      "rank": 117,
+      "candidate_rank": 117,
+      "title": "Gradle transitive dependency to JAR inside of a library module",
+      "url": "https://stackoverflow.com/questions/27319423/gradle-transitive-dependency-to-jar-inside-of-a-library-module",
+      "posted": "2014-12-05",
+      "score": 7,
+      "views": 1299,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "android",
+        "jar",
+        "gradle"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "gradle"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Gradle classpath/build output, failing assertion or dependency graph evidence, then passing verification."
+    },
+    {
+      "id": "21235807-eclipse-find-java-references-of-a-library-without-attached-sources",
+      "question_id": "21235807",
+      "status": "indexed",
+      "rank": 118,
+      "candidate_rank": 118,
+      "title": "Eclipse - Find Java references of a library without attached sources",
+      "url": "https://stackoverflow.com/questions/21235807/eclipse-find-java-references-of-a-library-without-attached-sources",
+      "posted": "2014-01-20",
+      "score": 11,
+      "views": 5975,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "eclipse",
+        "eclipse-jdt"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "33770972-cannot-delete-an-alias-from-the-keystore-keystore-store-throws-unsupportedoperati",
+      "question_id": "33770972",
+      "status": "indexed",
+      "rank": 119,
+      "candidate_rank": 119,
+      "title": "Cannot Delete an alias from the KeyStore - keyStore.store throws UnsupportedOperationException",
+      "url": "https://stackoverflow.com/questions/33770972/cannot-delete-an-alias-from-the-keystore-keystore-store-throws-unsupportedoper",
+      "posted": "2015-11-18",
+      "score": 11,
+      "views": 1278,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "android"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "21437450-cannot-recover-from-org-omg-corba-transient-becomes-permanent",
+      "question_id": "21437450",
+      "status": "indexed",
+      "rank": 120,
+      "candidate_rank": 120,
+      "title": "Cannot recover from org.omg.CORBA.TRANSIENT (becomes permanent)",
+      "url": "https://stackoverflow.com/questions/21437450/cannot-recover-from-org-omg-corba-transient-becomes-permanent",
+      "posted": "2014-01-29",
+      "score": 9,
+      "views": 5928,
+      "answers": 2,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "corba"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "10570702-launch4j-jre-required-error",
+      "question_id": "10570702",
+      "status": "indexed",
+      "rank": 121,
+      "candidate_rank": 121,
+      "title": "Launch4j jre required error",
+      "url": "https://stackoverflow.com/questions/10570702/launch4j-jre-required-error",
+      "posted": "2012-05-13",
+      "score": 6,
+      "views": 5793,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "launch4j"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "30121485-the-connection-pool-for-database-has-been-unable-to-grant-a-connection-to-thread-",
+      "question_id": "30121485",
+      "status": "indexed",
+      "rank": 122,
+      "candidate_rank": 122,
+      "title": "The connection pool for database has been unable to grant a connection to thread 602 (Binder_2) with flags 0x1",
+      "url": "https://stackoverflow.com/questions/30121485/the-connection-pool-for-database-has-been-unable-to-grant-a-connection-to-thread",
+      "posted": "2015-05-08",
+      "score": 8,
+      "views": 2648,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "android",
+        "sqlite"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "31729516-spring-boot-camel-case-nested-property-as-environment-variable",
+      "question_id": "31729516",
+      "status": "indexed",
+      "rank": 123,
+      "candidate_rank": 123,
+      "title": "spring-boot camel case nested property as environment variable",
+      "url": "https://stackoverflow.com/questions/31729516/spring-boot-camel-case-nested-property-as-environment-variable",
+      "posted": "2015-07-30",
+      "score": 8,
+      "views": 5569,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "spring-boot",
+        "environment-variables"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "27322150-how-should-a-custom-guice-scope-be-integrated-with-testng",
+      "question_id": "27322150",
+      "status": "indexed",
+      "rank": 124,
+      "candidate_rank": 124,
+      "title": "How should a custom Guice scope be integrated with TestNG?",
+      "url": "https://stackoverflow.com/questions/27322150/how-should-a-custom-guice-scope-be-integrated-with-testng",
+      "posted": "2014-12-05",
+      "score": 12,
+      "views": 540,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "junit",
+        "testng",
+        "guice"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "13372337-annotation-rolesallowed-does-not-work-on-web-service-deployed-in-tomcat-7-0-32",
+      "question_id": "13372337",
+      "status": "indexed",
+      "rank": 125,
+      "candidate_rank": 125,
+      "title": "Annotation @RolesAllowed does not work on Web Service deployed in Tomcat 7.0.32",
+      "url": "https://stackoverflow.com/questions/13372337/annotation-rolesallowed-does-not-work-on-web-service-deployed-in-tomcat-7-0-32",
+      "posted": "2012-11-14",
+      "score": 6,
+      "views": 1150,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "web-services",
+        "annotations",
+        "jax-ws",
+        "tomcat7"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "23553053-can-t-get-opencv-to-work-with-java-maven-intellij",
+      "question_id": "23553053",
+      "status": "indexed",
+      "rank": 126,
+      "candidate_rank": 126,
+      "title": "Can't get OpenCV to work with Java+Maven+IntelliJ",
+      "url": "https://stackoverflow.com/questions/23553053/cant-get-opencv-to-work-with-javamavenintellij",
+      "posted": "2014-05-08",
+      "score": 6,
+      "views": 2467,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "maven",
+        "opencv",
+        "intellij-idea",
+        "maven-3"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Build lifecycle command output, dependency-resolution failure, then passing verification."
+    },
+    {
+      "id": "30653213-samza-kafka-failed-to-update-metadata",
+      "question_id": "30653213",
+      "status": "indexed",
+      "rank": 127,
+      "candidate_rank": 127,
+      "title": "Samza/Kafka Failed to Update Metadata",
+      "url": "https://stackoverflow.com/questions/30653213/samza-kafka-failed-to-update-metadata",
+      "posted": "2015-06-04",
+      "score": 9,
+      "views": 5181,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "metadata",
+        "apache-kafka",
+        "apache-samza"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "26489195-android-biginteger-arithmeticexception",
+      "question_id": "26489195",
+      "status": "indexed",
+      "rank": 128,
+      "candidate_rank": 128,
+      "title": "Android BigInteger ArithmeticException",
+      "url": "https://stackoverflow.com/questions/26489195/android-biginteger-arithmeticexception",
+      "posted": "2014-10-21",
+      "score": 13,
+      "views": 1110,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "android",
+        "rsa",
+        "biginteger",
+        "arithmeticexception"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "21587844-hibernate-unsaved-value-annotation",
+      "question_id": "21587844",
+      "status": "indexed",
+      "rank": 129,
+      "candidate_rank": 129,
+      "title": "Hibernate unsaved-value annotation",
+      "url": "https://stackoverflow.com/questions/21587844/hibernate-unsaved-value-annotation",
+      "posted": "2014-02-05",
+      "score": 6,
+      "views": 5103,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "hibernate",
+        "annotations"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Executable test or integration harness showing the original behavior and the fixed behavior."
+    },
+    {
+      "id": "32047440-different-benchmarking-results-between-forks-in-jmh",
+      "question_id": "32047440",
+      "status": "indexed",
+      "rank": 130,
+      "candidate_rank": 130,
+      "title": "Different benchmarking results between forks in JMH",
+      "url": "https://stackoverflow.com/questions/32047440/different-benchmarking-results-between-forks-in-jmh",
+      "posted": "2015-08-17",
+      "score": 6,
+      "views": 1096,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "performance",
+        "benchmarking",
+        "jmh"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "30173709-jni-setbytearrayregion-does-not-work",
+      "question_id": "30173709",
+      "status": "indexed",
+      "rank": 131,
+      "candidate_rank": 131,
+      "title": "JNI - SetByteArrayRegion does not work",
+      "url": "https://stackoverflow.com/questions/30173709/jni-setbytearrayregion-does-not-work",
+      "posted": "2015-05-11",
+      "score": 7,
+      "views": 2353,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "c",
+        "java-native-interface",
+        "jniwrapper"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "18054059-tomcat-6-0-28-unresponsive-because-of-blocked-threads-during-soak-test",
+      "question_id": "18054059",
+      "status": "indexed",
+      "rank": 132,
+      "candidate_rank": 132,
+      "title": "Tomcat 6.0.28 Unresponsive Because of Blocked Threads During Soak Test",
+      "url": "https://stackoverflow.com/questions/18054059/tomcat-6-0-28-unresponsive-because-of-blocked-threads-during-soak-test",
+      "posted": "2013-08-05",
+      "score": 8,
+      "views": 2323,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "multithreading",
+        "tomcat",
+        "garbage-collection",
+        "deadlock"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "30880478-eclipse-uses-old-path-variable-to-execute-command-line-process-in-gradle-task",
+      "question_id": "30880478",
+      "status": "indexed",
+      "rank": 133,
+      "candidate_rank": 133,
+      "title": "Eclipse uses old PATH variable to execute command line process in Gradle Task?",
+      "url": "https://stackoverflow.com/questions/30880478/eclipse-uses-old-path-variable-to-execute-command-line-process-in-gradle-task",
+      "posted": "2015-06-17",
+      "score": 9,
+      "views": 1069,
+      "answers": 2,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "android",
+        "eclipse",
+        "groovy",
+        "gradle"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "gradle"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Gradle classpath/build output, failing assertion or dependency graph evidence, then passing verification."
+    },
+    {
+      "id": "32801536-javapoet-android-studio-addmodifiers-modifier-cannot-be-applied-to-modifier",
+      "question_id": "32801536",
+      "status": "indexed",
+      "rank": 134,
+      "candidate_rank": 134,
+      "title": "JavaPoet + Android Studio \"addModifiers(Modifier) cannot be applied to Modifier\"",
+      "url": "https://stackoverflow.com/questions/32801536/javapoet-android-studio-addmodifiersmodifier-cannot-be-applied-to-modifier",
+      "posted": "2015-09-26",
+      "score": 11,
+      "views": 1033,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "android",
+        "intellij-idea",
+        "javapoet"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "33318257-spring-data-jpa-custom-sort-in-jparepository",
+      "question_id": "33318257",
+      "status": "indexed",
+      "rank": 136,
+      "candidate_rank": 136,
+      "title": "Spring Data JPA - Custom Sort in JpaRepository",
+      "url": "https://stackoverflow.com/questions/33318257/spring-data-jpa-custom-sort-in-jparepository",
+      "posted": "2015-10-24",
+      "score": 9,
+      "views": 15353,
+      "answers": 2,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "spring",
+        "jpa",
+        "spring-data",
+        "spring-data-jpa"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Executable test or integration harness showing the original behavior and the fixed behavior."
+    },
+    {
+      "id": "31784658-how-can-i-loop-through-all-rgb-combinations-in-rainbow-order-in-java",
+      "question_id": "31784658",
+      "status": "indexed",
+      "rank": 137,
+      "candidate_rank": 137,
+      "title": "How can I loop through all RGB combinations in rainbow order in Java?",
+      "url": "https://stackoverflow.com/questions/31784658/how-can-i-loop-through-all-rgb-combinations-in-rainbow-order-in-java",
+      "posted": "2015-08-03",
+      "score": 9,
+      "views": 12501,
+      "answers": 3,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "loops",
+        "colors",
+        "rgb"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "25347892-how-can-i-add-shadow-to-imagebutton",
+      "question_id": "25347892",
+      "status": "indexed",
+      "rank": 139,
+      "candidate_rank": 139,
+      "title": "How can I add shadow to ImageButton?",
+      "url": "https://stackoverflow.com/questions/25347892/how-can-i-add-shadow-to-imagebutton",
+      "posted": "2014-08-17",
+      "score": 8,
+      "views": 10867,
+      "answers": 1,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "android",
+        "html",
+        "css",
+        "button"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "12785052-java-lang-noclassdeffounderror-could-not-initialize-class-com-sun-xml-internal-ws",
+      "question_id": "12785052",
+      "status": "indexed",
+      "rank": 140,
+      "candidate_rank": 140,
+      "title": "java.lang.NoClassDefFoundError: Could not initialize class com.sun.xml.internal.ws.fault.SOAPFaultBuilder",
+      "url": "https://stackoverflow.com/questions/12785052/java-lang-noclassdeffounderror-could-not-initialize-class-com-sun-xml-internal",
+      "posted": "2012-10-08",
+      "score": 7,
+      "views": 11338,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "soap",
+        "jboss",
+        "jax-ws"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "27356794-optimisticlockexception-in-pessimistic-locking",
+      "question_id": "27356794",
+      "status": "indexed",
+      "rank": 142,
+      "candidate_rank": 142,
+      "title": "OptimisticLockException in pessimistic locking",
+      "url": "https://stackoverflow.com/questions/27356794/optimisticlockexception-in-pessimistic-locking",
+      "posted": "2014-12-08",
+      "score": 9,
+      "views": 2132,
+      "answers": 2,
+      "cold_signal": "Answers exist; top score 0",
+      "tags": [
+        "java",
+        "spring",
+        "hibernate",
+        "jakarta-ee"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Executable test or integration harness showing the original behavior and the fixed behavior."
+    },
+    {
+      "id": "26933928-usable-lock-files-in-java",
+      "question_id": "26933928",
+      "status": "indexed",
+      "rank": 143,
+      "candidate_rank": 143,
+      "title": "Usable lock-files in Java",
+      "url": "https://stackoverflow.com/questions/26933928/usable-lock-files-in-java",
+      "posted": "2014-11-14",
+      "score": 1,
+      "views": 407,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "file",
+        "locking",
+        "file-locking"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic",
+      "question_id": "26933374",
+      "status": "indexed",
+      "rank": 144,
+      "candidate_rank": 144,
+      "title": "LinkageError using lucene with spring redeploying on tomcat or weblogic",
+      "url": "https://stackoverflow.com/questions/26933374/linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic",
+      "posted": "2014-11-14",
+      "score": 0,
+      "views": 697,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "spring",
+        "spring-mvc",
+        "tomcat",
+        "lucene"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Executable test or integration harness showing the original behavior and the fixed behavior."
+    },
+    {
+      "id": "26921457-memory-disk-cache-with-jcs-1-3",
+      "question_id": "26921457",
+      "status": "indexed",
+      "rank": 145,
+      "candidate_rank": 145,
+      "title": "memory & disk cache with JCS 1.3",
+      "url": "https://stackoverflow.com/questions/26921457/memory-disk-cache-with-jcs-1-3",
+      "posted": "2014-11-14",
+      "score": 3,
+      "views": 994,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "caching",
+        "offline-caching",
+        "jcs"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "26929298-background-thread-factory-pattern",
+      "question_id": "26929298",
+      "status": "indexed",
+      "rank": 146,
+      "candidate_rank": 146,
+      "title": "Background thread factory pattern",
+      "url": "https://stackoverflow.com/questions/26929298/background-thread-factory-pattern",
+      "posted": "2014-11-14",
+      "score": 0,
+      "views": 224,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "android",
+        "multithreading",
+        "factory"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [
+        "Android stack may need hostless emulation or a narrowed JVM reproduction."
+      ],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "26922710-java-lang-nosuchfielderror-com-ibm-ws-ssl-core-constants-all-protocols",
+      "question_id": "26922710",
+      "status": "indexed",
+      "rank": 149,
+      "candidate_rank": 149,
+      "title": "java.lang.NoSuchFieldError: com/ibm/ws/ssl/core/Constants.ALL_PROTOCOLS",
+      "url": "https://stackoverflow.com/questions/26922710/java-lang-nosuchfielderror-com-ibm-ws-ssl-core-constants-all-protocols",
+      "posted": "2014-11-14",
+      "score": 0,
+      "views": 892,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "jakarta-ee",
+        "jms",
+        "websphere-8"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Runnable reproduction command, raw logs, and a final verification command with pass/fail evidence."
+    },
+    {
+      "id": "26923554-heroku-app-crashes-on-boot-timeout-60-seconds-but-app-started-in-30-seconds",
+      "question_id": "26923554",
+      "status": "indexed",
+      "rank": 150,
+      "candidate_rank": 150,
+      "title": "Heroku app crashes on boot timeout (60 seconds) but app started in 30 seconds",
+      "url": "https://stackoverflow.com/questions/26923554/heroku-app-crashes-on-boot-timeout-60-seconds-but-app-started-in-30-seconds",
+      "posted": "2014-11-14",
+      "score": 2,
+      "views": 450,
+      "answers": 0,
+      "cold_signal": "No answers",
+      "tags": [
+        "java",
+        "spring",
+        "heroku",
+        "timeout"
+      ],
+      "why_interesting": "",
+      "shortlist": false,
+      "runtime_hints": [
+        "java21",
+        "maven"
+      ],
+      "risk_hints": [],
+      "expected_lark_evidence": "Executable test or integration harness showing the original behavior and the fixed behavior."
+    }
+  ]
+}

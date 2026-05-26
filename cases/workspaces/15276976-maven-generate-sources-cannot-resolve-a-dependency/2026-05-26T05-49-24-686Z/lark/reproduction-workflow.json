@@ -1,0 +1,5 @@
+{
+  "name": "Coding Cold Cases - Hackathon - Maven generate-sources cannot resolve a dependency - Reproduction Evidence",
+  "mode": "ai_driven",
+  "description": "You are Lark acting as the forensic lab for Coding Cold Cases Cracker.\nRemote workspace: https://github.com/egocks/coding-cold-cases-cracker/tree/cold-case/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z\nOriginal case: https://stackoverflow.com/questions/15276976/maven-generate-sources-cannot-resolve-a-dependency\nReproduction command: cd repro && mvn generate-sources\nInspect the workspace and run or evaluate the reproduction path.\nConfirm whether the observed failure matches the Stack Overflow cold case or a responsible minimal model of it.\nReturn the exact evidence that Kiro should use for repair."
+}
