@@ -1,0 +1,129 @@
+[stderr] Cloning into 'repo'...
+[stderr] warning: You appear to have cloned an empty repository.
+[stderr] Switched to a new branch 'cold-case/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z'
+[stdout] [cold-case/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z (root-commit) 41c0a78] Add cold case run 15276976-maven-generate-sources-cannot-resolve-a-dependency 2026-05-26T05-49-24-686Z
+ 43 files changed, 1050 insertions(+)
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/.kiro/agents/case-investigator.json
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/.kiro/steering/product.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/.kiro/steering/structure.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/.kiro/steering/tech.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/README.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/case-state.json
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/case.json
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/lark/README.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/lark/reproduction-workflow.json
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/lark/verification-workflow.json
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/logs/pipeline-live.log
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/original/original-question.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/original/source-fetch-note.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/prompts/kiro-handoff.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modA/pom.xml
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modA/src/main/java/com/group/moda/ModAClass.java
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modA/target/classes/com/group/moda/ModAClass.class
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modA/target/maven-archiver/pom.properties
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modA/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modA/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modA/target/modA-1.7.0.jar
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/pom.xml
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/classes/META-INF/JAXB/episode_xjc_raw.xjb
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/classes/com/group/jaxb/Greeting.class
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/classes/com/group/jaxb/ObjectFactory.class
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/classes/com/group/jaxb/package-info.class
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/generated-sources/jaxb/META-INF/JAXB/episode_xjc_raw.xjb
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/generated-sources/jaxb/com/group/jaxb/Greeting.java
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/generated-sources/jaxb/com/group/jaxb/ObjectFactory.java
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/generated-sources/jaxb/com/group/jaxb/package-info.java
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/jaxb2/.xjc_raw-xjcStaleFlag
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/maven-archiver/pom.properties
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/target/modB-1.7.0.jar
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/modB/xsd/greeting.xsd
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repaired/pom.xml
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/reports/technical-report.md
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repro/modA/pom.xml
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repro/modA/src/main/java/com/group/moda/ModAClass.java
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repro/modB/pom.xml
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repro/modB/xsd/greeting.xsd
+ create mode 100644 cases/workspaces/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z/repro/pom.xml
+[stderr] fatal: unable to access 'https://github.com/egocks/coding-cold-cases-cracker.git/': The requested URL returned error: 403
+[stderr] remote: Permission to egocks/coding-cold-cases-cracker.git denied to egocks.
+[stdout] {
+  "id": "wfl_grp_mBtbWoMSLzGnu7kcb3KD9pKO",
+  "name": "Coding Cold Cases - Hackathon - 15276976-maven-generate-sources-cannot-resolve-a-dependency - 2026-05-26T05-49-24-686Z",
+  "workflow_count": 0,
+  "created_at": "2026-05-26T06:38:58.586143+00:00",
+  "updated_at": "2026-05-26T06:38:58.586143+00:00"
+}
+[stdout] {
+  "id": "wflw_xNYga5qXMoLcbq7NQppvAHrL",
+  "name": "Coding Cold Cases - Hackathon - Maven generate-sources cannot resolve a dependency - Reproduction Evidence",
+  "status": "active",
+  "display_status": "never_run",
+  "description": "You are Lark acting as the forensic lab for Coding Cold Cases Cracker.\nRemote workspace: PUBLISH_URL_PENDING\nOriginal case: https://stackoverflow.com/questions/15276976/maven-generate-sources-cannot-resolve-a-dependency\nReproduction command: cd repro && mvn generate-sources\nInspect the workspace and run or evaluate the reproduction path.\nConfirm whether the observed failure matches the Stack Overflow cold case or a responsible minimal model of it.\nReturn the exact evidence that Kiro should use for repair.",
+  "secret_contexts": null,
+  "mode": "ai_driven",
+  "deterministic_details": null,
+  "last_execution_id": null,
+  "last_execution_started_at": null,
+  "last_execution_stopped_at": null,
+  "last_execution_result_type": null,
+  "last_generation_id": null,
+  "last_generation_started_at": null,
+  "last_generation_stopped_at": null,
+  "last_generation_result_type": null,
+  "last_repair_id": null,
+  "last_repair_started_at": null,
+  "last_repair_stopped_at": null,
+  "last_repair_result_type": null,
+  "last_summarization_id": null,
+  "last_summarization_started_at": null,
+  "last_summarization_stopped_at": null,
+  "last_summarization_result_type": null,
+  "schedule": null,
+  "group_id": "wfl_grp_mBtbWoMSLzGnu7kcb3KD9pKO",
+  "template_id": null,
+  "next_execution_at": null,
+  "archived_at": null,
+  "muted_until": null,
+  "is_muted": false,
+  "created_at": "2026-05-26T06:38:59.946675+00:00",
+  "updated_at": "2026-05-26T06:38:59.946675+00:00"
+}
+[stdout] {
+  "id": "wflw_XQ8V4UIRGMnMu0AvReWx9JFq",
+  "name": "Coding Cold Cases - Hackathon - Maven generate-sources cannot resolve a dependency - Verification",
+  "status": "pending_generation",
+  "display_status": "never_run",
+  "description": "You are Lark acting as an independent forensic verifier for Coding Cold Cases Cracker.\nRemote workspace: PUBLISH_URL_PENDING\nOriginal case: https://stackoverflow.com/questions/15276976/maven-generate-sources-cannot-resolve-a-dependency\nVerification command: cd repaired && mvn package\nClone or inspect the reachable workspace, run the verification command when possible, and confirm whether the original failure is fixed.\nReturn pass/fail evidence, exact logs, and any residual risk. The case may be Closed only if this verification passes.",
+  "secret_contexts": null,
+  "mode": "deterministic",
+  "deterministic_details": null,
+  "last_execution_id": null,
+  "last_execution_started_at": null,
+  "last_execution_stopped_at": null,
+  "last_execution_result_type": null,
+  "last_generation_id": null,
+  "last_generation_started_at": null,
+  "last_generation_stopped_at": null,
+  "last_generation_result_type": null,
+  "last_repair_id": null,
+  "last_repair_started_at": null,
+  "last_repair_stopped_at": null,
+  "last_repair_result_type": null,
+  "last_summarization_id": null,
+  "last_summarization_started_at": null,
+  "last_summarization_stopped_at": null,
+  "last_summarization_result_type": null,
+  "schedule": null,
+  "group_id": "wfl_grp_mBtbWoMSLzGnu7kcb3KD9pKO",
+  "template_id": null,
+  "next_execution_at": null,
+  "archived_at": null,
+  "muted_until": null,
+  "is_muted": false,
+  "created_at": "2026-05-26T06:39:01.207670+00:00",
+  "updated_at": "2026-05-26T06:39:01.207670+00:00"
+}
+[stderr] Cloning into 'repo'...
+[stderr] Switched to a new branch 'cold-case/15276976-maven-generate-sources-cannot-resolve-a-dependency/2026-05-26T05-49-24-686Z'
