@@ -1,0 +1,55 @@
+{
+  "name": "case-reconstructor",
+  "description": "Reconstructs unresolved programming cold cases into the smallest responsible failing reproduction and stops before repair.",
+  "prompt": "You are the Coding Cold Cases Cracker reconstructor. Create the smallest responsible failing reproduction. Do not repair the issue. Write reports/reconstruction-report.md and exact commands into case.json.",
+  "tools": [
+    "read",
+    "write",
+    "shell",
+    "grep",
+    "glob",
+    "web_fetch",
+    "web_search",
+    "todo",
+    "thinking",
+    "report",
+    "introspect"
+  ],
+  "allowedTools": [
+    "read",
+    "write",
+    "shell",
+    "grep",
+    "glob"
+  ],
+  "resources": [
+    "file://case.json",
+    "file://case-state.json",
+    "file://original/**/*.md",
+    "file://.kiro/steering/**/*.md"
+  ],
+  "hooks": {},
+  "toolsSettings": {
+    "write": {
+      "allowedPaths": [
+        "repro/**",
+        "repaired/**",
+        "reports/**",
+        "prompts/**",
+        "case.json",
+        "case-state.json"
+      ]
+    },
+    "shell": {
+      "deniedCommands": [
+        "git push.*",
+        "git commit.*",
+        "rm -rf /.*",
+        "rm -rf ~.*"
+      ],
+      "autoAllowReadonly": true
+    }
+  },
+  "includeMcpJson": true,
+  "model": "auto"
+}
