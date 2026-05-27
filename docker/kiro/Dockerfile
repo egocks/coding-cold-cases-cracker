@@ -16,6 +16,7 @@ RUN apt-get update \
     nodejs \
     openssh-client \
     procps \
+    tmux \
     ttyd \
     unzip \
     xz-utils \

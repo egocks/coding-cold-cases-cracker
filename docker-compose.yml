@@ -6,6 +6,7 @@ services:
     environment:
       APP_PORT: "3000"
       TERMINAL_URL: "http://localhost:${HOST_TERMINAL_PORT:-7681}"
+      TERMINAL_CONTROL_URL: "http://terminal:7682"
     ports:
       - "${HOST_APP_PORT:-3000}:3000"
     volumes:
@@ -26,10 +27,12 @@ services:
       dockerfile: docker/kiro/Dockerfile
     environment:
       TERM: xterm-256color
+      TMUX_SESSION: coldcase
+      TERMINAL_CONTROL_PORT: "7682"
     ports:
       - "${HOST_TERMINAL_PORT:-7681}:7681"
     working_dir: /workspace
-    command: ["bash", "-lc", "set -a; [ -f .env ] && source .env; set +a; exec ttyd -W -p 7681 -t titleFixed='Coding Cold Cases Cracker' bash /workspace/scripts/terminal-menu.sh"]
+    command: ["bash", "-lc", "set -a; [ -f .env ] && source .env; set +a; exec bash /workspace/scripts/tmux-terminal-entrypoint.sh"]
     volumes:
       - .:/workspace
       - kiro-data:/root/.local/share/kiro-cli

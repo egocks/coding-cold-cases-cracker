@@ -1,6 +1,6 @@
 # Known Limitations
 
-- Docker Desktop on the development machine previously hit a local BuildKit/containerd metadata I/O error. This is documented in `docs/blockers.md` and should be retested after Docker Desktop recovery.
+- Docker Desktop on the development machine previously hit a local BuildKit/containerd metadata I/O error. This is documented in `blockers.md` and should be retested after Docker Desktop recovery.
 - Some cases depend on Android, Vagrant, desktop tools, historical services, or old repositories. These may become `partial` or `blocked` unless a responsible minimal model can be created.
 - `KIRO_API_KEY` is optional, but fully unattended runs need it. Blank keys use supervised Kiro login in the browser terminal.
 - GitHub publishing needs `GITHUB_TOKEN`. Without it, Lark may be unable to access generated local workspaces remotely.

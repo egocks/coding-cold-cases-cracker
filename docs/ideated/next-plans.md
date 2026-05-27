@@ -26,4 +26,4 @@
 - The earlier external writer artifacts were scrubbed; both existing run report sets have now been regenerated through the focused Kiro writer and accepted by quality gates.
 - The Maven case is now legitimately `Closed`.
 - The implementation has been refactored to the concept-aligned pipeline: Kiro reconstruction, Lark reproduction evidence, Kiro repair, Lark verification, Kiro creative writer.
-- Kiro agent research notes have been captured in `docs/kiro-agent-research-notes.md`.
+- Kiro agent research notes have been captured in `../info/kiro-agent-research-notes.md`.

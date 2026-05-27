@@ -213,7 +213,7 @@ The browser terminal should feel like an investigative console where Kiro can ta
 
 The current `case-file.md` is effectively a templated technical report. That does not satisfy the concept. The concept asks for a highly creative narrative: fictionalized detective flavor, possible OP background, epilogue, and story energy, while still grounded in evidence.
 
-The reference standard is `docs/case-closed-example.md`: the story should read like literary technical fiction about a real debugging cold case, not like a generated incident report. It may invent scene texture, character names, mood, and dramatic framing, but the technical sequence must remain faithful to the evidence.
+The reference standard is `../info/case-closed-example.md`: the story should read like literary technical fiction about a real debugging cold case, not like a generated incident report. It may invent scene texture, character names, mood, and dramatic framing, but the technical sequence must remain faithful to the evidence.
 
 #### Target
 
@@ -256,7 +256,7 @@ Groq should produce a memorable cold case story, not just formatted facts.
 
 #### Acceptance Criteria
 
-- `case-file.md` reads like a compelling cold case story in the spirit of `docs/case-closed-example.md`.
+- `case-file.md` reads like a compelling cold case story in the spirit of `../info/case-closed-example.md`.
 - `technical-report.md` remains sober and replayable.
 - `judge-summary.md` is short, persuasive, and directly tied to Lark's value.
 
@@ -365,13 +365,13 @@ The project should be ready for a judge to run, inspect, and understand quickly.
 
 - Finalize docs:
   - `README.md`
-  - `docs/quickstart.md`
-  - `docs/architecture.md`
-  - `docs/lark-integration.md`
-  - `docs/demo-script.md`
-  - `docs/known-limitations.md`
-  - `docs/next-plans.md`
-  - `docs/submission-writeup.md`
+  - `../info/quickstart.md`
+  - `architecture.md`
+  - `lark-integration.md`
+  - `../ideated/demo-script.md`
+  - `../info/known-limitations.md`
+  - `../ideated/next-plans.md`
+  - `../ideated/submission-writeup.md`
 - Capture screenshots:
   - Cold Case Menu,
   - case detail dossier,

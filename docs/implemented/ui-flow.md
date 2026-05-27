@@ -134,6 +134,20 @@ The UI should feel like a serious investigative terminal, not a parody detective
    - Very subtle scanline/glass treatment is acceptable in the terminal area
    - Avoid decorative gradient blobs, bright cyber gradients, or glossy UI panels that break the case-desk mood
 
+5. The generated `retro_investigator.png` is the web-shell visual identity anchor
+   - Used on the Title Page, Options Page, and About Page as full-bleed noir atmosphere.
+   - The image is darkened and cropped responsively so page text remains readable.
+   - The image is not embedded inside the terminal iframe; the TUI remains the product surface.
+
+### TUI visual implementation
+
+The TUI uses lightweight terminal styling rather than a heavy terminal UI framework:
+
+- ANSI color is used only when stdout is a TTY and `NO_COLOR` is not set.
+- Screens share simple helpers for titles, section labels, status badges, muted metadata, evidence rows, and action footers.
+- Cold Case uses cold blue; active casework uses amber; validated/closed evidence uses green; Unproven uses evidence red; metadata uses muted gray-green.
+- Styling remains readable as plain text when color is disabled.
+
 
 ## Page Details
 
@@ -152,9 +166,72 @@ Menu options:
 - [ ] Skip title next time
 
 These are presented as retro-style buttons. The skip is a checkbox.
-Hovering over the buttons puts the button within [ square brackets ]. Using arrows on the keyboard should also work.
+Hovering over the buttons puts the button within [ square brackets ]. Arrow Up/Down moves the selected title action, and Enter activates the selected action. Keyboard selection does not interfere with the skip-title checkbox when the checkbox has focus.
 
 The page elements are all centered, and the page fits in the viewport without any scrolling. Decreasing the window size keeps the elements centered and doesn't cause any overflow.
+
+The title page uses `retro_investigator.png` as a full-viewport background image with a dark noir scrim. The title, tagline, menu, and skip-title checkbox are overlaid directly on the image, not inside a large card.
+
+### Title-page Options Page
+
+The Options entry on the Title Page opens a separate web page, not a terminal screen and not a modal.
+
+Implementation details:
+
+- Route: `/options`
+- Direct browser navigation to `/options` opens Options directly.
+- Browser Back/Forward works normally between `/`, `/options`, `/about`, and `/desk`.
+- The page is scrollable when content exceeds the viewport; it must never be clipped like a fixed dialog.
+- Top page navigation links to Title, Terminal Desk, and About.
+- The layout is full-page and editorial/instrument-panel-like, not a centered modal card with a Back button.
+
+Options content:
+
+- A short list of service connection controls:
+  - Kiro authenticated state plus Authenticate/Re-Authenticate action.
+  - Lark connected state plus Connect/Re-Connect action.
+  - GitHub connected state plus Connect/Re-Connect action.
+  - Placeholder #1.
+  - Placeholder #2.
+
+The Options page copy should be terse product copy. It should not include local developer setup instructions, environment variable names, Docker commands, readiness diagnostics, or explanations about why unrelated information is absent. Those details belong in repository documentation.
+
+### Title-page About Page
+
+The About entry on the Title Page opens a separate web page, not a terminal screen and not a modal.
+
+Implementation details:
+
+- Route: `/about`
+- Direct browser navigation to `/about` opens About directly.
+- Browser Back/Forward works normally between `/`, `/options`, `/about`, and `/desk`.
+- The page is scrollable when content exceeds the viewport; tutorial/status content must remain reachable.
+- Top page navigation links to Title, Terminal Desk, and Options.
+- The layout is full-page, with the noir image as atmospheric backdrop rather than a dialog container.
+
+About content:
+
+- A brief intro to Coding Cold Cases Cracker and its purpose.
+- Explanation of `Vet. Vibe. Validate.`:
+  - reconstruct the failure;
+  - work the fix;
+  - prove the close.
+- Brief tutorial covering:
+  - title navigation;
+  - terminal navigation;
+  - bezel buttons;
+  - case statuses;
+  - Start Casework;
+  - Monitor;
+  - Examine;
+  - Confer;
+  - Approve.
+- A Lark section explaining why it was used:
+  - independent workflow execution;
+  - reproducible evidence;
+  - CLI-first automation;
+  - preserved artifacts;
+  - validation as the closure gate.
 
 ### Full Screen Terminal (Case Desk)
 
@@ -185,7 +262,7 @@ Most bezel controls will just be square buttons with icons. No labels, but with 
 
 #### Terminal view
 
-Simply titled "Case Desk" at the top. No decorated heading. Only horizontal lines delineating menu areas.
+Simply titled "Case Desk" at the top. No decorated heading. Screens use the title plus a plain underline, with only simple horizontal separation where needed.
 
 Provides the following options:
 - Cold Cases
@@ -358,7 +435,7 @@ Start Casework runs the full Vet -> Vibe -> Validate flow. After casework has st
 
 Confer with agent is always available from a Case File. Before casework starts, it supports pre-briefing, brainstorming, risk review, and possible reproduction strategy. After casework starts, it can discuss the active run, evidence, artifacts, and next investigative moves.
 
-Monitor Casework is read-only. It shows the live timeline, phase status, logs, artifacts, and current verdict state, but it does not let the user steer or modify the run.
+Monitor Casework is read-only. It shows the timeline, phase status, logs, artifacts, and current verdict state, but it does not let the user steer or modify the run. It may be semi-static rather than live-updating, so `R=Refresh` reloads the latest run state from disk and re-renders the screen without mutating artifacts or case state.
 
 Confer with agent launches a Kiro terminal session rather than an in-app chat panel. Before casework starts, this is a pre-briefing session grounded in the selected case metadata and source text; it must not start the Vet -> Vibe -> Validate pipeline or imply that evidence has been collected. After casework starts, the Kiro session is grounded in the active run workspace and artifacts, but remains read-only while the run is actively proceeding.
 
@@ -381,9 +458,22 @@ The Solved Cases Gallery contains only truly closed cases: cases whose validated
 
 When a case moves from **Resolution Validated** to **Case Closed**, it is removed from the Cold Cases Cabinet and added to the Solved Cases Gallery.
 
+Selecting a gallery case opens the narrative case file first. This is intentional: the first experience should feel like reading the finished case file, not dropping into an operational monitor. The story reader keeps the noir case-file frame minimal and terminal-native.
+
+Story reader actions:
+
+```
+Actions: E=Evidence, M=Monitor, D=Download, C=Confer, B=Back
+```
+
+- **Evidence** opens the Evidence Board.
+- **Monitor** opens the read-only Investigation Console.
+- **Download** creates or opens the case archive.
+- **Confer** opens the agent handoff/debrief command.
+
 **Bulletins**
 
-Bulletins are the status update inbox for the Case Desk. They explain important case movement and investigation events, especially transitions that would otherwise feel invisible:
+Bulletins are the retro noir notification inbox for the Case Desk. They explain important case movement and investigation events, especially transitions that would otherwise feel invisible:
 
 - A case was prepared.
 - Casework started.
@@ -396,3 +486,45 @@ Bulletins are the status update inbox for the Case Desk. They explain important 
 - A closed case was reopened for further action.
 
 Bulletins should use concise investigative language and link back to the relevant Case File.
+
+Bulletins are derived from run timeline events, but inbox state is local generated app state. Read/unread, dismissed/archive, and muted-wire state is persisted locally so the TUI and API share the same inbox across restarts.
+
+Default behavior:
+
+- The default view is **Inbox**.
+- Inbox hides dismissed bulletins.
+- Inbox hides muted bulletins.
+- Unread bulletins sort before read bulletins.
+- Newer bulletins sort before older bulletins.
+- Merge is on by default to reduce noise.
+
+Filters:
+
+- **Inbox** - active non-dismissed, non-muted bulletins
+- **Unread** - unread active bulletins
+- **Read** - read active bulletins
+- **Archive** - dismissed bulletins
+- **Muted** - muted case/type wires
+
+Merge behavior:
+
+- Repeated bulletins are merged by case and event type.
+- A merged row shows the latest message and a count.
+- Expanded mode shows individual bulletins.
+
+Inbox actions:
+
+```
+Actions: Up/Down=select, Enter=open, R=read/unread, A=mark visible read, D=dismiss, U=restore archive, M=mute wire, G=merge, F=filter, B=back
+```
+
+- **Enter** opens the relevant Investigation Console when a run exists, otherwise the Case Dossier.
+- **R** toggles the selected bulletin read/unread.
+- **A** marks all currently visible bulletins read.
+- **D** dismisses the selected bulletin into Archive.
+- **U** restores an archived bulletin to Inbox.
+- **M** mutes the selected case/event-type wire.
+- **G** toggles merged vs expanded view.
+- **F** cycles the active filter.
+
+Muted wires are scoped to a specific case and event type. This keeps noisy repeated updates quiet without muting major movement for unrelated cases.

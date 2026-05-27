@@ -10,9 +10,20 @@ import { findRunById, listCaseRuns, listRuns, updateRun } from "./lib/workspace.
 import { kiroCommand } from "./lib/kiro.js";
 import { zipsDir, ensureDir } from "./lib/paths.js";
 import { runCommand } from "./lib/runner.js";
-import { availableActions, bulletinsFromRuns, evidencePayload, isActiveRun, latestNonClosedRun, larkVerdict, publicStatus, publicStatusReason, STATUS_FILTERS } from "./lib/presenter.js";
+import { availableActions, BULLETIN_FILTERS, bulletinInbox, evidencePayload, isActiveRun, latestNonClosedRun, larkVerdict, publicStatus, publicStatusReason, STATUS_FILTERS, updateBulletinState } from "./lib/presenter.js";
 
 const command = process.argv[2] || "tui";
+const useColor = Boolean(output.isTTY && !process.env.NO_COLOR);
+const ansi = {
+  reset: "\x1b[0m",
+  bold: "\x1b[1m",
+  dim: "\x1b[2m",
+  amber: "\x1b[38;5;179m",
+  blue: "\x1b[38;5;75m",
+  green: "\x1b[38;5;78m",
+  red: "\x1b[38;5;167m",
+  muted: "\x1b[38;5;108m"
+};
 
 if (input.isTTY) emitKeypressEvents(input);
 
@@ -105,9 +116,8 @@ async function tui() {
   try {
     while (true) {
       printHeader("Case Desk");
-      console.log("Case Desk\n---------\n");
-      deskItems.forEach((item, index) => console.log(`${index === deskCursor ? ">" : " "} ${item.label}`));
-      console.log("\nActions: Up/Down=select, Enter=open, c=Cold Cases, g=Solved Cases, b=Bulletins, o=Options, a=About, q=Quit");
+      deskItems.forEach((item, index) => console.log(menuRow(item.label, index === deskCursor)));
+      printActions("Up/Down=select, Enter=open, c=Cold Cases, g=Solved Cases, b=Bulletins, o=Options, a=About, q=Quit");
       const deskInput = await menuInput(rl, "\nCase Desk> ");
       if (deskInput === "up") {
         deskCursor = wrapIndex(deskCursor - 1, deskItems.length);
@@ -131,18 +141,19 @@ async function tui() {
         const visibleCases = cabinetCases.slice(0, 18);
         cabinetCursor = clamp(cabinetCursor, 0, Math.max(visibleCases.length - 1, 0));
         printHeader("Cold Cases Cabinet");
-        console.log(`Search: ${search || "(none)"} | Filter: ${statusFilter} | Showing ${Math.min(cabinetCases.length, 18)} of ${cabinetCases.length} cases\n`);
+        console.log(dimLine(`Search: ${search || "(none)"} | Filter: ${statusFilter} | Showing ${Math.min(cabinetCases.length, 18)} of ${cabinetCases.length} cases`));
+        console.log("");
         visibleCases.forEach((item, idx) => {
           const runsForCase = cabinetRuns.filter((run) => run.case_id === item.id);
           const latest = latestNonClosedRun(runsForCase);
-          const marker = idx === cabinetCursor ? ">" : " ";
+          const marker = idx === cabinetCursor ? color(">", "green") : " ";
           const tags = item.tags.slice(0, 4).join(",");
-          console.log(`${marker} ${String(idx + 1).padStart(2, "0")}. ${item.title}`);
-          console.log(`     ${publicStatus(latest)} | answers ${item.answers} | score ${item.score} | views ${item.views} | ${item.cold_signal}`);
-          console.log(`     ${tags}`);
+          console.log(`${marker} ${color(String(idx + 1).padStart(2, "0"), "amber")}. ${item.title}`);
+          console.log(`    ${statusBadge(latest)} ${muted(`| answers ${item.answers} | score ${item.score} | views ${item.views} | ${item.cold_signal}`)}`);
+          console.log(`    ${muted(tags)}`);
         });
 
-        console.log("\nActions: Up/Down=select, Enter=pull case file, number=pull case file, /=Search, F=Filter, Esc=back");
+        printActions("Up/Down=select, Enter=pull case file, number=pull case file, /=Search, F=Filter, Esc=back");
         const answer = (await menuInput(rl, "\nCold Cases Cabinet> ")).trim();
         if (answer === "up") {
           cabinetCursor = wrapIndex(cabinetCursor - 1, visibleCases.length);
@@ -234,13 +245,14 @@ async function galleryConsole(rl) {
     const visibleRuns = runs.slice(0, 12);
     cursor = clamp(cursor, 0, Math.max(visibleRuns.length - 1, 0));
     printHeader("Case Closed Gallery");
-    console.log(`Search: ${search || "(none)"} | Showing ${Math.min(runs.length, 12)} of ${runs.length} gallery runs\n`);
+    console.log(dimLine(`Search: ${search || "(none)"} | Showing ${Math.min(runs.length, 12)} of ${runs.length} gallery runs`));
+    console.log("");
     visibleRuns.forEach((run, index) => {
-      console.log(`${index === cursor ? ">" : " "} ${String(index + 1).padStart(2, "0")}. ${statusBadge(run)} ${run.original.title}`);
-      console.log(`    ${larkVerdict(run)} | ${run.run_id}`);
-      if (run.github?.remote_url) console.log(`    ${run.github.remote_url}`);
+      console.log(`${index === cursor ? color(">", "green") : " "} ${color(String(index + 1).padStart(2, "0"), "amber")}. ${statusBadge(run)} ${run.original.title}`);
+      console.log(`    ${muted(`${larkVerdict(run)} | ${run.run_id}`)}`);
+      if (run.github?.remote_url) console.log(`    ${color(run.github.remote_url, "blue")}`);
     });
-    console.log("\nActions: Up/Down=select, Enter=view story, number=view story, /=search title/story, b=back");
+    printActions("Up/Down=select, Enter=view story, number=view story, /=search title/story, b=back");
     const answer = (await menuInput(rl, "\nGallery> ")).trim();
     if (answer === "up") {
       cursor = wrapIndex(cursor - 1, visibleRuns.length);
@@ -258,7 +270,7 @@ async function galleryConsole(rl) {
     }
     const index = answer === "enter" ? cursor : Number(answer) - 1;
     if (Number.isInteger(index) && visibleRuns[index]) {
-      await investigationConsole(rl, visibleRuns[index]);
+      await storyReader(rl, visibleRuns[index]);
     }
   }
 }
@@ -281,36 +293,56 @@ async function galleryRuns(search = "") {
   return scored;
 }
 
+async function storyReader(rl, run) {
+  while (true) {
+    const fresh = await findRunById(run.run_id);
+    printHeader("Case File");
+    console.log(`${color(fresh.original.title, "amber")}\n`);
+    await printFile(path.join(fresh.workspaceDir, "reports", "case-file.md"));
+    printActions("E=Evidence, M=Monitor, D=Download, C=Confer, B=Back");
+    const answer = (await menuInput(rl, "\nCase File> ")).trim().toLowerCase();
+    if (answer === "b" || answer === "escape") return;
+    if (answer === "e") await pause(rl, () => printEvidenceBoard(fresh));
+    if (answer === "m") await investigationConsole(rl, fresh);
+    if (answer === "d") {
+      console.log(`Zip: ${await zipRun(fresh)}`);
+      await ask(rl, "\nPress Enter to continue.");
+    }
+    if (answer === "c") await pause(rl, () => printConferCommand(fresh.original, fresh));
+  }
+}
+
 async function caseDetail(rl, coldCase) {
   while (true) {
     const runs = await listCaseRuns(coldCase.id);
     const latest = latestNonClosedRun(runs);
     const status = publicStatus(latest);
     printHeader("Case Dossier");
-    console.log(`\nCase File #${coldCase.rank}: ${coldCase.title}\n`);
+    console.log(`${color(`Case File #${coldCase.rank}`, "amber")}: ${color(coldCase.title, "bold")}\n`);
     if (coldCase.narrative_teaser) console.log(`${coldCase.narrative_teaser}\n`);
-    console.log(`Status: ${status}`);
-    if (latest) console.log(`Reason: ${publicStatusReason(latest)}`);
-    console.log("\n=== Origin ===\n");
+    printKeyValue("Status", statusBadge(latest));
+    if (latest) printKeyValue("Reason", publicStatusReason(latest));
+    sectionLabel("Origin");
     console.log(`${coldCase.title}\n`);
-    console.log(`${coldCase.url}\n`);
-    console.log(`Posted ${coldCase.posted} | Score ${coldCase.score} | Views ${coldCase.views} | Answers ${coldCase.answers}`);
-    console.log(`Signal: ${coldCase.cold_signal}`);
-    console.log(`Tags: ${coldCase.tags.join(", ")}`);
-    console.log(`Expected Lark evidence: ${coldCase.expected_lark_evidence}`);
-    if (coldCase.risk_hints.length) console.log(`Risk hints: ${coldCase.risk_hints.join(" ")}`);
-    console.log(`\nExcerpt: ${coldCase.why_interesting || "(no excerpt)"}\n`);
+    console.log(`${color(coldCase.url, "blue")}\n`);
+    printKeyValue("Posted", `${coldCase.posted} | Score ${coldCase.score} | Views ${coldCase.views} | Answers ${coldCase.answers}`);
+    printKeyValue("Signal", coldCase.cold_signal);
+    printKeyValue("Tags", coldCase.tags.join(", "));
+    printKeyValue("Expected Lark evidence", coldCase.expected_lark_evidence);
+    if (coldCase.risk_hints.length) printKeyValue("Risk hints", coldCase.risk_hints.join(" "));
+    sectionLabel("Excerpt");
+    console.log(`${coldCase.why_interesting || "(no excerpt)"}\n`);
     if (latest) {
-      console.log("=== Latest Run ===\n");
-      console.log(`Run: ${latest.run_id}`);
-      console.log(`Status: ${publicStatus(latest)} | ${larkVerdict(latest)}`);
-      if (latest.github?.remote_url) console.log(`GitHub: ${latest.github.remote_url}`);
+      sectionLabel("Latest Run");
+      printKeyValue("Run", latest.run_id);
+      printKeyValue("Status", `${statusBadge(latest)} ${muted(`| ${larkVerdict(latest)}`)}`);
+      if (latest.github?.remote_url) printKeyValue("GitHub", color(latest.github.remote_url, "blue"));
       console.log("");
     }
-    console.log(`Runs: ${runs.length}`);
+    printKeyValue("Runs", runs.length);
     runs.slice(0, 5).forEach((run) => console.log(`- ${run.run_id}: ${statusBadge(run)} | ${larkVerdict(run)}`));
-    console.log(`Solution available: ${runs.some((run) => run.status === "closed") ? "yes" : "not yet"}`);
-    console.log(`\nActions: ${actionFooter(latest)}`);
+    printKeyValue("Solution available", runs.some((run) => run.status === "closed") ? "yes" : "not yet");
+    printActions(actionFooter(latest));
     const answer = (await ask(rl, "\nCase File> ")).trim();
     if (answer.toLowerCase() === "esc") return;
     if (answer.toLowerCase() === "s") {
@@ -350,7 +382,7 @@ async function caseDetail(rl, coldCase) {
       }
       await ask(rl, "\nPress Enter to continue.");
     }
-    if (answer.toLowerCase() === "b") await pause(rl, () => printBulletins(coldCase.id));
+    if (answer.toLowerCase() === "b") await pause(rl, () => printBulletins({ caseId: coldCase.id }));
   }
 }
 
@@ -358,26 +390,28 @@ async function investigationConsole(rl, run) {
   while (true) {
     const fresh = await findRunById(run.run_id);
     printHeader("Investigation Console");
-    console.log(`${fresh.original.title}\n`);
-    console.log(`Run: ${fresh.run_id}`);
-    console.log(`Status: ${statusBadge(fresh)}`);
-    console.log(`Reason: ${publicStatusReason(fresh)}`);
-    console.log(`Lark Verdict: ${larkVerdict(fresh)}`);
-    if (fresh.github?.remote_url) console.log(`GitHub: ${fresh.github.remote_url}`);
-    console.log(`Reproduce: ${fresh.commands?.reproduce || "pending"}`);
-    console.log(`Verify: ${fresh.commands?.verify || "pending"}`);
-    console.log("\nTimeline:");
+    console.log(`${color(fresh.original.title, "amber")}\n`);
+    printKeyValue("Run", fresh.run_id);
+    printKeyValue("Status", statusBadge(fresh));
+    printKeyValue("Reason", publicStatusReason(fresh));
+    printKeyValue("Lark Verdict", color(larkVerdict(fresh), larkVerdict(fresh) === "Resolution Validated" ? "green" : "amber"));
+    if (fresh.github?.remote_url) printKeyValue("GitHub", color(fresh.github.remote_url, "blue"));
+    printKeyValue("Reproduce", fresh.commands?.reproduce || "pending");
+    printKeyValue("Verify", fresh.commands?.verify || "pending");
+    sectionLabel("Timeline");
     for (const event of (fresh.timeline || []).slice(-14)) {
-      console.log(`- ${event.at} | ${event.type} | ${event.message}`);
+      console.log(`${color("-", "amber")} ${muted(event.at)} | ${color(event.type, "blue")} | ${event.message}`);
     }
-    console.log("\nArtifacts:");
+    sectionLabel("Artifacts");
     for (const [name, artifact] of Object.entries(fresh.artifacts || {})) {
-      console.log(`- ${name}: ${artifact}`);
+      console.log(`${color("-", "amber")} ${color(name, "muted")}: ${artifact}`);
     }
-    console.log(`\nNext: ${nextRunHint(fresh)}`);
-    console.log("\nActions: E=Evidence Board, F=Case File, O=Raw Logs, Z=Zip Run, C=Confer, B=Back");
+    console.log("");
+    printKeyValue("Next", nextRunHint(fresh));
+    printActions("R=Refresh, E=Evidence Board, F=Case File, O=Raw Logs, Z=Zip Run, C=Confer, B=Back");
     const answer = (await ask(rl, "\nInvestigation> ")).trim();
     if (answer.toLowerCase() === "b") return;
+    if (answer.toLowerCase() === "r") continue;
     if (answer.toLowerCase() === "f") await pause(rl, () => printFile(path.join(fresh.workspaceDir, "reports", "case-file.md")));
     if (answer.toLowerCase() === "e") await pause(rl, () => printEvidenceBoard(fresh));
     if (answer.toLowerCase() === "o") await pause(rl, () => printLogs(fresh));
@@ -416,16 +450,16 @@ async function printFile(filePath) {
 async function printEvidenceBoard(run) {
   const evidence = await evidencePayload(run);
   printHeader("Evidence Board");
-  console.log("=== Lark Verdict ===\n");
-  console.log(`${evidence.larkVerdict}`);
+  sectionLabel("Lark Verdict");
+  console.log(`${color(evidence.larkVerdict, evidence.larkVerdict === "Resolution Validated" ? "green" : "amber")}`);
   console.log(`${evidence.reason}\n`);
-  console.log("=== Replay ===\n");
-  console.log(`Red command: ${evidence.commands.reproduce || "pending"}`);
-  console.log(`Green command: ${evidence.commands.verify || "pending"}\n`);
-  console.log("=== Artifacts ===\n");
-  for (const [name, artifact] of Object.entries(evidence.artifacts || {})) console.log(`- ${name}: ${artifact}`);
-  if (evidence.github?.remote_url) console.log(`- github: ${evidence.github.remote_url}`);
-  console.log("\n=== Raw Evidence ===\n");
+  sectionLabel("Replay");
+  printKeyValue("Red command", evidence.commands.reproduce || "pending");
+  printKeyValue("Green command", evidence.commands.verify || "pending");
+  sectionLabel("Artifacts");
+  for (const [name, artifact] of Object.entries(evidence.artifacts || {})) console.log(`${color("-", "amber")} ${color(name, "muted")}: ${artifact}`);
+  if (evidence.github?.remote_url) console.log(`${color("-", "amber")} ${color("github", "muted")}: ${color(evidence.github.remote_url, "blue")}`);
+  sectionLabel("Raw Evidence");
   if (!evidence.rawEvidence.length) console.log("No raw evidence files exist yet.");
   evidence.rawEvidence.forEach((item, index) => console.log(`${index + 1}. ${item.path} (${item.bytes} bytes)`));
 }
@@ -488,11 +522,9 @@ function filterCases(cases, runs, search, statusFilter = "All active cases") {
 
 function printHeader(mode = "Cold Case Desk") {
   clearScreen();
-  console.log("############################################################");
-  console.log("# CODING COLD CASES CRACKER                                #");
-  console.log(`# ${mode.padEnd(56, " ")} #`);
-  console.log("# Vet. Vibe. Validate. Reconstruct, work, prove.         #");
-  console.log("############################################################\n");
+  console.log(color(mode, "bold"));
+  console.log(color("-".repeat(Math.max(mode.length, 8)), "muted"));
+  console.log("");
 }
 
 function clearScreen() {
@@ -504,7 +536,11 @@ function printReadiness() {
   const lark = process.env.GETLARK_API_KEY || process.env.LARKCI_API_KEY ? "ready" : "missing key";
   const writer = "kiro-cli";
   const github = process.env.GITHUB_TOKEN ? "ready" : "local only";
-  console.log(`Kiro: ${kiro} | Lark: ${lark} | Writer: ${writer} | GitHub: ${github}\n`);
+  printKeyValue("Kiro", kiro);
+  printKeyValue("Lark", lark);
+  printKeyValue("Writer", writer);
+  printKeyValue("GitHub", github);
+  console.log("");
 }
 
 async function pause(rl, fn) {
@@ -514,7 +550,9 @@ async function pause(rl, fn) {
 }
 
 function statusBadge(run) {
-  return publicStatus(typeof run === "string" ? { status: run } : run);
+  const publicStatuses = new Set(["Cold Case", "Casework Started", "Scene Reconstructed", "Evidence Collected", "Case Resolved", "Resolution Validated", "Case Closed", "Unproven"]);
+  const status = typeof run === "string" && publicStatuses.has(run) ? run : publicStatus(typeof run === "string" ? { status: run } : run);
+  return color(status, statusTone(status));
 }
 
 function actionFooter(run) {
@@ -537,10 +575,10 @@ async function chooseStatusFilter(rl, current) {
   while (true) {
     printHeader("Filter Case Status");
     STATUS_FILTERS.forEach((status, index) => {
-      const marker = index === cursor ? ">" : " ";
-      console.log(`${marker} ${index + 1}. ${status}`);
+      const marker = index === cursor ? color(">", "green") : " ";
+      console.log(`${marker} ${index + 1}. ${color(status, statusTone(status))}`);
     });
-    console.log("\nActions: Up/Down=select, Enter=apply filter, number=apply filter, Esc=cancel");
+    printActions("Up/Down=select, Enter=apply filter, number=apply filter, Esc=cancel");
     const answer = (await menuInput(rl, "\nFilter> ")).trim();
     if (answer === "up") {
       cursor = wrapIndex(cursor - 1, STATUS_FILTERS.length);
@@ -557,32 +595,121 @@ async function chooseStatusFilter(rl, current) {
 }
 
 async function bulletinsConsole(rl) {
+  let filter = "Inbox";
+  let merged = true;
+  let cursor = 0;
   while (true) {
-    clearScreen();
-    await printBulletins();
-    const answer = (await menuInput(rl, "\nBulletins> ")).trim();
-    if (answer.toLowerCase() === "b" || answer.toLowerCase() === "esc" || answer === "escape" || answer === "enter" || answer === "") return;
+    const inbox = await printBulletins({ filter, merged, cursor });
+    const maxRows = filter === "Muted" ? inbox.mutedRules.length : inbox.bulletins.length;
+    cursor = clamp(cursor, 0, Math.max(maxRows - 1, 0));
+    const answer = (await menuInput(rl, "\nBulletins> ")).trim().toLowerCase();
+    if (answer === "b" || answer === "esc" || answer === "escape") return;
+    if (answer === "up") {
+      cursor = wrapIndex(cursor - 1, maxRows);
+      continue;
+    }
+    if (answer === "down") {
+      cursor = wrapIndex(cursor + 1, maxRows);
+      continue;
+    }
+    if (answer === "f") {
+      filter = nextFilter(filter);
+      cursor = 0;
+      continue;
+    }
+    if (answer === "g") {
+      merged = !merged;
+      cursor = 0;
+      continue;
+    }
+    if (filter === "Muted") {
+      const rule = inbox.mutedRules[cursor];
+      if (answer === "u" && rule) {
+        await updateBulletinState(await listRuns(), "unmute", { caseId: rule.caseId, type: rule.type });
+      }
+      continue;
+    }
+    const selected = inbox.bulletins[cursor];
+    if (!selected) continue;
+    if (answer === "r") {
+      await updateBulletinState(await listRuns(), selected.read ? "unread" : "read", { ids: bulletinIds(selected) });
+    }
+    if (answer === "a") {
+      await updateBulletinState(await listRuns(), "read", { ids: inbox.bulletins.flatMap(bulletinIds) });
+    }
+    if (answer === "d") {
+      await updateBulletinState(await listRuns(), "dismiss", { ids: bulletinIds(selected) });
+    }
+    if (answer === "u" && filter === "Archive") {
+      await updateBulletinState(await listRuns(), "restore", { ids: bulletinIds(selected) });
+    }
+    if (answer === "m") {
+      await updateBulletinState(await listRuns(), "mute", { id: selected.id });
+    }
+    if (answer === "enter") {
+      await openBulletinTarget(rl, selected);
+    }
   }
 }
 
-async function printBulletins(caseId = null) {
+async function printBulletins({ caseId = null, filter = "Inbox", merged = true, cursor = 0 } = {}) {
+  const inbox = await bulletinInbox(await listRuns(), { caseId, filter, merged });
   printHeader(caseId ? "Case Bulletins" : "Bulletins");
-  const bulletins = bulletinsFromRuns(await listRuns(), { caseId });
-  if (!bulletins.length) {
-    console.log("No bulletins yet.");
+  console.log(dimLine(`Filter: ${inbox.filter} | Merge: ${inbox.merged ? "on" : "off"}`));
+  console.log("");
+  if (inbox.filter === "Muted") {
+    if (!inbox.mutedRules.length) {
+      console.log("No muted wires.");
+    }
+    inbox.mutedRules.slice(0, 18).forEach((rule, index) => {
+      const marker = index === cursor ? color(">", "green") : " ";
+      console.log(`${marker} ${rule.title || rule.caseId}`);
+      console.log(`    ${muted(`${rule.type} | muted ${rule.muted_at}`)}`);
+    });
+    printActions("Up/Down=select, U=unmute, F=filter, B=back");
+    return inbox;
+  }
+  if (!inbox.bulletins.length) {
+    console.log("The wire is quiet.");
+  }
+  inbox.bulletins.slice(0, 18).forEach((item, index) => {
+    const marker = index === cursor ? color(">", "green") : " ";
+    const state = item.read ? muted("seen") : color("new ", "amber");
+    const count = item.mergedCount > 1 ? ` x${item.mergedCount}` : "";
+    console.log(`${marker} [${state}] ${muted(item.at)}${count} | ${statusBadge(item.status)}`);
+    console.log(`    ${item.title}`);
+    console.log(`    ${muted(item.message)}`);
+  });
+  printActions("Up/Down=select, Enter=open, R=read/unread, A=mark visible read, D=dismiss, U=restore archive, M=mute wire, G=merge, F=filter, B=back");
+  return inbox;
+}
+
+async function openBulletinTarget(rl, bulletin) {
+  try {
+    const run = await findRunById(bulletin.runId);
+    await investigationConsole(rl, run);
     return;
+  } catch {
+    const index = await loadCaseIndex();
+    const coldCase = index.cases.find((item) => item.id === bulletin.caseId);
+    if (coldCase) await caseDetail(rl, coldCase);
   }
-  for (const item of bulletins.slice(0, 30)) {
-    console.log(`- ${item.at} | ${item.title}`);
-    console.log(`  ${item.message}`);
-  }
-  console.log("\nActions: Enter/Esc=back");
+}
+
+function nextFilter(current) {
+  const index = BULLETIN_FILTERS.indexOf(current);
+  return BULLETIN_FILTERS[(index + 1) % BULLETIN_FILTERS.length];
+}
+
+function bulletinIds(bulletin) {
+  return bulletin.mergedIds?.length ? bulletin.mergedIds : [bulletin.id];
 }
 
 async function optionsConsole(rl) {
   await pause(rl, async () => {
     printHeader("Options");
     printReadiness();
+    sectionLabel("Configuration");
     console.log("Terminal visual controls live in the web shell: zoom, margin, and fullscreen.");
     console.log("Runtime keys and Docker settings are configured through .env and docker compose.");
   });
@@ -591,8 +718,8 @@ async function optionsConsole(rl) {
 async function aboutConsole(rl) {
   await pause(rl, async () => {
     printHeader("About");
-    console.log("Coding Cold Cases Cracker");
-    console.log("Vet. Vibe. Validate.");
+    console.log(color("Coding Cold Cases Cracker", "amber"));
+    console.log(color("Vet. Vibe. Validate.", "green"));
     console.log("Reconstruct the failure, work the fix, prove the close.");
   });
 }
@@ -608,14 +735,54 @@ function printConferCommand(coldCase, run) {
       `Tags: ${(coldCase.tags || []).join(", ")}`,
       `Teaser: ${coldCase.narrative_teaser || coldCase.why_interesting || ""}`
     ].join("\n");
-    console.log("Pre-brief command:");
+    sectionLabel("Pre-brief Command");
     console.log(`kiro-cli chat --tui ${shellQuote(prompt)}`);
     return;
   }
   const modeNote = isActiveRun(run) ? "Read-only while casework is actively proceeding." : "Run is paused or finished; planning questions are allowed.";
   console.log(modeNote);
-  console.log(`\ncd "${run.workspaceDir}"`);
+  sectionLabel("Debrief Command");
+  console.log(`cd "${run.workspaceDir}"`);
   console.log(kiroCommand(run, { phase: "debrief", interactive: true }));
+}
+
+function color(value, tone) {
+  const text = String(value ?? "");
+  if (!useColor || !ansi[tone]) return text;
+  return `${ansi[tone]}${text}${ansi.reset}`;
+}
+
+function muted(value) {
+  return color(value, "muted");
+}
+
+function dimLine(value) {
+  return muted(value);
+}
+
+function menuRow(label, selected) {
+  const marker = selected ? color(">", "green") : " ";
+  return `${marker} ${selected ? color(label, "amber") : label}`;
+}
+
+function printActions(value) {
+  console.log(`\n${color("Actions:", "amber")} ${muted(value)}`);
+}
+
+function printKeyValue(key, value) {
+  console.log(`${color(`${key}:`, "muted")} ${value}`);
+}
+
+function sectionLabel(label) {
+  console.log(`\n${color(`[ ${label} ]`, "amber")}`);
+}
+
+function statusTone(status) {
+  if (status === "Cold Case") return "blue";
+  if (status === "Unproven") return "red";
+  if (status === "Evidence Collected" || status === "Resolution Validated" || status === "Case Closed") return "green";
+  if (status === "Casework Started" || status === "Scene Reconstructed" || status === "Case Resolved") return "amber";
+  return "muted";
 }
 
 function shellQuote(value) {
