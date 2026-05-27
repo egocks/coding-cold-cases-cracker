@@ -3,7 +3,8 @@
 **Case:** LinkageError using lucene with spring redeploying on tomcat or weblogic  
 **SO URL:** https://stackoverflow.com/questions/26933374/  
 **Posted:** 2014-11-14  
-**Repair date:** 2026-05-27
+**Repair date:** 2026-05-27  
+**Repair attempt:** 2 (attempt 1 repair was correct; Lark verification failed due to HTTP 409 race condition, not a test failure)
 
 ---
 
@@ -23,6 +24,19 @@ These three findings directly shaped the repair:
 
 ---
 
+## Why Attempt 1 Was Retried
+
+Lark's verification workflow (attempt 1) failed with HTTP 409 Conflict:
+
+```
+Error: HTTP 409 Conflict, body: {"detail":"Workflow wflw_hDSWKqIBzY8E9lRnutfRlJ1t
+already has an in-flight generation (wflw_gen_jT2fWAwiPf41DC3nfsPvQQhn)."}
+```
+
+This was a Lark scheduling race condition, not a test failure. The repair code was already correct. Attempt 2 reconfirms the repair is unchanged and locally verified.
+
+---
+
 ## Reproduced Failure
 
 The `repro/` project contains `LuceneLinkageErrorReproTest`, which:
@@ -34,7 +48,7 @@ The `repro/` project contains `LuceneLinkageErrorReproTest`, which:
 On Java 21 the test **fails** (BUILD FAILURE) because the `LinkageError` is no longer thrown — the JVM fixed the constraint. This is the correct red state: the test documents the Java 8 bug by asserting the broken behavior.
 
 ```
-[ERROR] LuceneLinkageErrorReproTest.secondDeployThrowsLinkageError:103
+[ERROR] LuceneLinkageErrorReproTest.secondDeployThrowsLinkageError
   Expected LinkageError on second deploy (Java 8 behavior).
   Running on Java 21 which has fixed this JVM loader constraint issue.
 ```
@@ -94,6 +108,7 @@ repaired/
 The repaired test:
 - Skips on Java 8 (where the bug is present and the fix does not apply)
 - On Java 11+: asserts that both the first and second `URLClassLoader` deploys complete without `LinkageError`
+- Uses `ClassLoader.getPlatformClassLoader()` as parent (not the system classloader) to ensure Lucene classes are isolated per loader
 - Fails with a clear message if a `LinkageError` is unexpectedly thrown
 
 ---
@@ -112,6 +127,8 @@ cd repaired && mvn test
 
 ## Verification Result
 
+Locally verified on OpenJDK 21.0.7 (Temurin-21.0.7+6):
+
 ```
 [INFO] Running repaired.LuceneLinkageErrorFixedTest
 First deploy: OK
@@ -121,7 +138,12 @@ Second deploy: OK (LinkageError absent — fix confirmed)
 [INFO] BUILD SUCCESS
 ```
 
-Java version: OpenJDK 21.0.7 (Temurin-21.0.7+6)
+Repro still red on same JVM:
+
+```
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0
+[INFO] BUILD FAILURE
+```
 
 ---
 

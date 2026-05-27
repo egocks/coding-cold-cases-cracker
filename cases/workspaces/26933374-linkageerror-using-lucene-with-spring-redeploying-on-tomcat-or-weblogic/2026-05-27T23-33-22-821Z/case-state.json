@@ -3,7 +3,7 @@
   "run_id": "2026-05-27T23-33-22-821Z",
   "status": "publishing_repair",
   "created_at": "2026-05-27T23:33:22.877Z",
-  "updated_at": "2026-05-27T23:45:26.378Z",
+  "updated_at": "2026-05-27T23:47:46.378Z",
   "workspace": "cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z",
   "original": {
     "title": "LinkageError using lucene with spring redeploying on tomcat or weblogic",
@@ -44,7 +44,8 @@
   "lark": {
     "group_id": "wfl_grp_usJwFcIW8Z6ZAOQpDoMxU6iw",
     "workflow_ids": [
-      "wflw_nnB4xYbcmFu4tx5paGlhqOmR"
+      "wflw_nnB4xYbcmFu4tx5paGlhqOmR",
+      "wflw_hDSWKqIBzY8E9lRnutfRlJ1t"
     ],
     "execution_ids": [
       "wflw_exec_yi4vHmzyuh6CzSRqzl1pt1uJ"
@@ -59,7 +60,7 @@
       "evidence": "lark/reproduction-evidence.json"
     },
     "verification": {
-      "workflow_id": null,
+      "workflow_id": "wflw_hDSWKqIBzY8E9lRnutfRlJ1t",
       "execution_ids": [],
       "passed": false,
       "output": "lark/verification-output.md",
@@ -177,6 +178,44 @@
       "at": "2026-05-27T23:45:26.378Z",
       "type": "publishing_repair",
       "message": "Publishing repaired workspace for Lark verification."
+    },
+    {
+      "at": "2026-05-27T23:45:32.337Z",
+      "type": "publishing_repair_done",
+      "message": "Published workspace to GitHub."
+    },
+    {
+      "at": "2026-05-27T23:45:32.343Z",
+      "type": "lark_verification_running",
+      "message": "Lark closure verification started. Attempt 1 of 3."
+    },
+    {
+      "at": "2026-05-27T23:45:36.649Z",
+      "type": "partial",
+      "message": "Lark rejected or could not verify the repair; case remains Unproven."
+    },
+    {
+      "at": "2026-05-27T23:45:36.666Z",
+      "type": "kiro_repair_retry",
+      "message": "Lark rejected repair attempt 1. Returning the verdict to Kiro for another repair pass."
+    },
+    {
+      "at": "2026-05-27T23:45:36.670Z",
+      "type": "kiro_repair_started",
+      "message": "Kiro repair started from Lark reproduction evidence. Attempt 2 of 3."
+    },
+    {
+      "at": "2026-05-27T23:47:46.376Z",
+      "type": "repair_ready",
+      "message": "Kiro produced a candidate repair for Lark verification."
+    },
+    {
+      "at": "2026-05-27T23:47:46.378Z",
+      "type": "publishing_repair",
+      "message": "Publishing repaired workspace for Lark verification."
     }
-  ]
+  ],
+  "retries": {
+    "total": 1
+  }
 }

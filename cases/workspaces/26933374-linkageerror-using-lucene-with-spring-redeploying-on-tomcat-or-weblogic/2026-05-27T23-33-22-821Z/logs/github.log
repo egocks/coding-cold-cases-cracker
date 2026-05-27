@@ -45,3 +45,24 @@ remote:
 To https://github.com/egocks/coding-cold-cases-cracker.git
  * [new branch]      cold-case/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z -> cold-case/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z
 
+[publishing_repair]
+Cloning into 'repo'...
+
+From https://github.com/egocks/coding-cold-cases-cracker
+ * branch            cold-case/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z -> FETCH_HEAD
+Switched to a new branch 'cold-case/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z'
+
+[cold-case/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z e16e907] Add cold case run 26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic 2026-05-27T23-33-22-821Z
+ 17 files changed, 1947 insertions(+), 30 deletions(-)
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/lark/reproduction-evidence.json
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/lark/reproduction-output.md
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/logs/github-reproduction.log
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/logs/github.log
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/logs/kiro-repair.log
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/logs/lark-reproduction.log
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/repaired/pom.xml
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/repaired/src/test/java/repaired/LuceneLinkageErrorFixedTest.java
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/reports/technical-report.md
+To https://github.com/egocks/coding-cold-cases-cracker.git
+   5cff5d4..e16e907  cold-case/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z -> cold-case/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z
+
