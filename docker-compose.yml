@@ -1,0 +1,72 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/app/Dockerfile
+    environment:
+      APP_PORT: "3000"
+      TERMINAL_URL: "http://localhost:${HOST_TERMINAL_PORT:-7681}"
+    ports:
+      - "${HOST_APP_PORT:-3000}:3000"
+    volumes:
+      - .:/workspace
+      - kiro-data:/root/.local/share/kiro-cli
+      - kiro-config:/root/.kiro
+      - kiro-cache:/root/.cache
+    depends_on:
+      - terminal
+      - kiro-agent
+      - lark-cli
+      - runner
+    command: ["bash", "-lc", "set -a; [ -f .env ] && source .env; set +a; node app/server.js"]
+
+  terminal:
+    build:
+      context: .
+      dockerfile: docker/kiro/Dockerfile
+    environment:
+      TERM: xterm-256color
+    ports:
+      - "${HOST_TERMINAL_PORT:-7681}:7681"
+    working_dir: /workspace
+    command: ["bash", "-lc", "set -a; [ -f .env ] && source .env; set +a; exec ttyd -W -p 7681 -t titleFixed='Coding Cold Cases Cracker' bash /workspace/scripts/terminal-menu.sh"]
+    volumes:
+      - .:/workspace
+      - kiro-data:/root/.local/share/kiro-cli
+      - kiro-config:/root/.kiro
+      - kiro-cache:/root/.cache
+
+  kiro-agent:
+    build:
+      context: .
+      dockerfile: docker/kiro/Dockerfile
+    working_dir: /workspace
+    command: ["bash", "-lc", "set -a; [ -f .env ] && source .env; set +a; scripts/kiro-status.sh --watch"]
+    volumes:
+      - .:/workspace
+      - kiro-data:/root/.local/share/kiro-cli
+      - kiro-config:/root/.kiro
+      - kiro-cache:/root/.cache
+
+  lark-cli:
+    build:
+      context: .
+      dockerfile: docker/lark/Dockerfile
+    working_dir: /workspace
+    command: ["bash", "-lc", "set -a; [ -f .env ] && source .env; set +a; npx -y @getlark/cli --version && tail -f /dev/null"]
+    volumes:
+      - .:/workspace
+
+  runner:
+    build:
+      context: .
+      dockerfile: docker/runner/Dockerfile
+    working_dir: /workspace
+    command: ["bash", "-lc", "java -version && tail -f /dev/null"]
+    volumes:
+      - .:/workspace
+
+volumes:
+  kiro-data:
+  kiro-config:
+  kiro-cache:

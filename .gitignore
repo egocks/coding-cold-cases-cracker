@@ -1,0 +1,52 @@
+# Local secrets and machine-specific config
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+
+# Docker and local runtime state
+.docker/
+.docker-data/
+docker-data/
+volumes/
+logs/
+*.log
+
+# Generated app artifacts
+artifacts/
+cases/index/
+cases/workspaces/
+
+# Generated case packages
+*.zip
+*.tar
+*.tar.gz
+
+# Build outputs and caches
+dist/
+build/
+coverage/
+.cache/
+.tmp/
+tmp/
+temp/
+
+# Java/Maven/Gradle outputs from local reproductions
+target/
+.gradle/
+build/
+out/
+
+# Kiro/Lark local auth, generated agent state, and scratch config
+.kiro/
+.lark/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
