@@ -1,0 +1,46 @@
+Cloning into 'repo'...
+
+Switched to a new branch 'cold-case/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z'
+
+[cold-case/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z 5cff5d4] Add cold case run 26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic 2026-05-27T23-33-22-821Z
+ 33 files changed, 4041 insertions(+)
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/.kiro/agents/case-debriefer.json
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/.kiro/agents/case-investigator.json
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/.kiro/agents/case-reconstructor.json
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/.kiro/agents/case-repairer.json
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/.kiro/agents/case-writer.json
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/.kiro/steering/creative-case-writing.md
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/.kiro/steering/evidence-discipline.md
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/.kiro/steering/lark-first.md
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/.kiro/steering/narrative-boundaries.md
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/.kiro/steering/product.md
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/.kiro/steering/read-only-debrief.md
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/.kiro/steering/structure.md
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/.kiro/steering/tech.md
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/README.md
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/case-state.json
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/case.json
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/lark/README.md
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/lark/reproduction-workflow.json
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/lark/test-coverage-summary.md
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/lark/verification-workflow.json
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/logs/kiro-reconstruction.log
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/logs/pipeline-live.log
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/original/original-question.md
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/original/source-fetch-note.md
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/prompts/kiro-debrief.md
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/prompts/kiro-handoff.md
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/prompts/kiro-reconstruction.md
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/prompts/kiro-repair-from-lark.md
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/reports/reconstruction-report.md
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/repro/pom.xml
+ create mode 100644 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/repro/src/test/java/repro/LuceneLinkageErrorReproTest.java
+ create mode 100755 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/tests/lark/green/replay-verification.sh
+ create mode 100755 cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/tests/lark/red/replay-reproduction.sh
+remote: 
+remote: Create a pull request for 'cold-case/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z' on GitHub by visiting:        
+remote:      https://github.com/egocks/coding-cold-cases-cracker/pull/new/cold-case/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z        
+remote: 
+To https://github.com/egocks/coding-cold-cases-cracker.git
+ * [new branch]      cold-case/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z -> cold-case/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z
+

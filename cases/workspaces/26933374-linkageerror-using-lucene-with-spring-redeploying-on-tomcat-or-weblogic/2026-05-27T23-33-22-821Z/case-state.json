@@ -1,9 +1,9 @@
 {
   "case_id": "26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic",
   "run_id": "2026-05-27T23-33-22-821Z",
-  "status": "publishing_reproduction",
+  "status": "publishing_repair",
   "created_at": "2026-05-27T23:33:22.877Z",
-  "updated_at": "2026-05-27T23:39:01.644Z",
+  "updated_at": "2026-05-27T23:45:26.378Z",
   "workspace": "cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z",
   "original": {
     "title": "LinkageError using lucene with spring redeploying on tomcat or weblogic",
@@ -32,7 +32,7 @@
   },
   "commands": {
     "reproduce": "cd repro && mvn test",
-    "verify": "TO_BE_DISCOVERED_BY_KIRO"
+    "verify": "cd repaired && mvn test"
   },
   "assumptions": [
     "The LinkageError is a Java 8 JVM loader-constraint bug, not a Lucene or Spring bug. Java 11+ fixed the constraint tracking for MethodHandle invocations.",
@@ -42,13 +42,19 @@
     "The test is RED on Java 21 because it asserts the Java 8 behavior (LinkageError thrown on second deploy), which no longer occurs on Java 21."
   ],
   "lark": {
-    "group_id": null,
-    "workflow_ids": [],
-    "execution_ids": [],
+    "group_id": "wfl_grp_usJwFcIW8Z6ZAOQpDoMxU6iw",
+    "workflow_ids": [
+      "wflw_nnB4xYbcmFu4tx5paGlhqOmR"
+    ],
+    "execution_ids": [
+      "wflw_exec_yi4vHmzyuh6CzSRqzl1pt1uJ"
+    ],
     "reproduction": {
-      "workflow_id": null,
-      "execution_ids": [],
-      "passed": false,
+      "workflow_id": "wflw_nnB4xYbcmFu4tx5paGlhqOmR",
+      "execution_ids": [
+        "wflw_exec_yi4vHmzyuh6CzSRqzl1pt1uJ"
+      ],
+      "passed": true,
       "output": "lark/reproduction-output.md",
       "evidence": "lark/reproduction-evidence.json"
     },
@@ -73,15 +79,18 @@
     "repair": {
       "agent": ".kiro/agents/case-repairer.json",
       "prompt": "prompts/kiro-repair-from-lark.md",
-      "report": "reports/technical-report.md"
+      "report": "reports/technical-report.md",
+      "passed": true,
+      "log": "logs/kiro-repair.log",
+      "command": "kiro-cli chat --no-interactive --agent case-repairer --trust-tools=read,write,shell,grep,glob,web_fetch,web_search \"$(cat prompts/kiro-repair-from-lark.md)\""
     },
     "debrief": {
       "agent": ".kiro/agents/case-debriefer.json"
     }
   },
   "github": {
-    "branch": null,
-    "remote_url": null
+    "branch": "cold-case/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z",
+    "remote_url": "https://github.com/egocks/coding-cold-cases-cracker/tree/cold-case/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z"
   },
   "writer": {
     "provider": "kiro-cli",
@@ -138,6 +147,36 @@
       "at": "2026-05-27T23:39:01.644Z",
       "type": "publishing_reproduction",
       "message": "Publishing reproduction workspace for Lark access."
+    },
+    {
+      "at": "2026-05-27T23:39:07.361Z",
+      "type": "publishing_reproduction_done",
+      "message": "Published workspace to GitHub."
+    },
+    {
+      "at": "2026-05-27T23:39:07.387Z",
+      "type": "lark_reproduction_running",
+      "message": "Lark forensic reproduction workflow started. Attempt 1 of 3."
+    },
+    {
+      "at": "2026-05-27T23:42:35.844Z",
+      "type": "lark_reproduction_ready",
+      "message": "Lark confirmed reproduction evidence for Kiro repair."
+    },
+    {
+      "at": "2026-05-27T23:42:35.900Z",
+      "type": "kiro_repair_started",
+      "message": "Kiro repair started from Lark reproduction evidence. Attempt 1 of 3."
+    },
+    {
+      "at": "2026-05-27T23:45:26.376Z",
+      "type": "repair_ready",
+      "message": "Kiro produced a candidate repair for Lark verification."
+    },
+    {
+      "at": "2026-05-27T23:45:26.378Z",
+      "type": "publishing_repair",
+      "message": "Publishing repaired workspace for Lark verification."
     }
   ]
 }

@@ -1,24 +1,3 @@
-# Coding Cold Cases Cracker: Kiro Repair From Lark Evidence
-
-You are inside an isolated case workspace.
-
-## Cold Case
-
-Title: LinkageError using lucene with spring redeploying on tomcat or weblogic
-URL: https://stackoverflow.com/questions/26933374/linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic
-Original poster exact handle/display name: Tulio C (https://stackoverflow.com/users/2642037/tulio-c)
-Posted: 2014-11-14
-Score: 0
-Views: 697
-Answers: 0
-Cold signal: No answers
-Tags: java, spring, spring-mvc, tomcat, lucene
-
-Preserved excerpt:
-No excerpt available in source index.
-
-## Lark Reproduction Evidence
-
 {
   "phase": "reproduction",
   "passed": true,
@@ -31,24 +10,3 @@ No excerpt available in source index.
   "verdict": "Failure reproduction evidence captured by Lark.",
   "output_excerpt": "{\n  \"id\": \"wfl_grp_usJwFcIW8Z6ZAOQpDoMxU6iw\",\n  \"name\": \"Coding Cold Cases - 26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic - 2026-05-27T23-33-22-821Z\",\n  \"workflow_count\": 0,\n  \"created_at\": \"2026-05-27T23:39:09.073860+00:00\",\n  \"updated_at\": \"2026-05-27T23:39:09.073860+00:00\"\n}\n\n{\n  \"id\": \"wflw_nnB4xYbcmFu4tx5paGlhqOmR\",\n  \"name\": \"Coding Cold Cases - LinkageError using lucene with spring redeploying on tomcat or weblogic - Reproduction Evidence\",\n  \"status\": \"active\",\n  \"display_status\": \"never_run\",\n  \"description\": \"You are Lark acting as the forensic reproduction lab for Coding Cold Cases Cracker.\\nRemote workspace: https://github.com/egocks/coding-cold-cases-cracker/tree/cold-case/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z\\nOriginal case: https://stackoverflow.com/questions/26933374/linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic\\nReproduction command: cd repro && mvn test\\nInspect the workspace and run or evaluate the reproduction path before any repair occurs.\\nConfirm whether the observed failure matches the Stack Overflow cold case or a responsible minimal model of it.\\nWhen possible, produce or validate red replay/test artifacts: shell replay, unit/integration test, minimal fixture, deterministic assertion, or failure classifier.\\nReturn the exact evidence that Kiro should use for repair. Include logs, assumptions, and any concern that would make the case partial or blocked.\",\n  \"secret_contexts\": null,\n  \"mode\": \"ai_driven\",\n  \"deterministic_details\": null,\n  \"last_execution_id\": null,\n  \"last_execution_started_at\": null,\n  \"last_execution_stopped_at\": null,\n  \"last_execution_result_type\": null,\n  \"last_generation_id\": null,\n  \"last_generation_started_at\": null,\n  \n\n[...truncated...]\n\n5s elapsed)\n[wflw_nnB4xYbcmFu4tx5paGlhqOmR] Status: success (3m22s elapsed)\n[wflw_nnB4xYbcmFu4tx5paGlhqOmR] Log: ## Summary\n\n**Workflow Test: PASSED**\n\nThe Coding Cold Cases Cracker reproduction for Stack Overflow #26933374 is a **valid red test**. Key findings:\n\n1. **Reproduction executed successfully** - `cd repro && mvn test` ran and produced expected failure on Java 17\n2. **Root cause confirmed** - JVM classloader constraint violation in `MethodHandle.invokeExact()` with Lucene 4.x's `AttributeFactory`\n3. **Not a code bug** - The issue was in Java 8's JVM, fixed in Java 9+\n4. **Minimal model is responsible** - Test exercises exact code path from original stack trace\n\n**Evidence for Kiro:**\n- Full evidence report: `/tmp/public-artifacts/cold-case-26933374-lark-evidence.md`\n- Test shows the bug cannot be \"repaired\" in application code\n- Workarounds: upgrade Java 11+, avoid hot redeploys, or move Lucene to shared classloader\nWorkflow wflw_nnB4xYbcmFu4tx5paGlhqOmR executed successfully. Execution ID: wflw_exec_yi4vHmzyuh6CzSRqzl1pt1uJ"
 }
-
-## Required Repair
-
-1. Read `case.json`, `case-state.json`, `reports/reconstruction-report.md`, and all files under `lark/`.
-2. Treat Lark's reproduction evidence as the forensic handoff. Cite the Lark observations that guided each major repair decision.
-3. Apply the smallest justified fix in `repaired/` or update the generated project in place with a clear diff.
-4. Write the exact verification command to `case.json.commands.verify`.
-5. Run verification until it passes, or document why the case remains partial/blocked.
-6. Write `reports/technical-report.md` with:
-   - Lark observations used
-   - reproduced or modeled failure
-   - exact commands
-   - important logs
-   - root cause
-   - fix
-   - verification result
-   - assumptions and caveats
-
-## Closure Rule
-
-Do not claim the case is Closed. Lark verification is the independent forensic gate.

@@ -13,7 +13,7 @@ Artifact: `tests/lark/red/replay-reproduction.sh`
 ## Green Verification Replay
 
 ```bash
-TO_BE_DISCOVERED_BY_KIRO
+cd repaired && mvn test
 ```
 
 Artifact: `tests/lark/green/replay-verification.sh`
