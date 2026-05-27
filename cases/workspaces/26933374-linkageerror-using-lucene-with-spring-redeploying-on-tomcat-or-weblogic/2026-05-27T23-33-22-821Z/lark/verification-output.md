@@ -3,7 +3,7 @@
 ```text
 Reusing Lark workflow group wfl_grp_usJwFcIW8Z6ZAOQpDoMxU6iw
 {
-  "id": "wflw_hDSWKqIBzY8E9lRnutfRlJ1t",
+  "id": "wflw_vUy2RkLyvu24aX8bNWuXUIXk",
   "name": "Coding Cold Cases - LinkageError using lucene with spring redeploying on tomcat or weblogic - Verification",
   "status": "pending_generation",
   "display_status": "never_run",
@@ -34,10 +34,10 @@ Reusing Lark workflow group wfl_grp_usJwFcIW8Z6ZAOQpDoMxU6iw
   "archived_at": null,
   "muted_until": null,
   "is_muted": false,
-  "created_at": "2026-05-27T23:45:33.547744+00:00",
-  "updated_at": "2026-05-27T23:45:33.547744+00:00"
+  "created_at": "2026-05-27T23:47:53.226402+00:00",
+  "updated_at": "2026-05-27T23:47:53.226402+00:00"
 }
 
-Error: Error: HTTP 409 Conflict, body: {"detail":"Workflow wflw_hDSWKqIBzY8E9lRnutfRlJ1t already has an in-flight generation (wflw_gen_jT2fWAwiPf41DC3nfsPvQQhn)."}
+Error: Error: HTTP 409 Conflict, body: {"detail":"Workflow wflw_vUy2RkLyvu24aX8bNWuXUIXk already has an in-flight generation (wflw_gen_R9qUvqybaNqYMu5icKvXDOEo)."}
 
 ```

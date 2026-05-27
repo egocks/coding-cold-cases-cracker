@@ -4,7 +4,7 @@
 **SO URL:** https://stackoverflow.com/questions/26933374/  
 **Posted:** 2014-11-14  
 **Repair date:** 2026-05-27  
-**Repair attempt:** 2 (attempt 1 repair was correct; Lark verification failed due to HTTP 409 race condition, not a test failure)
+**Repair attempt:** 3
 
 ---
 
@@ -16,7 +16,7 @@ Lark (execution `wflw_exec_yi4vHmzyuh6CzSRqzl1pt1uJ`) ran `cd repro && mvn test`
 > "Not a code bug — The issue was in Java 8's JVM, fixed in Java 9+"  
 > "Workarounds: upgrade Java 11+, avoid hot redeploys, or move Lucene to shared classloader"
 
-These three findings directly shaped the repair:
+These findings directly shaped the repair:
 
 1. **No application code to patch.** The bug is in the JVM's loader-constraint enforcement, not in Lucene or Spring. The repaired project does not change any Lucene or Spring code.
 2. **The fix is a Java version upgrade.** The green test asserts the absence of `LinkageError` on Java 11+, which is the verified fix.
@@ -24,16 +24,16 @@ These three findings directly shaped the repair:
 
 ---
 
-## Why Attempt 1 Was Retried
+## Why Attempts 1 and 2 Were Retried
 
-Lark's verification workflow (attempt 1) failed with HTTP 409 Conflict:
+Both prior Lark verification runs failed with HTTP 409 Conflict before executing:
 
 ```
-Error: HTTP 409 Conflict, body: {"detail":"Workflow wflw_hDSWKqIBzY8E9lRnutfRlJ1t
-already has an in-flight generation (wflw_gen_jT2fWAwiPf41DC3nfsPvQQhn)."}
+Error: HTTP 409 Conflict, body: {"detail":"Workflow wflw_vUy2RkLyvu24aX8bNWuXUIXk
+already has an in-flight generation (wflw_gen_R9qUvqybaNqYMu5icKvXDOEo)."}
 ```
 
-This was a Lark scheduling race condition, not a test failure. The repair code was already correct. Attempt 2 reconfirms the repair is unchanged and locally verified.
+This was a Lark scheduling race condition — the verification workflow was never actually run. The repair code was correct from attempt 1. This attempt 3 reconfirms the repair is unchanged and locally verified on OpenJDK 21.0.7.
 
 ---
 
@@ -108,7 +108,7 @@ repaired/
 The repaired test:
 - Skips on Java 8 (where the bug is present and the fix does not apply)
 - On Java 11+: asserts that both the first and second `URLClassLoader` deploys complete without `LinkageError`
-- Uses `ClassLoader.getPlatformClassLoader()` as parent (not the system classloader) to ensure Lucene classes are isolated per loader
+- Uses `ClassLoader.getPlatformClassLoader()` as parent to ensure Lucene classes are isolated per loader
 - Fails with a clear message if a `LinkageError` is unexpectedly thrown
 
 ---
@@ -154,3 +154,4 @@ Repro still red on same JVM:
 3. **Spring not required.** Spring's role was only to manage the Lucene bean lifecycle. The `LinkageError` occurs in Lucene's `AttributeFactory` regardless of Spring.
 4. **URLClassLoader simulates WebappClassLoader.** The mechanism is structurally identical: two separate classloaders loading the same Lucene jar in the same JVM.
 5. **Lark verification pending.** This report does not claim the case is closed. Lark verification is the independent forensic gate.
+6. **Prior Lark verification failures were HTTP 409 race conditions**, not test failures. The repair was correct from attempt 1; Lark's workflow scheduler had an in-flight generation conflict both times.

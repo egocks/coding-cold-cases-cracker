@@ -37,3 +37,42 @@ Reusing Lark workflow group wfl_grp_usJwFcIW8Z6ZAOQpDoMxU6iw
 
 Error: Error: HTTP 409 Conflict, body: {"detail":"Workflow wflw_hDSWKqIBzY8E9lRnutfRlJ1t already has an in-flight generation (wflw_gen_jT2fWAwiPf41DC3nfsPvQQhn)."}
 
+Reusing Lark workflow group wfl_grp_usJwFcIW8Z6ZAOQpDoMxU6iw
+{
+  "id": "wflw_vUy2RkLyvu24aX8bNWuXUIXk",
+  "name": "Coding Cold Cases - LinkageError using lucene with spring redeploying on tomcat or weblogic - Verification",
+  "status": "pending_generation",
+  "display_status": "never_run",
+  "description": "You are Lark acting as the closure court for Coding Cold Cases Cracker.\nRemote workspace: https://github.com/egocks/coding-cold-cases-cracker/tree/cold-case/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z/cases/workspaces/26933374-linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic/2026-05-27T23-33-22-821Z\nOriginal case: https://stackoverflow.com/questions/26933374/linkageerror-using-lucene-with-spring-redeploying-on-tomcat-or-weblogic\nVerification command: cd repaired && mvn test\nClone or inspect the reachable workspace, run the verification command when possible, and confirm whether the original failure is fixed.\nAlso inspect lark/reproduction-evidence.json and reports/technical-report.md so the final verdict accounts for the original failure model.\nWhen possible, produce or validate green replay/test artifacts. If command-level verification is the responsible model, explain why.\nReturn pass/fail evidence, exact logs, residual risk, and a concise final verdict. The case may be Closed only if this verification passes.",
+  "secret_contexts": null,
+  "mode": "deterministic",
+  "deterministic_details": null,
+  "last_execution_id": null,
+  "last_execution_started_at": null,
+  "last_execution_stopped_at": null,
+  "last_execution_result_type": null,
+  "last_generation_id": null,
+  "last_generation_started_at": null,
+  "last_generation_stopped_at": null,
+  "last_generation_result_type": null,
+  "last_repair_id": null,
+  "last_repair_started_at": null,
+  "last_repair_stopped_at": null,
+  "last_repair_result_type": null,
+  "last_summarization_id": null,
+  "last_summarization_started_at": null,
+  "last_summarization_stopped_at": null,
+  "last_summarization_result_type": null,
+  "schedule": null,
+  "group_id": "wfl_grp_usJwFcIW8Z6ZAOQpDoMxU6iw",
+  "template_id": null,
+  "next_execution_at": null,
+  "archived_at": null,
+  "muted_until": null,
+  "is_muted": false,
+  "created_at": "2026-05-27T23:47:53.226402+00:00",
+  "updated_at": "2026-05-27T23:47:53.226402+00:00"
+}
+
+Error: Error: HTTP 409 Conflict, body: {"detail":"Workflow wflw_vUy2RkLyvu24aX8bNWuXUIXk already has an in-flight generation (wflw_gen_R9qUvqybaNqYMu5icKvXDOEo)."}
+
