@@ -1,0 +1,48 @@
+Cloning into 'repo'...
+
+Switched to a new branch 'cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z'
+
+[cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z 005ae0f] Add cold case run 14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests 2026-05-28T00-29-10-727Z
+ 35 files changed, 2735 insertions(+)
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/.kiro/agents/case-debriefer.json
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/.kiro/agents/case-investigator.json
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/.kiro/agents/case-reconstructor.json
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/.kiro/agents/case-repairer.json
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/.kiro/agents/case-writer.json
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/.kiro/steering/creative-case-writing.md
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/.kiro/steering/evidence-discipline.md
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/.kiro/steering/lark-first.md
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/.kiro/steering/narrative-boundaries.md
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/.kiro/steering/product.md
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/.kiro/steering/read-only-debrief.md
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/.kiro/steering/structure.md
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/.kiro/steering/tech.md
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/README.md
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/case-state.json
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/case.json
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/lark/README.md
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/lark/reproduction-workflow.json
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/lark/test-coverage-summary.md
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/lark/verification-workflow.json
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/logs/kiro-reconstruction.log
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/logs/pipeline-live.log
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/logs/repro-run.log
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/original/original-question.md
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/original/source-fetch-note.md
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/prompts/kiro-debrief.md
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/prompts/kiro-handoff.md
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/prompts/kiro-reconstruction.md
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/prompts/kiro-repair-from-lark.md
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/reports/reconstruction-report.md
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/repro/pom.xml
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/repro/src/main/java/repro/MultiPartReader.java
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/repro/src/test/java/repro/MultiPartReaderTest.java
+ create mode 100755 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/tests/lark/green/replay-verification.sh
+ create mode 100755 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/tests/lark/red/replay-reproduction.sh
+remote: 
+remote: Create a pull request for 'cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z' on GitHub by visiting:        
+remote:      https://github.com/egocks/coding-cold-cases-cracker/pull/new/cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z        
+remote: 
+To https://github.com/egocks/coding-cold-cases-cracker.git
+ * [new branch]      cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z -> cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z
+

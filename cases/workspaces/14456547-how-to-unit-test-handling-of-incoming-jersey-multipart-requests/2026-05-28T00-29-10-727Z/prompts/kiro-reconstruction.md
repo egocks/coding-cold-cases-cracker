@@ -35,3 +35,8 @@ We have a REST service that accepts [code] POST requests containing [code] that 
 ## Hard Stop
 
 Do not repair the case. Lark must inspect the failing reproduction before repair begins.
+
+
+## Retry Guidance
+
+Lark did not validate the reconstruction package. Reconstruct the failure again using the Lark reproduction evidence and logs as feedback.

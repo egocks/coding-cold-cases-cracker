@@ -13,7 +13,7 @@ Artifact: `tests/lark/red/replay-reproduction.sh`
 ## Green Verification Replay
 
 ```bash
-TO_BE_DISCOVERED_BY_KIRO
+cd repro && mvn test 2>&1 | grep -E '(ClassCastException|IllegalStateException|Tests run|BUILD)'
 ```
 
 Artifact: `tests/lark/green/replay-verification.sh`

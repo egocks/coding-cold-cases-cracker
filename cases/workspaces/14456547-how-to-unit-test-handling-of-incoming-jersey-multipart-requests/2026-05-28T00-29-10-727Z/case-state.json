@@ -3,7 +3,7 @@
   "run_id": "2026-05-28T00-29-10-727Z",
   "status": "publishing_reproduction",
   "created_at": "2026-05-28T00:29:10.764Z",
-  "updated_at": "2026-05-28T00:32:10.013Z",
+  "updated_at": "2026-05-28T00:34:23.581Z",
   "workspace": "cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z",
   "original": {
     "title": "How to Unit Test handling of incoming Jersey MultiPart requests",
@@ -32,16 +32,22 @@
   },
   "commands": {
     "reproduce": "cd repro && mvn test",
-    "verify": "TO_BE_DISCOVERED_BY_KIRO"
+    "verify": "cd repro && mvn test 2>&1 | grep -E '(ClassCastException|IllegalStateException|Tests run|BUILD)'"
   },
   "assumptions": [],
   "lark": {
-    "group_id": null,
-    "workflow_ids": [],
-    "execution_ids": [],
+    "group_id": "wfl_grp_MtuxpVJdco7hwfxMsv9Irrv8",
+    "workflow_ids": [
+      "wflw_oXZ30PKkgIkcyuDermJFmLkx"
+    ],
+    "execution_ids": [
+      "wflw_exec_8bRjTPgk54Ya1XF86g3VRjqO"
+    ],
     "reproduction": {
-      "workflow_id": null,
-      "execution_ids": [],
+      "workflow_id": "wflw_oXZ30PKkgIkcyuDermJFmLkx",
+      "execution_ids": [
+        "wflw_exec_8bRjTPgk54Ya1XF86g3VRjqO"
+      ],
       "passed": false,
       "output": "lark/reproduction-output.md",
       "evidence": "lark/reproduction-evidence.json"
@@ -74,8 +80,8 @@
     }
   },
   "github": {
-    "branch": null,
-    "remote_url": null
+    "branch": "cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z",
+    "remote_url": "https://github.com/egocks/coding-cold-cases-cracker/tree/cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z"
   },
   "writer": {
     "provider": "kiro-cli",
@@ -132,6 +138,44 @@
       "at": "2026-05-28T00:32:10.013Z",
       "type": "publishing_reproduction",
       "message": "Publishing reproduction workspace for Lark access."
+    },
+    {
+      "at": "2026-05-28T00:32:14.792Z",
+      "type": "publishing_reproduction_done",
+      "message": "Published workspace to GitHub."
+    },
+    {
+      "at": "2026-05-28T00:32:14.812Z",
+      "type": "lark_reproduction_running",
+      "message": "Lark forensic reproduction workflow started. Attempt 1 of 3."
+    },
+    {
+      "at": "2026-05-28T00:32:32.156Z",
+      "type": "partial",
+      "message": "Lark did not confirm the failing reproduction. Repair is paused to avoid unsupported closure."
+    },
+    {
+      "at": "2026-05-28T00:32:32.164Z",
+      "type": "kiro_reconstruction_retry",
+      "message": "Lark rejected reconstruction attempt 1. Returning the evidence to Kiro for another reconstruction pass."
+    },
+    {
+      "at": "2026-05-28T00:32:32.175Z",
+      "type": "kiro_reconstruction_started",
+      "message": "Kiro reconstruction started. Attempt 2 of 3."
+    },
+    {
+      "at": "2026-05-28T00:34:23.576Z",
+      "type": "reproduction_ready",
+      "message": "Kiro produced a failing reproduction for Lark forensic review."
+    },
+    {
+      "at": "2026-05-28T00:34:23.581Z",
+      "type": "publishing_reproduction",
+      "message": "Publishing reproduction workspace for Lark access."
     }
-  ]
+  ],
+  "retries": {
+    "total": 1
+  }
 }
