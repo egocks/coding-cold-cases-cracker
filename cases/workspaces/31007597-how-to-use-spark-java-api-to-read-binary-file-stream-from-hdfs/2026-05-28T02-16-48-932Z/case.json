@@ -1,0 +1,136 @@
+{
+  "case_id": "31007597-how-to-use-spark-java-api-to-read-binary-file-stream-from-hdfs",
+  "run_id": "2026-05-28T02-16-48-932Z",
+  "status": "publishing_reproduction",
+  "created_at": "2026-05-28T02:16:49.025Z",
+  "updated_at": "2026-05-28T02:16:57.009Z",
+  "workspace": "cases/workspaces/31007597-how-to-use-spark-java-api-to-read-binary-file-stream-from-hdfs/2026-05-28T02-16-48-932Z",
+  "original": {
+    "title": "How to use spark Java API to read binary file stream from HDFS?",
+    "url": "https://stackoverflow.com/questions/31007597/how-to-use-spark-java-api-to-read-binary-file-stream-from-hdfs",
+    "posted": "2015-06-23",
+    "score": 19,
+    "views": 3627,
+    "answers": 2,
+    "tags": [
+      "java",
+      "hadoop",
+      "apache-spark",
+      "streaming"
+    ],
+    "cold_signal": "Answers exist; top score 0",
+    "why_interesting": "",
+    "narrative_teaser": "Ying Tan's streaming job waits beside an HDFS directory for fresh binary files from Flume, but Spark keeps handing back a `BytesWritable` with an empty pocket. The evidence includes `binaryRecordsStream` rejected for fixed record length, `fileStream` wired through a custom `FileInputFormat`, a homemade `InputSplit`, and a `RecordReader` whose debug prints lead to `VAL-LENGTH = [0]` instead of online-learning data. Larkule Quirot's question is not whether Spark can read bytes; it is where the bytes disappear between HDFS discovery, split construction, and the Java Streaming API's contract.",
+    "fetched_source": "https://api.stackexchange.com/2.3/questions/31007597?order=desc&sort=activity&site=stackoverflow&filter=withbody",
+    "fetched": true,
+    "owner": {
+      "display_name": "Ying Tan",
+      "user_id": 5040785,
+      "link": "https://stackoverflow.com/users/5040785/ying-tan"
+    }
+  },
+  "commands": {
+    "reproduce": "TO_BE_DISCOVERED_BY_KIRO",
+    "verify": "TO_BE_DISCOVERED_BY_KIRO"
+  },
+  "assumptions": [],
+  "lark": {
+    "group_id": null,
+    "workflow_ids": [],
+    "execution_ids": [],
+    "reproduction": {
+      "workflow_id": null,
+      "execution_ids": [],
+      "passed": false,
+      "output": "lark/reproduction-output.md",
+      "evidence": "lark/reproduction-evidence.json"
+    },
+    "verification": {
+      "workflow_id": null,
+      "execution_ids": [],
+      "passed": false,
+      "output": "lark/verification-output.md",
+      "evidence": "lark/verification-evidence.json"
+    },
+    "verification_passed": false
+  },
+  "kiro": {
+    "reconstruction": {
+      "agent": ".kiro/agents/case-reconstructor.json",
+      "prompt": "prompts/kiro-reconstruction.md",
+      "report": "reports/reconstruction-report.md",
+      "passed": true,
+      "log": "logs/kiro-reconstruction.log",
+      "command": "kiro-cli chat --no-interactive --agent case-reconstructor --trust-tools=read,write,shell,grep,glob,web_fetch,web_search \"$(cat prompts/kiro-reconstruction.md)\""
+    },
+    "repair": {
+      "agent": ".kiro/agents/case-repairer.json",
+      "prompt": "prompts/kiro-repair-from-lark.md",
+      "report": "reports/technical-report.md"
+    },
+    "debrief": {
+      "agent": ".kiro/agents/case-debriefer.json"
+    }
+  },
+  "github": {
+    "branch": null,
+    "remote_url": null
+  },
+  "writer": {
+    "provider": "kiro-cli",
+    "quality": {
+      "accepted": false,
+      "attempts": 0,
+      "issues": []
+    }
+  },
+  "artifacts": {
+    "original_question": "original/original-question.md",
+    "kiro_reconstruction_prompt": "prompts/kiro-reconstruction.md",
+    "kiro_repair_prompt": "prompts/kiro-repair-from-lark.md",
+    "lark_reproduction_workflow": "lark/reproduction-workflow.json",
+    "lark_verification_workflow": "lark/verification-workflow.json",
+    "lark_reproduction_output": "lark/reproduction-output.md",
+    "lark_verification_output": "lark/verification-output.md",
+    "lark_test_coverage_summary": "lark/test-coverage-summary.md",
+    "lark_red_replay": "tests/lark/red/replay-reproduction.sh",
+    "lark_green_replay": "tests/lark/green/replay-verification.sh",
+    "reconstruction_report": "reports/reconstruction-report.md",
+    "technical_report": "reports/technical-report.md",
+    "case_file": "reports/case-file.md",
+    "user_summary": "reports/user-summary.md",
+    "evidence_map": "reports/evidence-map.json"
+  },
+  "timeline": [
+    {
+      "at": "2026-05-28T02:16:49.027Z",
+      "type": "workspace_created",
+      "message": "Created isolated investigation workspace."
+    },
+    {
+      "at": "2026-05-28T02:16:50.085Z",
+      "type": "source_fetched",
+      "message": "Fetched original Stack Overflow question body via Stack Exchange API."
+    },
+    {
+      "at": "2026-05-28T02:16:50.192Z",
+      "type": "prepared",
+      "message": "Generated phase-specific Kiro agent pack and Lark workflow payloads."
+    },
+    {
+      "at": "2026-05-28T02:16:51.181Z",
+      "type": "kiro_reconstruction_started",
+      "message": "Kiro reconstruction started. Attempt 1 of 3."
+    },
+    {
+      "at": "2026-05-28T02:16:57.007Z",
+      "type": "reproduction_ready",
+      "message": "Kiro produced a failing reproduction for Lark forensic review."
+    },
+    {
+      "at": "2026-05-28T02:16:57.009Z",
+      "type": "publishing_reproduction",
+      "message": "Publishing reproduction workspace for Lark access."
+    }
+  ]
+}

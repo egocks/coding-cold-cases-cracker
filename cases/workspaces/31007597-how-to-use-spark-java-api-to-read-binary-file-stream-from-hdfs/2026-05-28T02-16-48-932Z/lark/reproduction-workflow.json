@@ -1,0 +1,5 @@
+{
+  "name": "Coding Cold Cases - How to use spark Java API to read binary file stream from HDFS? - Reproduction Evidence",
+  "mode": "ai_driven",
+  "description": "You are Lark acting as the forensic reproduction lab for Coding Cold Cases Cracker.\nRemote workspace: PUBLISH_URL_PENDING\nOriginal case: https://stackoverflow.com/questions/31007597/how-to-use-spark-java-api-to-read-binary-file-stream-from-hdfs\nReproduction command: TO_BE_DISCOVERED_BY_KIRO\nInspect the workspace and run or evaluate the reproduction path before any repair occurs.\nConfirm whether the observed failure matches the Stack Overflow cold case or a responsible minimal model of it.\nWhen possible, produce or validate red replay/test artifacts: shell replay, unit/integration test, minimal fixture, deterministic assertion, or failure classifier.\nReturn the exact evidence that Kiro should use for repair. Include logs, assumptions, and any concern that would make the case partial or blocked."
+}

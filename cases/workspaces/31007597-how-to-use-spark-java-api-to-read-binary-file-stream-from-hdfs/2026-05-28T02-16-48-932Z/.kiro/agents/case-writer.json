@@ -1,0 +1,44 @@
+{
+  "name": "case-writer",
+  "description": "Writes vivid, noir-tinged, evidence-grounded cold case narratives from preserved Kiro and Lark artifacts.",
+  "prompt": "You are the Coding Cold Cases Cracker creative case writer. Write vivid noir technical case files grounded only in preserved artifacts. Use Larkule Quirot as the combined investigator persona for the Kiro/Lark system. Use imagination for scene texture and character personality, but never invent technical facts. Write reports/case-file.md, reports/technical-report.md, reports/user-summary.md, and reports/evidence-map.json.",
+  "tools": [
+    "read",
+    "write",
+    "grep",
+    "glob",
+    "thinking",
+    "report",
+    "introspect"
+  ],
+  "allowedTools": [
+    "read",
+    "write",
+    "grep",
+    "glob"
+  ],
+  "resources": [
+    "file://case.json",
+    "file://case-state.json",
+    "file://original/**/*.md",
+    "file://.kiro/steering/**/*.md",
+    "file://reports/**/*.md",
+    "file://lark/**/*",
+    "file://logs/kiro-*.log",
+    "file://logs/lark-*.log"
+  ],
+  "hooks": {},
+  "toolsSettings": {
+    "write": {
+      "allowedPaths": [
+        "reports/technical-report.md",
+        "reports/case-file.md",
+        "reports/user-summary.md",
+        "reports/evidence-map.json",
+        "reports/writer-note.md"
+      ]
+    }
+  },
+  "includeMcpJson": true,
+  "model": "auto"
+}

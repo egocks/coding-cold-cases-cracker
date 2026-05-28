@@ -1,0 +1,12 @@
+[stderr] [38;5;11mWARNING: [0mYou have trusted [38;5;10mwrite[0m tool, which overrides the toolsSettings: [38;5;141mallowedPaths: ["repro/**","repaired/**","reports/**","prompts/**","case.json","case-state.json"][0m
+
+[stderr] [38;5;252m[0m[?25l[stderr] [38;5;11mMonthly request limit reached[0m[stderr] 
+
+Upgrade your plan for increased limits.
+See https://kiro.dev/pricing
+
+The limits reset on 06/01.
+
+[0m
+[1G[0m[0m[?25h[stderr] Cloning into 'repo'...
+[stderr] Switched to a new branch 'cold-case/31007597-how-to-use-spark-java-api-to-read-binary-file-stream-from-hdfs/2026-05-28T02-16-48-932Z'
