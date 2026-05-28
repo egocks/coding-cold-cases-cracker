@@ -1209,3 +1209,320 @@ What the reproduction delivers:[0m[0m
  ▸ Credits: 1.23 • Time: 1m 47s
 
 [0m[1G[0m[0m[?25h
+[38;5;11mWARNING: [0mYou have trusted [38;5;10mwrite[0m tool, which overrides the toolsSettings: [38;5;141mallowedPaths: ["repro/**","repaired/**","reports/**","prompts/**","case.json","case-state.json"][0m
+
+[38;5;252m[0m[?25l[38;5;141m> [0mLet me read the existing work and Lark's feedback before rebuilding.[0m[0m
+[?25l[0m[0mBatch fs_read operation with [38;5;141m3[0m operations[38;5;244m (using tool: read)[0m
+
+↱ Operation 1: Reading directory: [38;5;141m/workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z[0m
+↱ Operation 2: Reading file: [38;5;141m/workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/lark/reproduction-output.md[0m, all lines
+↱ Operation 3: Reading file: [38;5;141m/workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/lark/reproduction-evidence.json[0m, all lines
+[38;5;10m ✓ [0mSuccessfully read directory [38;5;141m/workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z[0m [38;5;244m(58 entries)[0m
+
+[38;5;10m ✓ [0mSuccessfully read [38;5;244m2923 bytes[0m from /workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/lark/reproduction-output.md
+
+[38;5;10m ✓ [0mSuccessfully read [38;5;244m3389 bytes[0m from /workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/lark/reproduction-evidence.json
+
+ ⋮ 
+
+[38;5;244m- [0mSummary: 3 operations processed, 3 successful, 0 failed
+[38;5;244m - Completed in 0.25s[0m
+
+[?25l[0m[38;5;141m> [0mLark failed due to an invocation limit, not because the reproduction was wrong. Let me read the existing repro to understand what was built and what the actual test output was.[0m[0m
+[?25l[0m[0mBatch fs_read operation with [38;5;141m3[0m operations[38;5;244m (using tool: read)[0m
+
+↱ Operation 1: Reading file: [38;5;141m/workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/repro/pom.xml[0m, all lines
+↱ Operation 2: Reading file: [38;5;141m/workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/reports/reconstruction-report.md[0m, all lines
+↱ Operation 3: Reading file: [38;5;141m/workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/logs/repro-run.log[0m, all lines
+[38;5;10m ✓ [0mSuccessfully read [38;5;244m1639 bytes[0m from /workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/repro/pom.xml
+
+[38;5;10m ✓ [0mSuccessfully read [38;5;244m4648 bytes[0m from /workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/reports/reconstruction-report.md
+
+[38;5;10m ✓ [0mSuccessfully read [38;5;244m8577 bytes[0m from /workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/logs/repro-run.log
+
+ ⋮ 
+
+[38;5;244m- [0mSummary: 3 operations processed, 3 successful, 0 failed
+[38;5;244m - Completed in 0.9s[0m
+
+[?25l[0m[38;5;141m> [0mThe reproduction is already correct and working — both exceptions match Pete's report exactly. Lark's rejection was purely due to an invocation limit on their side, not a problem with the reproduction. Let me verify the current test files are intact and then re-run to confirm, then update the reconstruction report for this attempt.[0m[0m
+[?25l[0m[0mBatch fs_read operation with [38;5;141m2[0m operations[38;5;244m (using tool: read)[0m
+
+↱ Operation 1: Reading file: [38;5;141m/workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/repro/src/test/java/repro/MultiPartReaderTest.java[0m, all lines
+↱ Operation 2: Reading file: [38;5;141m/workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/repro/src/main/java/repro/MultiPartReader.java[0m, all lines
+[38;5;10m ✓ [0mSuccessfully read [38;5;244m2515 bytes[0m from /workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/repro/src/test/java/repro/MultiPartReaderTest.java
+
+[38;5;10m ✓ [0mSuccessfully read [38;5;244m825 bytes[0m from /workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/repro/src/main/java/repro/MultiPartReader.java
+
+ ⋮ 
+
+[38;5;244m- [0mSummary: 2 operations processed, 2 successful, 0 failed
+[38;5;244m - Completed in 0.1s[0m
+
+[?25l[0m[38;5;141m> [0mThe reproduction is solid. Both tests fail with exactly the exceptions Pete reported. The Lark rejections were both caused by Lark's own invocation limit error, not by any defect in the reproduction. I just need to run it once more to capture fresh logs for this attempt and update the reconstruction report.[0m[0m
+[?25l[0m[0mI will run the following command: [38;5;141mcd /workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/repro && mvn test 2>&1[0m[38;5;244m (using tool: shell)[0m
+Purpose: Run the reproduction to capture fresh output
+
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------< repro:jersey-multipart-cast-repro >------------------
+[INFO] Building jersey-multipart-cast-repro 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ jersey-multipart-cast-repro ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/repro/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ jersey-multipart-cast-repro ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ jersey-multipart-cast-repro ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/repro/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ jersey-multipart-cast-repro ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.2.5:test (default-test) @ jersey-multipart-cast-repro ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junit4.JUnit4Provider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running repro.MultiPartReaderTest
+[ERROR] Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.400 s <<< FAILURE! -- in repro.MultiPartReaderTest
+[ERROR] repro.MultiPartReaderTest.getEntityAs_throwsIllegalStateException -- Time elapsed: 0.172 s <<< ERROR!
+java.lang.IllegalStateException: Entity instance does not contain the unconverted content
+	at com.sun.jersey.multipart.BodyPart.getEntityAs(BodyPart.java:298)
+	at repro.MultiPartReaderTest.getEntityAs_throwsIllegalStateException(MultiPartReaderTest.java:62)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+[ERROR] repro.MultiPartReaderTest.directCast_throwsClassCastException -- Time elapsed: 0 s <<< ERROR!
+java.lang.ClassCastException: class [B cannot be cast to class com.sun.jersey.multipart.BodyPartEntity ([B is in module java.base of loader 'bootstrap'; com.sun.jersey.multipart.BodyPartEntity is in unnamed module of loader 'app')
+	at repro.MultiPartReaderTest.directCast_throwsClassCastException(MultiPartReaderTest.java:41)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Errors: 
+[ERROR]   MultiPartReaderTest.directCast_throwsClassCastException:41 ClassCast class [B cannot be cast to class com.sun.jersey.multipart.BodyPartEntity ([B is in module java.base of loader 'bootstrap'; com.sun.jersey.multipart.BodyPartEntity is in unnamed module of loader 'app')
+[ERROR]   MultiPartReaderTest.getEntityAs_throwsIllegalStateException:62 » IllegalState Entity instance does not contain the unconverted content
+[INFO] 
+[ERROR] Tests run: 2, Failures: 0, Errors: 2, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.130 s
+[INFO] Finished at: 2026-05-28T00:35:21Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.2.5:test (default-test) on project jersey-multipart-cast-repro: 
+[ERROR] 
+[ERROR] Please refer to /workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/repro/target/surefire-reports for the individual test results.
+[ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+[38;5;244m - Completed in 8.475s[0m
+
+[?25l[0m[38;5;141m> [0mBoth failures reproduce cleanly. Now update the reconstruction report to reflect this third attempt and note the Lark invocation-limit context.[0m[0m
+[?25l[0m[0mI'll create the following file: [38;5;141mreports/reconstruction-report.md[0m[38;5;244m (using tool: write)[0m
+Purpose: Update reconstruction report for attempt 3
+
+[49m[39m    1,  1[0m:[39m[49m # Reconstruction Report
+[0m[49m[39m    2,  2[0m:[39m[49m 
+[0m[49m[39m    3,  3[0m:[39m[49m ## What Was Reconstructed
+[0m[49m[39m    4,  4[0m:[39m[49m 
+[0m[49m[39m    5,  5[0m:[39m[49m A minimal Maven project (`repro/`) that reproduces the two exceptions Pete
+[0m[49m[39m    6,  6[0m:[39m[49m described in SO #14456547. The project contains:
+[0m[49m[39m    7,  7[0m:[39m[49m 
+[0m[49m[39m    8,  8[0m:[39m[49m - `repro/pom.xml` — Jersey 1.19.4 (`jersey-multipart`, `jersey-core`, `jersey-server`) + JUnit 4.13.2
+[0m[49m[39m    9,  9[0m:[39m[49m - `repro/src/main/java/repro/MultiPartReader.java` — the production cast line
+[0m[49m[39m   10, 10[0m:[39m[49m - `repro/src/test/java/repro/MultiPartReaderTest.java` — two failing tests
+[0m[49m[39m   11, 11[0m:[39m[49m 
+[0m[49m[39m   12, 12[0m:[39m[49m ## Reproduction Command
+[0m[49m[39m   13, 13[0m:[39m[49m 
+[0m[49m[39m   14, 14[0m:[39m[49m ```
+[0m[49m[39m   15, 15[0m:[39m[49m cd repro && mvn test
+[0m[49m[39m   16, 16[0m:[39m[49m ```
+[0m[49m[39m   17, 17[0m:[39m[49m 
+[0m[49m[38;5;9m-  18    [0m:[38;5;9m[49m Run from the workspace root:
+[0m[49m[38;5;9m-  19    [0m:[38;5;9m[49m 
+[0m[49m[38;5;9m-  20    [0m:[38;5;9m[49m ```
+[0m[49m[38;5;9m-  21    [0m:[38;5;9m[49m cd /workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/repro && mvn test
+[0m[49m[38;5;9m-  22    [0m:[38;5;9m[49m ```
+[0m[49m[38;5;9m-  23    [0m:[38;5;9m[49m 
+[0m[49m[38;5;9m-  24    [0m:[38;5;9m[49m ## Failure Logs (Attempt 2 — 2026-05-28T00:33:25Z)
+[0m[49m[38;5;10m+      18[0m:[38;5;10m[49m ## Failure Logs (Attempt 3 — 2026-05-28T00:35:21Z)
+[0m[49m[39m   25, 19[0m:[39m[49m 
+[0m[49m[39m   26, 20[0m:[39m[49m ```
+[0m[49m[39m   27, 21[0m:[39m[49m [INFO] -------------------------------------------------------
+[0m[49m[39m   28, 22[0m:[39m[49m [INFO]  T E S T S
+[0m[49m[39m   29, 23[0m:[39m[49m [INFO] -------------------------------------------------------
+[0m[49m[39m   30, 24[0m:[39m[49m [INFO] Running repro.MultiPartReaderTest
+[0m[49m[38;5;9m-  31    [0m:[38;5;9m[49m [ERROR] Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.435 s <<< FAILURE!
+[0m[49m[38;5;10m+      25[0m:[38;5;10m[49m [ERROR] Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.400 s <<< FAILURE!
+[0m[49m[39m   32, 26[0m:[39m[49m 
+[0m[49m[38;5;9m-  33    [0m:[38;5;9m[49m [ERROR] repro.MultiPartReaderTest.directCast_throwsClassCastException -- Time elapsed: 0.001 s <<< ERROR!
+[0m[49m[38;5;10m+      27[0m:[38;5;10m[49m [ERROR] repro.MultiPartReaderTest.directCast_throwsClassCastException -- Time elapsed: 0 s <<< ERROR!
+[0m[49m[39m   34, 28[0m:[39m[49m java.lang.ClassCastException: class [B cannot be cast to class com.sun.jersey.multipart.BodyPartEntity
+[0m[49m[39m   35, 29[0m:[39m[49m     at repro.MultiPartReaderTest.directCast_throwsClassCastException(MultiPartReaderTest.java:41)
+[0m[49m[39m   36, 30[0m:[39m[49m 
+[0m[49m[38;5;9m-  37    [0m:[38;5;9m[49m [ERROR] repro.MultiPartReaderTest.getEntityAs_throwsIllegalStateException -- Time elapsed: 0.229 s <<< ERROR!
+[0m[49m[38;5;10m+      31[0m:[38;5;10m[49m [ERROR] repro.MultiPartReaderTest.getEntityAs_throwsIllegalStateException -- Time elapsed: 0.172 s <<< ERROR!
+[0m[49m[39m   38, 32[0m:[39m[49m java.lang.IllegalStateException: Entity instance does not contain the unconverted content
+[0m[49m[39m   39, 33[0m:[39m[49m     at com.sun.jersey.multipart.BodyPart.getEntityAs(BodyPart.java:298)
+[0m[49m[39m   40, 34[0m:[39m[49m     at repro.MultiPartReaderTest.getEntityAs_throwsIllegalStateException(MultiPartReaderTest.java:62)
+[0m[49m[38;5;9m-  41    [0m:[38;5;9m[49m 
+[0m[49m[38;5;9m-  42    [0m:[38;5;9m[49m [ERROR] Errors:
+[0m[49m[38;5;9m-  43    [0m:[38;5;9m[49m [ERROR]   MultiPartReaderTest.directCast_throwsClassCastException:41 ClassCast class [B cannot be cast to class com.sun.jersey.multipart.BodyPartEntity
+[0m[49m[38;5;9m-  44    [0m:[38;5;9m[49m [ERROR]   MultiPartReaderTest.getEntityAs_throwsIllegalStateException:62 » IllegalState Entity instance does not contain the unconverted content
+[0m[49m[39m   45, 35[0m:[39m[49m 
+[0m[49m[39m   46, 36[0m:[39m[49m [ERROR] Tests run: 2, Failures: 0, Errors: 2, Skipped: 0
+[0m[49m[39m   47, 37[0m:[39m[49m [INFO] BUILD FAILURE
+[0m[49m[39m   48, 38[0m:[39m[49m ```
+[0m[49m[38;5;9m-  49    [0m:[38;5;9m[49m 
+[0m[49m[38;5;9m-  50    [0m:[38;5;9m[49m Full logs are in `logs/repro-run.log`.
+[0m[49m[39m   51, 39[0m:[39m[49m 
+[0m[49m[39m   52, 40[0m:[39m[49m ## Root Cause (observed, not repaired)
+[0m[49m[39m   53, 41[0m:[39m[49m 
+[0m[49m[39m   54, 42[0m:[39m[49m When a `MultiPart` is constructed in-process (as a client would build it),
+[0m[49m[39m   55, 43[0m:[39m[49m each `BodyPart` stores the raw Java object passed to its constructor as its
+[0m[49m[39m   56, 44[0m:[39m[49m entity — here `byte[]`.
+[0m[49m[39m   57, 45[0m:[39m[49m 
+[0m[49m[39m   58, 46[0m:[39m[49m On the server side, Jersey's `MultiPartReader` (`MessageBodyReader<MultiPart>`)
+[0m[49m[39m   59, 47[0m:[39m[49m deserialises the HTTP wire bytes and wraps each part's content in a
+[0m[49m[39m   60, 48[0m:[39m[49m `BodyPartEntity` that exposes an `InputStream`. That HTTP round-trip never
+[0m[49m[39m   61, 49[0m:[39m[49m happens in a plain unit test, so:
+[0m[49m[39m   62, 50[0m:[39m[49m 
+[0m[49m[39m   63, 51[0m:[39m[49m 1. `(BodyPartEntity) bodyPart.getEntity()` → `ClassCastException: [B cannot be
+[0m[49m[39m   64, 52[0m:[39m[49m    cast to BodyPartEntity` — the entity is still `byte[]`.
+[0m[49m[39m   65, 53[0m:[39m[49m 
+[0m[49m[39m   66, 54[0m:[39m[49m 2. `bodyPart.getEntityAs(BodyPartEntity.class)` → `IllegalStateException:
+[0m[49m[39m   67, 55[0m:[39m[49m    Entity instance does not contain the unconverted content` — `getEntityAs`
+[0m[49m[39m   68, 56[0m:[39m[49m    requires the entity to be stored as raw bytes (the "unconverted" wire form),
+[0m[49m[39m   69, 57[0m:[39m[49m    which is only the case after the `MessageBodyReader` has parsed the stream.
+[0m[49m[39m   70, 58[0m:[39m[49m 
+[0m[49m[39m   71, 59[0m:[39m[49m ## Assumptions and Caveats
+[0m[49m[39m   72, 60[0m:[39m[49m 
+[0m[49m[39m   73, 61[0m:[39m[49m - The original question used Jersey 1.x (`com.sun.jersey`). Version 1.19.4
+[0m[49m[39m   74, 62[0m:[39m[49m   (the last 1.x release on Maven Central) was chosen as the closest available
+[0m[49m[39m   75, 63[0m:[39m[49m   match.
+[0m[49m[39m   76, 64[0m:[39m[49m - `jersey-server` is on the classpath solely to satisfy the `RuntimeDelegate`
+[0m[49m[39m   77, 65[0m:[39m[49m   SPI lookup that `javax.ws.rs.core.MediaType.<clinit>` requires; it is not
+[0m[49m[39m   78, 66[0m:[39m[49m   used by the test logic itself.
+[0m[49m[39m   79, 67[0m:[39m[49m - The original code also used `IOUtils` (Apache Commons IO) and `ImageIO`; both
+[0m[49m[39m   80, 68[0m:[39m[49m   were omitted because the failure occurs before any image processing.
+[0m[49m[39m   81, 69[0m:[39m[49m - Java 11 source/target was used (compatible with Jersey 1.19.4 and available
+[0m[49m[39m   82, 70[0m:[39m[49m   in the environment); the original question predates Java 11 but the failure
+[0m[49m[39m   83, 71[0m:[39m[49m   is version-agnostic.
+[0m[49m[39m   84, 72[0m:[39m[49m 
+[0m[49m[38;5;9m-  85    [0m:[38;5;9m[49m ## Note on Lark Attempt 1 Rejection
+[0m[49m[38;5;10m+      73[0m:[38;5;10m[49m ## Note on Lark Attempt 1 and 2 Rejections
+[0m[49m[39m   86, 74[0m:[39m[49m 
+[0m[49m[38;5;9m-  87    [0m:[38;5;9m[49m Lark's attempt 1 rejection was caused by a Lark-side invocation limit error
+[0m[49m[38;5;9m-  88    [0m:[38;5;9m[49m (`Invocation limit reached`), not by any defect in the reproduction. The
+[0m[49m[38;5;9m-  89    [0m:[38;5;9m[49m reproduction code and failure output were correct in attempt 1 and remain
+[0m[49m[38;5;9m-  90    [0m:[38;5;9m[49m unchanged in attempt 2.
+[0m[49m[38;5;10m+      75[0m:[38;5;10m[49m Both Lark rejections were caused by a Lark-side invocation limit error
+[0m[49m[38;5;10m+      76[0m:[38;5;10m[49m (`Invocation limit reached. Please contact support@getlark.ai`), not by any
+[0m[49m[38;5;10m+      77[0m:[38;5;10m[49m defect in the reproduction. The reproduction code and failure output were
+[0m[49m[38;5;10m+      78[0m:[38;5;10m[49m correct in all three attempts and are unchanged.
+[0m[49m[39m   91, 79[0m:[39m[49m 
+[0m[49m[39m   92, 80[0m:[39m[49m ## Why This Is a Responsible Model
+[0m[49m[39m   93, 81[0m:[39m[49m 
+[0m[49m[39m   94, 82[0m:[39m[49m - The two exception messages in the reproduction match the two exception
+[0m[49m[39m   95, 83[0m:[39m[49m   messages Pete quoted verbatim:
+[0m[49m[39m   96, 84[0m:[39m[49m   - `[B cannot be cast to com.sun.jersey.multipart.BodyPartEntity`
+[0m[49m[39m   97, 85[0m:[39m[49m   - `Entity instance does not contain the unconverted content`
+[0m[49m[39m   98, 86[0m:[39m[49m - The reproduction uses the same Jersey 1.x API (`MultiPart`, `BodyPart`,
+[0m[49m[39m   99, 87[0m:[39m[49m   `BodyPartEntity`, `MediaType.APPLICATION_OCTET_STREAM_TYPE`) that Pete's
+[0m[49m[39m  100, 88[0m:[39m[49m   code used.
+[0m[49m[39m  101, 89[0m:[39m[49m - No repair has been applied; the tests fail exactly as Pete's test failed.
+[0m[49m[39m  102, 90[0m:[39m[49m - `mvn test` is deterministic and reproducible with no external services.
+[0m[K
+Replacing: [38;5;141mreports/reconstruction-report.md[0m
+[38;5;244m - Completed in 0.34s[0m
+
+[?25l[0m[38;5;141m> [0mNow save the fresh run log and confirm [38;5;10mcase.json[0m has the correct reproduce command.[0m[0m
+[?25l[0m[0mI will run the following command: [38;5;141mcd /workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/repro && mvn test 2>&1 > ../logs/repro-run.log; echo "exit: $?"[0m[38;5;244m (using tool: shell)[0m
+Purpose: Save fresh repro run log
+
+exit: 1
+[38;5;244m - Completed in 6.222s[0m
+
+[?25l[0m[38;5;141m> [0mGood — exit 1 (test failures), log saved. The [38;5;10mcase.json[0m already has [38;5;10m"reproduce": "cd repro && mvn test"[0m from the prior attempts. The reconstruction is complete and confirmed.[0m[0m
+[0m[0m
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[0m[0m
+[0m[0m
+[1mSummary of this attempt:[22m[0m[0m
+[0m[0m
+The reproduction was already correct from attempt 1. Both Lark rejections were caused by Lark's own [38;5;10mInvocation limit reached[0m error — not by any problem with the repro code.[0m[0m
+[0m[0m
+The failing reproduction ([38;5;10mcd repro && mvn test[0m) produces exactly the two exceptions Pete reported:[0m[0m
+[0m[0m
+1. [38;5;10mClassCastException: class [B cannot be cast to class com.sun.jersey.multipart.BodyPartEntity[0m — from the direct cast [38;5;10m(BodyPartEntity) bodyPart.getEntity()[0m[0m[0m
+2. [38;5;10mIllegalStateException: Entity instance does not contain the unconverted content[0m — from [38;5;10mbodyPart.getEntityAs(BodyPartEntity.class)[0m[0m[0m
+[0m[0m
+Root cause: constructing a [38;5;10mMultiPart[0m in-process stores the raw [38;5;10mbyte[][0m as the entity. Jersey's server-side [38;5;10mMessageBodyReader[0m only wraps it in a [38;5;10mBodyPartEntity[0m after deserialising the HTTP wire bytes — a round-trip that never happens in a plain unit test.[0m[0m
+[38;5;8m
+ ▸ Credits: 0.89 • Time: 1m 17s
+
+[0m[1G[0m[0m[?25h

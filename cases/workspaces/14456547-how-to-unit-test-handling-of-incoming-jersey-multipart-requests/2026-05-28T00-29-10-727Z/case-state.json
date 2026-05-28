@@ -3,7 +3,7 @@
   "run_id": "2026-05-28T00-29-10-727Z",
   "status": "publishing_reproduction",
   "created_at": "2026-05-28T00:29:10.764Z",
-  "updated_at": "2026-05-28T00:34:23.581Z",
+  "updated_at": "2026-05-28T00:36:08.417Z",
   "workspace": "cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z",
   "original": {
     "title": "How to Unit Test handling of incoming Jersey MultiPart requests",
@@ -38,15 +38,17 @@
   "lark": {
     "group_id": "wfl_grp_MtuxpVJdco7hwfxMsv9Irrv8",
     "workflow_ids": [
-      "wflw_oXZ30PKkgIkcyuDermJFmLkx"
+      "wflw_oXZ30PKkgIkcyuDermJFmLkx",
+      "wflw_CZL6UiUhhBkCp41sClfECeS5"
     ],
     "execution_ids": [
-      "wflw_exec_8bRjTPgk54Ya1XF86g3VRjqO"
+      "wflw_exec_8bRjTPgk54Ya1XF86g3VRjqO",
+      "wflw_exec_V7l5O6oWKrIYQsZMEC7xotEd"
     ],
     "reproduction": {
-      "workflow_id": "wflw_oXZ30PKkgIkcyuDermJFmLkx",
+      "workflow_id": "wflw_CZL6UiUhhBkCp41sClfECeS5",
       "execution_ids": [
-        "wflw_exec_8bRjTPgk54Ya1XF86g3VRjqO"
+        "wflw_exec_V7l5O6oWKrIYQsZMEC7xotEd"
       ],
       "passed": false,
       "output": "lark/reproduction-output.md",
@@ -173,9 +175,44 @@
       "at": "2026-05-28T00:34:23.581Z",
       "type": "publishing_reproduction",
       "message": "Publishing reproduction workspace for Lark access."
+    },
+    {
+      "at": "2026-05-28T00:34:31.071Z",
+      "type": "publishing_reproduction_done",
+      "message": "Published workspace to GitHub."
+    },
+    {
+      "at": "2026-05-28T00:34:31.406Z",
+      "type": "lark_reproduction_running",
+      "message": "Lark forensic reproduction workflow started. Attempt 1 of 3."
+    },
+    {
+      "at": "2026-05-28T00:34:46.161Z",
+      "type": "partial",
+      "message": "Lark did not confirm the failing reproduction. Repair is paused to avoid unsupported closure."
+    },
+    {
+      "at": "2026-05-28T00:34:46.172Z",
+      "type": "kiro_reconstruction_retry",
+      "message": "Lark rejected reconstruction attempt 2. Returning the evidence to Kiro for another reconstruction pass."
+    },
+    {
+      "at": "2026-05-28T00:34:46.210Z",
+      "type": "kiro_reconstruction_started",
+      "message": "Kiro reconstruction started. Attempt 3 of 3."
+    },
+    {
+      "at": "2026-05-28T00:36:08.414Z",
+      "type": "reproduction_ready",
+      "message": "Kiro produced a failing reproduction for Lark forensic review."
+    },
+    {
+      "at": "2026-05-28T00:36:08.417Z",
+      "type": "publishing_reproduction",
+      "message": "Publishing reproduction workspace for Lark access."
     }
   ],
   "retries": {
-    "total": 1
+    "total": 2
   }
 }

@@ -15,39 +15,27 @@ described in SO #14456547. The project contains:
 cd repro && mvn test
 ```
 
-Run from the workspace root:
-
-```
-cd /workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/repro && mvn test
-```
-
-## Failure Logs (Attempt 2 — 2026-05-28T00:33:25Z)
+## Failure Logs (Attempt 3 — 2026-05-28T00:35:21Z)
 
 ```
 [INFO] -------------------------------------------------------
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running repro.MultiPartReaderTest
-[ERROR] Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.435 s <<< FAILURE!
+[ERROR] Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.400 s <<< FAILURE!
 
-[ERROR] repro.MultiPartReaderTest.directCast_throwsClassCastException -- Time elapsed: 0.001 s <<< ERROR!
+[ERROR] repro.MultiPartReaderTest.directCast_throwsClassCastException -- Time elapsed: 0 s <<< ERROR!
 java.lang.ClassCastException: class [B cannot be cast to class com.sun.jersey.multipart.BodyPartEntity
     at repro.MultiPartReaderTest.directCast_throwsClassCastException(MultiPartReaderTest.java:41)
 
-[ERROR] repro.MultiPartReaderTest.getEntityAs_throwsIllegalStateException -- Time elapsed: 0.229 s <<< ERROR!
+[ERROR] repro.MultiPartReaderTest.getEntityAs_throwsIllegalStateException -- Time elapsed: 0.172 s <<< ERROR!
 java.lang.IllegalStateException: Entity instance does not contain the unconverted content
     at com.sun.jersey.multipart.BodyPart.getEntityAs(BodyPart.java:298)
     at repro.MultiPartReaderTest.getEntityAs_throwsIllegalStateException(MultiPartReaderTest.java:62)
 
-[ERROR] Errors:
-[ERROR]   MultiPartReaderTest.directCast_throwsClassCastException:41 ClassCast class [B cannot be cast to class com.sun.jersey.multipart.BodyPartEntity
-[ERROR]   MultiPartReaderTest.getEntityAs_throwsIllegalStateException:62 » IllegalState Entity instance does not contain the unconverted content
-
 [ERROR] Tests run: 2, Failures: 0, Errors: 2, Skipped: 0
 [INFO] BUILD FAILURE
 ```
-
-Full logs are in `logs/repro-run.log`.
 
 ## Root Cause (observed, not repaired)
 
@@ -82,12 +70,12 @@ happens in a plain unit test, so:
   in the environment); the original question predates Java 11 but the failure
   is version-agnostic.
 
-## Note on Lark Attempt 1 Rejection
+## Note on Lark Attempt 1 and 2 Rejections
 
-Lark's attempt 1 rejection was caused by a Lark-side invocation limit error
-(`Invocation limit reached`), not by any defect in the reproduction. The
-reproduction code and failure output were correct in attempt 1 and remain
-unchanged in attempt 2.
+Both Lark rejections were caused by a Lark-side invocation limit error
+(`Invocation limit reached. Please contact support@getlark.ai`), not by any
+defect in the reproduction. The reproduction code and failure output were
+correct in all three attempts and are unchanged.
 
 ## Why This Is a Responsible Model
 

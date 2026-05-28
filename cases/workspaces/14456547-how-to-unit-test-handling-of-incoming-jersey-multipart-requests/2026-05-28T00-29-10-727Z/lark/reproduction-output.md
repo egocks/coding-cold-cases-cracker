@@ -1,16 +1,9 @@
 # Lark Reproduction Output
 
 ```text
+Reusing Lark workflow group wfl_grp_MtuxpVJdco7hwfxMsv9Irrv8
 {
-  "id": "wfl_grp_MtuxpVJdco7hwfxMsv9Irrv8",
-  "name": "Coding Cold Cases - 14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests - 2026-05-28T00-29-10-727Z",
-  "workflow_count": 0,
-  "created_at": "2026-05-28T00:32:18.198784+00:00",
-  "updated_at": "2026-05-28T00:32:18.198784+00:00"
-}
-
-{
-  "id": "wflw_oXZ30PKkgIkcyuDermJFmLkx",
+  "id": "wflw_CZL6UiUhhBkCp41sClfECeS5",
   "name": "Coding Cold Cases - How to Unit Test handling of incoming Jersey MultiPart requests - Reproduction Evidence",
   "status": "active",
   "display_status": "never_run",
@@ -41,14 +34,14 @@
   "archived_at": null,
   "muted_until": null,
   "is_muted": false,
-  "created_at": "2026-05-28T00:32:21.759631+00:00",
-  "updated_at": "2026-05-28T00:32:21.759631+00:00"
+  "created_at": "2026-05-28T00:34:35.260045+00:00",
+  "updated_at": "2026-05-28T00:34:35.260045+00:00"
 }
 
-[wflw_oXZ30PKkgIkcyuDermJFmLkx] Status: pending (1s elapsed)
-[wflw_oXZ30PKkgIkcyuDermJFmLkx] Status: failure (7s elapsed)
-[wflw_oXZ30PKkgIkcyuDermJFmLkx] Log: Invocation limit reached. Please contact support@getlark.ai to increase your limit.
-Workflow wflw_oXZ30PKkgIkcyuDermJFmLkx executed with failure. Execution ID: wflw_exec_8bRjTPgk54Ya1XF86g3VRjqO. Summary: An unexpected error occurred during workflow execution. Please try again or contact support@getlark.ai if the problem persists.
-Workflows finished with status "failure": wflw_oXZ30PKkgIkcyuDermJFmLkx
+[wflw_CZL6UiUhhBkCp41sClfECeS5] Status: pending (1s elapsed)
+[wflw_CZL6UiUhhBkCp41sClfECeS5] Status: failure (7s elapsed)
+[wflw_CZL6UiUhhBkCp41sClfECeS5] Log: Invocation limit reached. Please contact support@getlark.ai to increase your limit.
+Workflow wflw_CZL6UiUhhBkCp41sClfECeS5 executed with failure. Execution ID: wflw_exec_V7l5O6oWKrIYQsZMEC7xotEd. Summary: An unexpected error occurred during workflow execution. Please try again or contact support@getlark.ai if the problem persists.
+Workflows finished with status "failure": wflw_CZL6UiUhhBkCp41sClfECeS5
 
 ```

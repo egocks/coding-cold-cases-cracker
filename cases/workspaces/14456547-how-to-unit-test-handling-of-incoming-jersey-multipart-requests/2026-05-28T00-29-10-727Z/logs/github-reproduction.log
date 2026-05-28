@@ -46,3 +46,19 @@ remote:
 To https://github.com/egocks/coding-cold-cases-cracker.git
  * [new branch]      cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z -> cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z
 
+Cloning into 'repo'...
+
+From https://github.com/egocks/coding-cold-cases-cracker
+ * branch            cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z -> FETCH_HEAD
+Switched to a new branch 'cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z'
+
+[cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z 035b60b] Add cold case run 14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests 2026-05-28T00-29-10-727Z
+ 16 files changed, 1414 insertions(+), 53 deletions(-)
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/lark/reproduction-evidence.json
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/lark/reproduction-output.md
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/logs/github-reproduction.log
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/logs/github.log
+ create mode 100644 cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/logs/lark-reproduction.log
+To https://github.com/egocks/coding-cold-cases-cracker.git
+   005ae0f..035b60b  cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z -> cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z
+

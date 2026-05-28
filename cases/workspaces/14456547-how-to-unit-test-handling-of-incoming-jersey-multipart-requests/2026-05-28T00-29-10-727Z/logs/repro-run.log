@@ -26,8 +26,8 @@
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running repro.MultiPartReaderTest
-[ERROR] Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.435 s <<< FAILURE! -- in repro.MultiPartReaderTest
-[ERROR] repro.MultiPartReaderTest.getEntityAs_throwsIllegalStateException -- Time elapsed: 0.229 s <<< ERROR!
+[ERROR] Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.211 s <<< FAILURE! -- in repro.MultiPartReaderTest
+[ERROR] repro.MultiPartReaderTest.getEntityAs_throwsIllegalStateException -- Time elapsed: 0.076 s <<< ERROR!
 java.lang.IllegalStateException: Entity instance does not contain the unconverted content
 	at com.sun.jersey.multipart.BodyPart.getEntityAs(BodyPart.java:298)
 	at repro.MultiPartReaderTest.getEntityAs_throwsIllegalStateException(MultiPartReaderTest.java:62)
@@ -100,8 +100,8 @@ java.lang.ClassCastException: class [B cannot be cast to class com.sun.jersey.mu
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD FAILURE
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  5.532 s
-[INFO] Finished at: 2026-05-28T00:33:25Z
+[INFO] Total time:  2.407 s
+[INFO] Finished at: 2026-05-28T00:36:00Z
 [INFO] ------------------------------------------------------------------------
 [ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.2.5:test (default-test) on project jersey-multipart-cast-repro: 
 [ERROR] 
