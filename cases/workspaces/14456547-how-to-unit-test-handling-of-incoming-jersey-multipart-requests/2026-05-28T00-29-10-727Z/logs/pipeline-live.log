@@ -1674,3 +1674,52 @@ The [stdout] failing [stdout] reproduction ([stdout] [38;5;10mcd repro && mvn t
 [stderr] From https://github.com/egocks/coding-cold-cases-cracker
  * branch            cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z -> FETCH_HEAD
 [stderr] Switched to a new branch 'cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z'
+[stdout] [cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z 8b057f8] Add cold case run 14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests 2026-05-28T00-29-10-727Z
+ 12 files changed, 879 insertions(+), 56 deletions(-)
+[stderr] To https://github.com/egocks/coding-cold-cases-cracker.git
+   035b60b..8b057f8  cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z -> cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z
+[stdout] {
+  "id": "wflw_p6WShiojwy0asINY9eLZ3Hhy",
+  "name": "Coding Cold Cases - How to Unit Test handling of incoming Jersey MultiPart requests - Reproduction Evidence",
+  "status": "active",
+  "display_status": "never_run",
+  "description": "You are Lark acting as the forensic reproduction lab for Coding Cold Cases Cracker.\nRemote workspace: https://github.com/egocks/coding-cold-cases-cracker/tree/cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z\nOriginal case: https://stackoverflow.com/questions/14456547/how-to-unit-test-handling-of-incoming-jersey-multipart-requests\nReproduction command: cd repro && mvn test\nInspect the workspace and run or evaluate the reproduction path before any repair occurs.\nConfirm whether the observed failure matches the Stack Overflow cold case or a responsible minimal model of it.\nWhen possible, produce or validate red replay/test artifacts: shell replay, unit/integration test, minimal fixture, deterministic assertion, or failure classifier.\nReturn the exact evidence that Kiro should use for repair. Include logs, assumptions, and any concern that would make the case partial or blocked.",
+  "secret_contexts": null,
+  "mode": "ai_driven",
+  "deterministic_details": null,
+  "last_execution_id": null,
+  "last_execution_started_at": null,
+  "last_execution_stopped_at": null,
+  "last_execution_result_type": null,
+  "last_generation_id": null,
+  "last_generation_started_at": null,
+  "last_generation_stopped_at": null,
+  "last_generation_result_type": null,
+  "last_repair_id": null,
+  "last_repair_started_at": null,
+  "last_repair_stopped_at": null,
+  "last_repair_result_type": null,
+  "last_summarization_id": null,
+  "last_summarization_started_at": null,
+  "last_summarization_stopped_at": null,
+  "last_summarization_result_type": null,
+  "schedule": null,
+  "group_id": "wfl_grp_MtuxpVJdco7hwfxMsv9Irrv8",
+  "template_id": null,
+  "next_execution_at": null,
+  "archived_at": null,
+  "muted_until": null,
+  "is_muted": false,
+  "created_at": "2026-05-28T00:36:14.507766+00:00",
+  "updated_at": "2026-05-28T00:36:14.507766+00:00"
+}
+[stdout] [wflw_p6WShiojwy0asINY9eLZ3Hhy] Status: pending (1s elapsed)
+[stdout] [wflw_p6WShiojwy0asINY9eLZ3Hhy] Status: failure (8s elapsed)
+[stdout] [wflw_p6WShiojwy0asINY9eLZ3Hhy] Log: Invocation limit reached. Please contact support@getlark.ai to increase your limit.
+[stderr] Workflow wflw_p6WShiojwy0asINY9eLZ3Hhy executed with failure. Execution ID: wflw_exec_0DhelB7LxYizOvXsFmS1pNwZ. Summary: An unexpected error occurred during workflow execution. Please try again or contact support@getlark.ai if the problem persists.
+[stderr] Workflows finished with status "failure": wflw_p6WShiojwy0asINY9eLZ3Hhy
+[stderr] Cloning into 'repo'...
+[stdout] 8b057f8d9530a5316d8252dda89ffec6d5bfa6e6	refs/heads/cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z
+[stderr] From https://github.com/egocks/coding-cold-cases-cracker
+ * branch            cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z -> FETCH_HEAD
+[stderr] Switched to a new branch 'cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z'

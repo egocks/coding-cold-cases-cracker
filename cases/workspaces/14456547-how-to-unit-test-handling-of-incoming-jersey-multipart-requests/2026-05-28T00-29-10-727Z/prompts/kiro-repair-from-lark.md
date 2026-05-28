@@ -20,7 +20,17 @@ We have a REST service that accepts [code] POST requests containing [code] that 
 ## Lark Reproduction Evidence
 
 {
-  "verdict": "Pending. Lark reproduction evidence has not run yet."
+  "phase": "reproduction",
+  "passed": false,
+  "provisioned": false,
+  "transient": false,
+  "transient_reason": null,
+  "blocked_reason": null,
+  "group_id": "wfl_grp_MtuxpVJdco7hwfxMsv9Irrv8",
+  "workflow_id": null,
+  "execution_ids": [],
+  "verdict": "Lark could not be provisioned for this phase.",
+  "output_excerpt": "GETLARK_API_KEY is missing. Lark workflows were generated but not provisioned."
 }
 
 ## Required Repair

@@ -64,3 +64,17 @@ Switched to a new branch 'cold-case/14456547-how-to-unit-test-handling-of-incomi
 To https://github.com/egocks/coding-cold-cases-cracker.git
    005ae0f..035b60b  cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z -> cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z
 
+[publishing_reproduction]
+Cloning into 'repo'...
+
+From https://github.com/egocks/coding-cold-cases-cracker
+ * branch            cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z -> FETCH_HEAD
+Switched to a new branch 'cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z'
+
+[cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z 8b057f8] Add cold case run 14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests 2026-05-28T00-29-10-727Z
+ 12 files changed, 879 insertions(+), 56 deletions(-)
+To https://github.com/egocks/coding-cold-cases-cracker.git
+   035b60b..8b057f8  cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z -> cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z
+
+[publishing_reproduction]
+GITHUB_REPO_URL or GITHUB_TOKEN is missing. Skipping remote publish.

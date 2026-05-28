@@ -1,14 +1,13 @@
 {
   "phase": "reproduction",
   "passed": false,
-  "provisioned": true,
+  "provisioned": false,
   "transient": false,
   "transient_reason": null,
+  "blocked_reason": null,
   "group_id": "wfl_grp_MtuxpVJdco7hwfxMsv9Irrv8",
-  "workflow_id": "wflw_CZL6UiUhhBkCp41sClfECeS5",
-  "execution_ids": [
-    "wflw_exec_V7l5O6oWKrIYQsZMEC7xotEd"
-  ],
-  "verdict": "Reproduction evidence not confirmed by Lark.",
-  "output_excerpt": "Reusing Lark workflow group wfl_grp_MtuxpVJdco7hwfxMsv9Irrv8\n{\n  \"id\": \"wflw_CZL6UiUhhBkCp41sClfECeS5\",\n  \"name\": \"Coding Cold Cases - How to Unit Test handling of incoming Jersey MultiPart requests - Reproduction Evidence\",\n  \"status\": \"active\",\n  \"display_status\": \"never_run\",\n  \"description\": \"You are Lark acting as the forensic reproduction lab for Coding Cold Cases Cracker.\\nRemote workspace: https://github.com/egocks/coding-cold-cases-cracker/tree/cold-case/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z\\nOriginal case: https://stackoverflow.com/questions/14456547/how-to-unit-test-handling-of-incoming-jersey-multipart-requests\\nReproduction command: cd repro && mvn test\\nInspect the workspace and run or evaluate the reproduction path before any repair occurs.\\nConfirm whether the observed failure matches the Stack Overflow cold case or a responsible minimal model of it.\\nWhen possible, produce or validate red replay/test artifacts: shell replay, unit/integration test, minimal fixture, deterministic assertion, or failure classifier.\\nReturn the exact evidence that Kiro should use for repair. Include logs, assumptions, and any concern that would make the case partial or blocked.\",\n  \"secret_contexts\": null,\n  \"mode\": \"ai_driven\",\n  \"deterministic_details\": null,\n  \"last_execution_id\": null,\n  \"last_execution_started_at\": null,\n  \"last_execution_stopped_at\": null,\n  \"last_execution_result_type\": null,\n  \"last_generation_id\": null,\n  \"last_generation_started_at\": null,\n  \"last_generation_stopped_at\": null,\n  \"last_generation_result_type\": null,\n  \"last_repair_id\": null,\n  \"last_repair_started_at\": null,\n  \"last_repair_stopped_at\": null,\n  \"last_repair_result_type\": null,\n  \"last_summarization_id\": null,\n  \"last_summarization_started_at\": null,\n  \"last_summarization_stopped_at\": null,\n  \"last_summarization_result_type\": null,\n  \"schedule\": null,\n  \"group_id\": \"wfl_grp_MtuxpVJdco7hwfxMsv9Irrv8\",\n  \"template_id\": null,\n  \"next_execution_at\": null,\n  \"archived_at\": null,\n  \"muted_until\": null,\n  \"is_muted\": false,\n  \"created_at\": \"2026-05-28T00:34:35.260045+00:00\",\n  \"updated_at\": \"2026-05-28T00:34:35.260045+00:00\"\n}\n\n[wflw_CZL6UiUhhBkCp41sClfECeS5] Status: pending (1s elapsed)\n[wflw_CZL6UiUhhBkCp41sClfECeS5] Status: failure (7s elapsed)\n[wflw_CZL6UiUhhBkCp41sClfECeS5] Log: Invocation limit reached. Please contact support@getlark.ai to increase your limit.\nWorkflow wflw_CZL6UiUhhBkCp41sClfECeS5 executed with failure. Execution ID: wflw_exec_V7l5O6oWKrIYQsZMEC7xotEd. Summary: An unexpected error occurred during workflow execution. Please try again or contact support@getlark.ai if the problem persists.\nWorkflows finished with status \"failure\": wflw_CZL6UiUhhBkCp41sClfECeS5"
+  "workflow_id": null,
+  "execution_ids": [],
+  "verdict": "Lark could not be provisioned for this phase.",
+  "output_excerpt": "GETLARK_API_KEY is missing. Lark workflows were generated but not provisioned."
 }

@@ -1,0 +1,364 @@
+[38;5;11mWARNING: [0mYou have trusted [38;5;10mwrite[0m tool, which overrides the toolsSettings: [38;5;141mallowedPaths: ["reports/technical-report.md","reports/case-file.md","reports/user-summary.md","reports/evidence-map.json","reports/writer-note.md"][0m
+
+[38;5;252m[0m[?25l[?25l[0m[0mBatch fs_read operation with [38;5;141m3[0m operations[38;5;244m (using tool: read)[0m
+
+↱ Operation 1: Reading file: [38;5;141m/workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/repro/src/test/java/repro/MultiPartReaderTest.java[0m, all lines
+↱ Operation 2: Reading file: [38;5;141m/workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/repro/src/main/java/repro/MultiPartReader.java[0m, all lines
+↱ Operation 3: Reading file: [38;5;141m/workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/repro/pom.xml[0m, all lines
+[38;5;10m ✓ [0mSuccessfully read [38;5;244m2515 bytes[0m from /workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/repro/src/test/java/repro/MultiPartReaderTest.java
+
+[38;5;10m ✓ [0mSuccessfully read [38;5;244m825 bytes[0m from /workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/repro/src/main/java/repro/MultiPartReader.java
+
+[38;5;10m ✓ [0mSuccessfully read [38;5;244m1639 bytes[0m from /workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/repro/pom.xml
+
+ ⋮ 
+
+[38;5;244m- [0mSummary: 3 operations processed, 3 successful, 0 failed
+[38;5;244m - Completed in 0.1s[0m
+
+[?25l[0m[38;5;141m> [0mNow I have everything I need. Let me write all four files.[0m[0m
+[?25l[0m[0mI'll create the following file: [38;5;141m/workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/reports/technical-report.md[0m[38;5;244m (using tool: write)[0m
+Purpose: Technical report: sober, evidence-first, commands and root cause
+
+[49m[38;5;10m+     1[0m:[38;5;10m[49m # Technical Report — SO #14456547
+[0m[49m[38;5;10m+     2[0m:[38;5;10m[49m ## How to Unit Test handling of incoming Jersey MultiPart requests
+[0m[49m[38;5;10m+     3[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     4[0m:[38;5;10m[49m **Status:** Partial — reproduction confirmed locally; Lark forensic validation blocked by external invocation-limit error (not a code defect).
+[0m[49m[38;5;10m+     5[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     6[0m:[38;5;10m[49m ---
+[0m[49m[38;5;10m+     7[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     8[0m:[38;5;10m[49m ## Root Cause
+[0m[49m[38;5;10m+     9[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    10[0m:[38;5;10m[49m When a `MultiPart` is constructed in-process (as a client would build it for sending), each `BodyPart` stores the raw Java object passed to its constructor directly as its entity. Here that object is `byte[]`.
+[0m[49m[38;5;10m+    11[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    12[0m:[38;5;10m[49m On the server side, Jersey's `com.sun.jersey.multipart.impl.MultiPartReader` (a `MessageBodyReader<MultiPart>`) deserialises the HTTP wire bytes and wraps each part's content in a `BodyPartEntity` that exposes an `InputStream`. That HTTP serialise-then-parse round-trip never occurs in a plain unit test. The test constructs the `MultiPart` the same way the client does, so the entity is still `byte[]` when the production cast runs.
+[0m[49m[38;5;10m+    13[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    14[0m:[38;5;10m[49m Two failure modes result:
+[0m[49m[38;5;10m+    15[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    16[0m:[38;5;10m[49m | Attempt | Code | Exception |
+[0m[49m[38;5;10m+    17[0m:[38;5;10m[49m |---|---|---|
+[0m[49m[38;5;10m+    18[0m:[38;5;10m[49m | Direct cast | `(BodyPartEntity) bodyPart.getEntity()` | `ClassCastException: class [B cannot be cast to class com.sun.jersey.multipart.BodyPartEntity` |
+[0m[49m[38;5;10m+    19[0m:[38;5;10m[49m | `getEntityAs` fallback | `bodyPart.getEntityAs(BodyPartEntity.class)` | `IllegalStateException: Entity instance does not contain the unconverted content` |
+[0m[49m[38;5;10m+    20[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    21[0m:[38;5;10m[49m `getEntityAs` requires the entity to be stored as raw bytes (the "unconverted" wire form), which is only true after `MessageBodyReader` has parsed the stream. Neither path works when the entity was set as a typed Java object.
+[0m[49m[38;5;10m+    22[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    23[0m:[38;5;10m[49m ---
+[0m[49m[38;5;10m+    24[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    25[0m:[38;5;10m[49m ## Reproduction
+[0m[49m[38;5;10m+    26[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    27[0m:[38;5;10m[49m **Command:**
+[0m[49m[38;5;10m+    28[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+    29[0m:[38;5;10m[49m cd repro && mvn test
+[0m[49m[38;5;10m+    30[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+    31[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    32[0m:[38;5;10m[49m **Stack:** Jersey 1.19.4 (`jersey-multipart`, `jersey-core`, `jersey-server`), JUnit 4.13.2, Java 11, Maven.
+[0m[49m[38;5;10m+    33[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    34[0m:[38;5;10m[49m **Key files:**
+[0m[49m[38;5;10m+    35[0m:[38;5;10m[49m - `repro/pom.xml`
+[0m[49m[38;5;10m+    36[0m:[38;5;10m[49m - `repro/src/main/java/repro/MultiPartReader.java`
+[0m[49m[38;5;10m+    37[0m:[38;5;10m[49m - `repro/src/test/java/repro/MultiPartReaderTest.java`
+[0m[49m[38;5;10m+    38[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    39[0m:[38;5;10m[49m **Observed output (attempt 3, 2026-05-28T00:35:21Z):**
+[0m[49m[38;5;10m+    40[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+    41[0m:[38;5;10m[49m [ERROR] Tests run: 2, Failures: 0, Errors: 2, Skipped: 0 <<< FAILURE!
+[0m[49m[38;5;10m+    42[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    43[0m:[38;5;10m[49m [ERROR] directCast_throwsClassCastException
+[0m[49m[38;5;10m+    44[0m:[38;5;10m[49m java.lang.ClassCastException: class [B cannot be cast to class
+[0m[49m[38;5;10m+    45[0m:[38;5;10m[49m   com.sun.jersey.multipart.BodyPartEntity
+[0m[49m[38;5;10m+    46[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    47[0m:[38;5;10m[49m [ERROR] getEntityAs_throwsIllegalStateException
+[0m[49m[38;5;10m+    48[0m:[38;5;10m[49m java.lang.IllegalStateException: Entity instance does not contain
+[0m[49m[38;5;10m+    49[0m:[38;5;10m[49m   the unconverted content
+[0m[49m[38;5;10m+    50[0m:[38;5;10m[49m     at com.sun.jersey.multipart.BodyPart.getEntityAs(BodyPart.java:298)
+[0m[49m[38;5;10m+    51[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    52[0m:[38;5;10m[49m [INFO] BUILD FAILURE
+[0m[49m[38;5;10m+    53[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+    54[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    55[0m:[38;5;10m[49m Both exception messages match Pete's verbatim report.
+[0m[49m[38;5;10m+    56[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    57[0m:[38;5;10m[49m ---
+[0m[49m[38;5;10m+    58[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    59[0m:[38;5;10m[49m ## Fix / Resolution
+[0m[49m[38;5;10m+    60[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    61[0m:[38;5;10m[49m No repair was applied. The case reached the reproduction stage only. The correct fix (not implemented here) is to perform the HTTP round-trip in the test — serialize the `MultiPart` to bytes via `MultiPartWriter`, then deserialize via `MultiPartReader` — so the entity arrives as a `BodyPartEntity` wrapping an `InputStream`, exactly as it would on the server.
+[0m[49m[38;5;10m+    62[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    63[0m:[38;5;10m[49m ---
+[0m[49m[38;5;10m+    64[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    65[0m:[38;5;10m[49m ## Lark Evidence
+[0m[49m[38;5;10m+    66[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    67[0m:[38;5;10m[49m Lark forensic validation was attempted three times. All three executions failed with:
+[0m[49m[38;5;10m+    68[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    69[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+    70[0m:[38;5;10m[49m Invocation limit reached. Please contact support@getlark.ai to increase your limit.
+[0m[49m[38;5;10m+    71[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+    72[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    73[0m:[38;5;10m[49m This is a Lark-side infrastructure error, not a defect in the reproduction. The reproduction code and failure output are correct and unchanged across all three attempts.
+[0m[49m[38;5;10m+    74[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    75[0m:[38;5;10m[49m - Lark workflow group: `wfl_grp_MtuxpVJdco7hwfxMsv9Irrv8`
+[0m[49m[38;5;10m+    76[0m:[38;5;10m[49m - Final execution ID: `wflw_exec_0DhelB7LxYizOvXsFmS1pNwZ`
+[0m[49m[38;5;10m+    77[0m:[38;5;10m[49m - Evidence file: `lark/reproduction-evidence.json`
+[0m[49m[38;5;10m+    78[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    79[0m:[38;5;10m[49m ---
+[0m[49m[38;5;10m+    80[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    81[0m:[38;5;10m[49m ## Caveats
+[0m[49m[38;5;10m+    82[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    83[0m:[38;5;10m[49m - Jersey 1.19.4 is the last 1.x release on Maven Central; the original question predates it but the failure is version-agnostic.
+[0m[49m[38;5;10m+    84[0m:[38;5;10m[49m - `jersey-server` is on the classpath solely to satisfy the `RuntimeDelegate` SPI lookup that `javax.ws.rs.core.MediaType.<clinit>` requires; it is not exercised by the test logic.
+[0m[49m[38;5;10m+    85[0m:[38;5;10m[49m - `IOUtils` (Apache Commons IO) and `ImageIO` from the original code were omitted; the failure occurs before any image processing.
+[0m[49m[38;5;10m+    86[0m:[38;5;10m[49m - Lark verification did not run; the case cannot be marked Closed.
+[0m[K
+Creating: [38;5;141m/workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/reports/technical-report.md[0m
+[38;5;244m - Completed in 0.3s[0m
+
+[?25l[0m[?25l[0m[0mI'll create the following file: [38;5;141m/workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/reports/case-file.md[0m[38;5;244m (using tool: write)[0m
+Purpose: Noir literary case file with full narrative arc and factual appendix
+
+[49m[38;5;10m+      1[0m:[38;5;10m[49m # The Body Part That Wasn't There
+[0m[49m[38;5;10m+      2[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+      3[0m:[38;5;10m[49m Pete had been staring at the same stack trace for forty minutes when he finally pushed back from his desk and went to make coffee. The office was quiet — the kind of quiet that settles in after lunch when everyone else has found something productive to do. He hadn't. He had a REST service that worked perfectly in production, a unit test that looked exactly like the client code, and an exception that made no sense.
+[0m[49m[38;5;10m+      4[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+      5[0m:[38;5;10m[49m `[B cannot be cast to com.sun.jersey.multipart.BodyPartEntity`
+[0m[49m[38;5;10m+      6[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+      7[0m:[38;5;10m[49m `[B`. Java's internal notation for a byte array. His byte array. The one he'd put there himself, three lines above the crash.
+[0m[49m[38;5;10m+      8[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+      9[0m:[38;5;10m[49m He poured the coffee and read the line again. He'd built the `MultiPart` the same way the client built it — `new BodyPart(bytes, MediaType.APPLICATION_OCTET_STREAM_TYPE)` — and then called `saveFile`, which was the whole point. The method was simple: grab the first body part, cast its entity to `BodyPartEntity`, get the `InputStream`, write the image. It worked in production every time. In the test it exploded before it touched the filesystem.
+[0m[49m[38;5;10m+     10[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     11[0m:[38;5;10m[49m Pete was not a person who gave up easily. He had a theory: maybe the cast was wrong. Maybe `getEntityAs` was the right API. He changed the line.
+[0m[49m[38;5;10m+     12[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     13[0m:[38;5;10m[49m `IllegalStateException: Entity instance does not contain the unconverted content`
+[0m[49m[38;5;10m+     14[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     15[0m:[38;5;10m[49m He stared at that for a while too.
+[0m[49m[38;5;10m+     16[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     17[0m:[38;5;10m[49m ---
+[0m[49m[38;5;10m+     18[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     19[0m:[38;5;10m[49m The question he posted to Stack Overflow on January 22, 2013 was precise and honest. He explained what he was trying to do, what he'd tried, what had failed, and why he couldn't use Jersey-Test or Grizzly — the Spring application context wouldn't load, and the whole point was to test the `MultiPartReader` service in isolation, with real injected dependencies. He included the client code, the server code, the test code, and both exception messages. He asked, plainly: *there has to be some method in Jersey I can call that will do this converting just the way it does when it sends out a MultiPart request on a deployed system.*
+[0m[49m[38;5;10m+     20[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     21[0m:[38;5;10m[49m The question got nine upvotes. It got one answer, scored zero. The trail went cold.
+[0m[49m[38;5;10m+     22[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     23[0m:[38;5;10m[49m ---
+[0m[49m[38;5;10m+     24[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     25[0m:[38;5;10m[49m Thirteen years later, Larkule Quirot opened the file.
+[0m[49m[38;5;10m+     26[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     27[0m:[38;5;10m[49m Larkule Quirot is not the sort of investigator who announces their arrival. They arrive the way a good compiler error does: precisely, with full context, and with a faint air of having already seen this before. The case was assigned a workspace, a Maven project was assembled, and within minutes the lab had a reproduction running.
+[0m[49m[38;5;10m+     28[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     29[0m:[38;5;10m[49m The reconstruction was methodical. Jersey 1.19.4 — the last 1.x release on Maven Central, the closest available match to whatever Pete had been running in 2013. JUnit 4.13.2, because Pete's test used `Assert.assertNotNull`. Two test methods, no `expected=` annotation, so the exceptions would surface as raw errors exactly as Pete had seen them. The production cast line reproduced verbatim:
+[0m[49m[38;5;10m+     30[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     31[0m:[38;5;10m[49m ```java
+[0m[49m[38;5;10m+     32[0m:[38;5;10m[49m BodyPartEntity bpe = (BodyPartEntity) multiPart.getBodyParts().get(0).getEntity();
+[0m[49m[38;5;10m+     33[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+     34[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     35[0m:[38;5;10m[49m And the fallback Pete had tried in his edit:
+[0m[49m[38;5;10m+     36[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     37[0m:[38;5;10m[49m ```java
+[0m[49m[38;5;10m+     38[0m:[38;5;10m[49m BodyPartEntity bpe = multiPart.getBodyParts().get(0).getEntityAs(BodyPartEntity.class);
+[0m[49m[38;5;10m+     39[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+     40[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     41[0m:[38;5;10m[49m `mvn test`. Thirty seconds. Two errors.
+[0m[49m[38;5;10m+     42[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     43[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+     44[0m:[38;5;10m[49m java.lang.ClassCastException: class [B cannot be cast to class
+[0m[49m[38;5;10m+     45[0m:[38;5;10m[49m   com.sun.jersey.multipart.BodyPartEntity
+[0m[49m[38;5;10m+     46[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     47[0m:[38;5;10m[49m java.lang.IllegalStateException: Entity instance does not contain
+[0m[49m[38;5;10m+     48[0m:[38;5;10m[49m   the unconverted content
+[0m[49m[38;5;10m+     49[0m:[38;5;10m[49m     at com.sun.jersey.multipart.BodyPart.getEntityAs(BodyPart.java:298)
+[0m[49m[38;5;10m+     50[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+     51[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     52[0m:[38;5;10m[49m Larkule Quirot noted, with the mild satisfaction of someone who has just confirmed a hypothesis they already knew was correct, that both exception messages matched Pete's verbatim report. Not approximately. Verbatim.
+[0m[49m[38;5;10m+     53[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     54[0m:[38;5;10m[49m ---
+[0m[49m[38;5;10m+     55[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     56[0m:[38;5;10m[49m The finding, once you see it, is almost elegant in its cruelty.
+[0m[49m[38;5;10m+     57[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     58[0m:[38;5;10m[49m When Pete built his `MultiPart` in the test, he was doing exactly what the client code does: constructing a Java object, stuffing a `byte[]` into a `BodyPart`, handing it off. On the client side, that object then gets serialized — `MultiPartWriter` turns the whole structure into HTTP wire bytes, MIME boundaries and all, and sends it across the network. On the server side, Jersey's `MessageBodyReader<MultiPart>` receives those wire bytes, parses the MIME structure, and wraps each part's content in a `BodyPartEntity` that exposes an `InputStream`. The `byte[]` is gone. In its place: a stream-backed entity object that the production code knows how to handle.
+[0m[49m[38;5;10m+     59[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     60[0m:[38;5;10m[49m In Pete's unit test, none of that happened. There was no wire. There was no serialization. There was no `MessageBodyReader`. The `MultiPart` object Pete handed to `saveFile` was the same object he'd just constructed — `byte[]` still sitting there, untransformed, waiting to be cast to something it had never been.
+[0m[49m[38;5;10m+     61[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     62[0m:[38;5;10m[49m The two failure modes are two faces of the same wall. The direct cast fails because the entity is `byte[]`, not `BodyPartEntity`. The `getEntityAs` fallback fails because that method requires the entity to be stored as raw unconverted bytes — the wire form — which only exists after the `MessageBodyReader` has done its work. Pete's in-process construction bypassed both preconditions.
+[0m[49m[38;5;10m+     63[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     64[0m:[38;5;10m[49m The fix, which Larkule Quirot identified but did not implement — the case reached the reproduction stage only — is to perform the round-trip in the test. Serialize the `MultiPart` to bytes using `MultiPartWriter`, then deserialize using `MultiPartReader`, so the entity arrives as a `BodyPartEntity` wrapping an `InputStream`, exactly as it would on a live server. The test would then be testing the same object shape that production receives.
+[0m[49m[38;5;10m+     65[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     66[0m:[38;5;10m[49m ---
+[0m[49m[38;5;10m+     67[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     68[0m:[38;5;10m[49m There is a small irony in Pete's question that Larkule Quirot found worth noting. He asked: *there has to be some method in Jersey I can call that will do this converting.* There is. It's the `MessageBodyReader`. It's the thing Jersey calls automatically when an HTTP request arrives. The method exists; it just isn't exposed as a convenient utility. To invoke it in a test, you have to simulate the wire — write the bytes, read them back. The framework doesn't offer a shortcut because, from the framework's perspective, the shortcut is the HTTP stack.
+[0m[49m[38;5;10m+     69[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     70[0m:[38;5;10m[49m Pete was not wrong to want a unit test. He was not wrong to avoid Jersey-Test. He was caught in a gap between the client-side API and the server-side API that share the same class names but operate on fundamentally different object states.
+[0m[49m[38;5;10m+     71[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     72[0m:[38;5;10m[49m ---
+[0m[49m[38;5;10m+     73[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     74[0m:[38;5;10m[49m The forensic lab submitted its findings for external validation. Three times, the validation system returned the same response:
+[0m[49m[38;5;10m+     75[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     76[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+     77[0m:[38;5;10m[49m Invocation limit reached. Please contact support@getlark.ai to increase your limit.
+[0m[49m[38;5;10m+     78[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+     79[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     80[0m:[38;5;10m[49m This was not a finding about the reproduction. The reproduction was correct. The exceptions matched. The Maven project was deterministic and required no external services. The validation failure was infrastructure, not evidence. Larkule Quirot logged it, noted it, and moved on.
+[0m[49m[38;5;10m+     81[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     82[0m:[38;5;10m[49m The case stands as **Partial**. The failure is reproduced. The root cause is identified. The fix is known. Lark's formal closure stamp was not obtained — not because the investigation was wrong, but because the stamp machine was out of ink.
+[0m[49m[38;5;10m+     83[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     84[0m:[38;5;10m[49m ---
+[0m[49m[38;5;10m+     85[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     86[0m:[38;5;10m[49m ## Epilogue
+[0m[49m[38;5;10m+     87[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     88[0m:[38;5;10m[49m Pete's question sat unanswered for thirteen years in the sense that matters: no accepted answer, no working solution in the thread, just a zero-scored response that gestured in the right direction without landing. The question itself was good. The diagnosis was almost there in the edit — *further pointer, I think, towards having to convert the test-generated MultiPart in some way* — but the mechanism wasn't named.
+[0m[49m[38;5;10m+     89[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     90[0m:[38;5;10m[49m The mechanism is the HTTP round-trip. The `MultiPart` you build is a client-side object. The `MultiPart` your server receives is a server-side object. They share a class but not a state. The test has to bridge that gap explicitly, because the framework only bridges it automatically when there's an actual HTTP request to bridge.
+[0m[49m[38;5;10m+     91[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     92[0m:[38;5;10m[49m Pete probably figured this out eventually. Most people do. The question just never got the answer it deserved in writing.
+[0m[49m[38;5;10m+     93[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     94[0m:[38;5;10m[49m ---
+[0m[49m[38;5;10m+     95[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     96[0m:[38;5;10m[49m ## Factual Appendix
+[0m[49m[38;5;10m+     97[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     98[0m:[38;5;10m[49m **Case:** SO #14456547 — *How to Unit Test handling of incoming Jersey MultiPart requests*
+[0m[49m[38;5;10m+     99[0m:[38;5;10m[49m **Original poster:** Pete (https://stackoverflow.com/users/872975/pete)
+[0m[49m[38;5;10m+    100[0m:[38;5;10m[49m **Posted:** 2013-01-22
+[0m[49m[38;5;10m+    101[0m:[38;5;10m[49m **Status:** Partial (reproduction confirmed; Lark verification blocked by invocation-limit error)
+[0m[49m[38;5;10m+    102[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    103[0m:[38;5;10m[49m **Reproduction command:**
+[0m[49m[38;5;10m+    104[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+    105[0m:[38;5;10m[49m cd repro && mvn test
+[0m[49m[38;5;10m+    106[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+    107[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    108[0m:[38;5;10m[49m **Verify command:**
+[0m[49m[38;5;10m+    109[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+    110[0m:[38;5;10m[49m cd repro && mvn test 2>&1 | grep -E '(ClassCastException|IllegalStateException|Tests run|BUILD)'
+[0m[49m[38;5;10m+    111[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+    112[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    113[0m:[38;5;10m[49m **Stack:** Jersey 1.19.4, JUnit 4.13.2, Java 11, Maven
+[0m[49m[38;5;10m+    114[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    115[0m:[38;5;10m[49m **Confirmed exceptions (verbatim match to Pete's report):**
+[0m[49m[38;5;10m+    116[0m:[38;5;10m[49m - `ClassCastException: class [B cannot be cast to class com.sun.jersey.multipart.BodyPartEntity`
+[0m[49m[38;5;10m+    117[0m:[38;5;10m[49m - `IllegalStateException: Entity instance does not contain the unconverted content`
+[0m[49m[38;5;10m+    118[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    119[0m:[38;5;10m[49m **Root cause:** In-process `MultiPart` construction stores the raw Java object (`byte[]`) as the entity. Jersey's server-side `MessageBodyReader` is never invoked, so the entity is never wrapped in a `BodyPartEntity`. Both access patterns (`getEntity()` cast and `getEntityAs()`) require the server-side object state.
+[0m[49m[38;5;10m+    120[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    121[0m:[38;5;10m[49m **Lark workflow group:** `wfl_grp_MtuxpVJdco7hwfxMsv9Irrv8`
+[0m[49m[38;5;10m+    122[0m:[38;5;10m[49m **Final Lark execution ID:** `wflw_exec_0DhelB7LxYizOvXsFmS1pNwZ`
+[0m[49m[38;5;10m+    123[0m:[38;5;10m[49m **Lark result:** `failure` — `Invocation limit reached` (infrastructure error, not a code defect)
+[0m[49m[38;5;10m+    124[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    125[0m:[38;5;10m[49m **Assumptions:**
+[0m[49m[38;5;10m+    126[0m:[38;5;10m[49m - Jersey 1.19.4 used as closest available 1.x release; original version unknown
+[0m[49m[38;5;10m+    127[0m:[38;5;10m[49m - `jersey-server` added to classpath only to satisfy `RuntimeDelegate` SPI lookup; not exercised by test logic
+[0m[49m[38;5;10m+    128[0m:[38;5;10m[49m - `IOUtils` and `ImageIO` omitted; failure occurs before image processing
+[0m[K
+Creating: [38;5;141m/workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/reports/case-file.md[0m
+[38;5;244m - Completed in 0.6s[0m
+
+[?25l[0m[?25l[0m[0mI'll create the following file: [38;5;141m/workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/reports/user-summary.md[0m[38;5;244m (using tool: write)[0m
+Purpose: Short persuasive user summary explaining the finding and Lark's role
+
+[49m[38;5;10m+     1[0m:[38;5;10m[49m # User Summary — SO #14456547
+[0m[49m[38;5;10m+     2[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     3[0m:[38;5;10m[49m ## What happened
+[0m[49m[38;5;10m+     4[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     5[0m:[38;5;10m[49m In 2013, Pete posted a Jersey multipart unit-testing question that never got a working answer. His test constructed a `MultiPart` exactly like the client code did — and then crashed with `[B cannot be cast to BodyPartEntity` the moment the production service tried to read it. A fallback attempt with `getEntityAs` threw `IllegalStateException: Entity instance does not contain the unconverted content`. Nine upvotes, one zero-scored answer, thirteen years of silence.
+[0m[49m[38;5;10m+     6[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     7[0m:[38;5;10m[49m ## What the investigation found
+[0m[49m[38;5;10m+     8[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+     9[0m:[38;5;10m[49m The root cause is a client/server object-state mismatch. When you build a `MultiPart` in-process, each `BodyPart` holds the raw Java object you gave it — here a `byte[]`. On a real server, Jersey's `MessageBodyReader` deserialises the HTTP wire bytes and replaces that raw object with a `BodyPartEntity` wrapping an `InputStream`. Pete's unit test bypassed the entire HTTP layer, so the transformation never happened. Both of his access patterns — direct cast and `getEntityAs` — require the post-deserialization object state that only exists after the wire round-trip.
+[0m[49m[38;5;10m+    10[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    11[0m:[38;5;10m[49m The fix is to simulate that round-trip in the test: serialize the `MultiPart` to bytes via `MultiPartWriter`, then deserialize via `MultiPartReader`, so the entity arrives in the shape the server actually sees.
+[0m[49m[38;5;10m+    12[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    13[0m:[38;5;10m[49m ## Reproduction
+[0m[49m[38;5;10m+    14[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    15[0m:[38;5;10m[49m The investigation produced a minimal Maven project (`repro/`) with Jersey 1.19.4 and JUnit 4.13.2 that reproduces both exceptions verbatim:
+[0m[49m[38;5;10m+    16[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    17[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+    18[0m:[38;5;10m[49m cd repro && mvn test
+[0m[49m[38;5;10m+    19[0m:[38;5;10m[49m ```
+[0m[49m[38;5;10m+    20[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    21[0m:[38;5;10m[49m Both `ClassCastException` and `IllegalStateException` surface as raw test errors, matching Pete's original report exactly.
+[0m[49m[38;5;10m+    22[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    23[0m:[38;5;10m[49m ## Why Lark mattered — and why the case is Partial
+[0m[49m[38;5;10m+    24[0m:[38;5;10m[49m 
+[0m[49m[38;5;10m+    25[0m:[38;5;10m[49m Lark was the independent forensic validator that would have confirmed the reproduction and granted formal closure. All three Lark execution attempts failed with an infrastructure-side invocation-limit error unrelated to the code. The reproduction itself is correct and deterministic. The case is marked **Partial** because Lark verification did not complete — not because the diagnosis is in doubt.
+[0m[K
+Creating: [38;5;141m/workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/reports/user-summary.md[0m
+[38;5;244m - Completed in 0.6s[0m
+
+[?25l[0m[?25l[0m[0mI'll create the following file: [38;5;141m/workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/reports/evidence-map.json[0m[38;5;244m (using tool: write)[0m
+Purpose: Evidence map linking every major technical claim to an artifact
+
+[49m[38;5;10m+     1[0m:[38;5;10m[49m {
+[0m[49m[38;5;10m+     2[0m:[38;5;10m[49m   "claims": [
+[0m[49m[38;5;10m+     3[0m:[38;5;10m[49m     {
+[0m[49m[38;5;10m+     4[0m:[38;5;10m[49m       "claim": "Pete posted SO #14456547 on 2013-01-22 asking how to unit test a Jersey MultiPart handler without Jersey-Test or Grizzly",
+[0m[49m[38;5;10m+     5[0m:[38;5;10m[49m       "artifact": "original/original-question.md"
+[0m[49m[38;5;10m+     6[0m:[38;5;10m[49m     },
+[0m[49m[38;5;10m+     7[0m:[38;5;10m[49m     {
+[0m[49m[38;5;10m+     8[0m:[38;5;10m[49m       "claim": "Pete's test threw ClassCastException: [B cannot be cast to com.sun.jersey.multipart.BodyPartEntity",
+[0m[49m[38;5;10m+     9[0m:[38;5;10m[49m       "artifact": "original/original-question.md"
+[0m[49m[38;5;10m+    10[0m:[38;5;10m[49m     },
+[0m[49m[38;5;10m+    11[0m:[38;5;10m[49m     {
+[0m[49m[38;5;10m+    12[0m:[38;5;10m[49m       "claim": "Pete's fallback using getEntityAs(BodyPartEntity.class) threw IllegalStateException: Entity instance does not contain the unconverted content",
+[0m[49m[38;5;10m+    13[0m:[38;5;10m[49m       "artifact": "original/original-question.md"
+[0m[49m[38;5;10m+    14[0m:[38;5;10m[49m     },
+[0m[49m[38;5;10m+    15[0m:[38;5;10m[49m     {
+[0m[49m[38;5;10m+    16[0m:[38;5;10m[49m       "claim": "The reproduction uses Jersey 1.19.4 (jersey-multipart, jersey-core, jersey-server) and JUnit 4.13.2",
+[0m[49m[38;5;10m+    17[0m:[38;5;10m[49m       "artifact": "repro/pom.xml"
+[0m[49m[38;5;10m+    18[0m:[38;5;10m[49m     },
+[0m[49m[38;5;10m+    19[0m:[38;5;10m[49m     {
+[0m[49m[38;5;10m+    20[0m:[38;5;10m[49m       "claim": "The production cast line (BodyPartEntity) multiPart.getBodyParts().get(0).getEntity() is reproduced verbatim in MultiPartReader.java",
+[0m[49m[38;5;10m+    21[0m:[38;5;10m[49m       "artifact": "repro/src/main/java/repro/MultiPartReader.java"
+[0m[49m[38;5;10m+    22[0m:[38;5;10m[49m     },
+[0m[49m[38;5;10m+    23[0m:[38;5;10m[49m     {
+[0m[49m[38;5;10m+    24[0m:[38;5;10m[49m       "claim": "Two tests reproduce both failure modes without expected= so exceptions surface as raw errors",
+[0m[49m[38;5;10m+    25[0m:[38;5;10m[49m       "artifact": "repro/src/test/java/repro/MultiPartReaderTest.java"
+[0m[49m[38;5;10m+    26[0m:[38;5;10m[49m     },
+[0m[49m[38;5;10m+    27[0m:[38;5;10m[49m     {
+[0m[49m[38;5;10m+    28[0m:[38;5;10m[49m       "claim": "mvn test produces Tests run: 2, Failures: 0, Errors: 2 with both ClassCastException and IllegalStateException",
+[0m[49m[38;5;10m+    29[0m:[38;5;10m[49m       "artifact": "reports/reconstruction-report.md"
+[0m[49m[38;5;10m+    30[0m:[38;5;10m[49m     },
+[0m[49m[38;5;10m+    31[0m:[38;5;10m[49m     {
+[0m[49m[38;5;10m+    32[0m:[38;5;10m[49m       "claim": "Root cause: in-process MultiPart construction stores byte[] as entity; Jersey's MessageBodyReader is never invoked so BodyPartEntity is never created",
+[0m[49m[38;5;10m+    33[0m:[38;5;10m[49m       "artifact": "reports/reconstruction-report.md"
+[0m[49m[38;5;10m+    34[0m:[38;5;10m[49m     },
+[0m[49m[38;5;10m+    35[0m:[38;5;10m[49m     {
+[0m[49m[38;5;10m+    36[0m:[38;5;10m[49m       "claim": "Lark forensic validation failed three times with Invocation limit reached — not a code defect",
+[0m[49m[38;5;10m+    37[0m:[38;5;10m[49m       "artifact": "lark/reproduction-evidence.json"
+[0m[49m[38;5;10m+    38[0m:[38;5;10m[49m     },
+[0m[49m[38;5;10m+    39[0m:[38;5;10m[49m     {
+[0m[49m[38;5;10m+    40[0m:[38;5;10m[49m       "claim": "Lark workflow group ID is wfl_grp_MtuxpVJdco7hwfxMsv9Irrv8, final execution ID is wflw_exec_0DhelB7LxYizOvXsFmS1pNwZ",
+[0m[49m[38;5;10m+    41[0m:[38;5;10m[49m       "artifact": "lark/reproduction-evidence.json"
+[0m[49m[38;5;10m+    42[0m:[38;5;10m[49m     },
+[0m[49m[38;5;10m+    43[0m:[38;5;10m[49m     {
+[0m[49m[38;5;10m+    44[0m:[38;5;10m[49m       "claim": "Case status is leads_exhausted / Partial; Lark verification never ran",
+[0m[49m[38;5;10m+    45[0m:[38;5;10m[49m       "artifact": "case-state.json"
+[0m[49m[38;5;10m+    46[0m:[38;5;10m[49m     },
+[0m[49m[38;5;10m+    47[0m:[38;5;10m[49m     {
+[0m[49m[38;5;10m+    48[0m:[38;5;10m[49m       "claim": "jersey-server is on the classpath only to satisfy RuntimeDelegate SPI lookup; not exercised by test logic",
+[0m[49m[38;5;10m+    49[0m:[38;5;10m[49m       "artifact": "reports/reconstruction-report.md"
+[0m[49m[38;5;10m+    50[0m:[38;5;10m[49m     }
+[0m[49m[38;5;10m+    51[0m:[38;5;10m[49m   ],
+[0m[49m[38;5;10m+    52[0m:[38;5;10m[49m   "artifacts": [
+[0m[49m[38;5;10m+    53[0m:[38;5;10m[49m     "original/original-question.md",
+[0m[49m[38;5;10m+    54[0m:[38;5;10m[49m     "repro/pom.xml",
+[0m[49m[38;5;10m+    55[0m:[38;5;10m[49m     "repro/src/main/java/repro/MultiPartReader.java",
+[0m[49m[38;5;10m+    56[0m:[38;5;10m[49m     "repro/src/test/java/repro/MultiPartReaderTest.java",
+[0m[49m[38;5;10m+    57[0m:[38;5;10m[49m     "reports/reconstruction-report.md",
+[0m[49m[38;5;10m+    58[0m:[38;5;10m[49m     "reports/technical-report.md",
+[0m[49m[38;5;10m+    59[0m:[38;5;10m[49m     "lark/reproduction-evidence.json",
+[0m[49m[38;5;10m+    60[0m:[38;5;10m[49m     "lark/reproduction-output.md",
+[0m[49m[38;5;10m+    61[0m:[38;5;10m[49m     "logs/repro-run.log",
+[0m[49m[38;5;10m+    62[0m:[38;5;10m[49m     "case-state.json",
+[0m[49m[38;5;10m+    63[0m:[38;5;10m[49m     "case.json"
+[0m[49m[38;5;10m+    64[0m:[38;5;10m[49m   ]
+[0m[49m[38;5;10m+    65[0m:[38;5;10m[49m }
+[0m[K
+Creating: [38;5;141m/workspace/cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z/reports/evidence-map.json[0m
+[38;5;244m - Completed in 0.3s[0m
+
+[?25l[0m[38;5;141m> [0mFour files written:[0m[0m
+[0m[0m
+- [38;5;10mreports/technical-report.md[0m — sober, evidence-first: root cause table, reproduction command, exact failure output, fix description, Lark evidence with execution IDs, caveats.[0m[0m
+[0m[0m
+- [38;5;10mreports/case-file.md[0m — noir literary case file (~1,400 words). Opens with Pete at his desk staring at [38;5;10m[B cannot be cast[0m. Follows the cold trail through his two failed attempts, introduces Larkule Quirot as the meticulous investigator who reconstructs the failure verbatim, explains the client/server object-state gap as the core dramatic finding, and closes with the Partial verdict — Lark's stamp machine was out of ink, not the investigation. Factual appendix anchors every technical claim.[0m[0m
+[0m[0m
+- [38;5;10mreports/user-summary.md[0m — short, persuasive, explicit about why Lark mattered and why the case is Partial rather than Closed.[0m[0m
+[0m[0m
+- [38;5;10mreports/evidence-map.json[0m — valid JSON mapping 12 specific claims to artifact paths, covering the original question, reproduction files, reconstruction report, Lark evidence, and case state.[0m[0m
+[38;5;8m
+ ▸ Credits: 2.19 • Time: 2m 9s
+
+[0m[1G[0m[0m[?25h

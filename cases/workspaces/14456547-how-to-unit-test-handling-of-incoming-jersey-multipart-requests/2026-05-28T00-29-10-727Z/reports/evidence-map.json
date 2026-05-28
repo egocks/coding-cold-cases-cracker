@@ -1,0 +1,65 @@
+{
+  "claims": [
+    {
+      "claim": "Pete posted SO #14456547 on 2013-01-22 asking how to unit test a Jersey MultiPart handler without Jersey-Test or Grizzly",
+      "artifact": "original/original-question.md"
+    },
+    {
+      "claim": "Pete's test threw ClassCastException: [B cannot be cast to com.sun.jersey.multipart.BodyPartEntity",
+      "artifact": "original/original-question.md"
+    },
+    {
+      "claim": "Pete's fallback using getEntityAs(BodyPartEntity.class) threw IllegalStateException: Entity instance does not contain the unconverted content",
+      "artifact": "original/original-question.md"
+    },
+    {
+      "claim": "The reproduction uses Jersey 1.19.4 (jersey-multipart, jersey-core, jersey-server) and JUnit 4.13.2",
+      "artifact": "repro/pom.xml"
+    },
+    {
+      "claim": "The production cast line (BodyPartEntity) multiPart.getBodyParts().get(0).getEntity() is reproduced verbatim in MultiPartReader.java",
+      "artifact": "repro/src/main/java/repro/MultiPartReader.java"
+    },
+    {
+      "claim": "Two tests reproduce both failure modes without expected= so exceptions surface as raw errors",
+      "artifact": "repro/src/test/java/repro/MultiPartReaderTest.java"
+    },
+    {
+      "claim": "mvn test produces Tests run: 2, Failures: 0, Errors: 2 with both ClassCastException and IllegalStateException",
+      "artifact": "reports/reconstruction-report.md"
+    },
+    {
+      "claim": "Root cause: in-process MultiPart construction stores byte[] as entity; Jersey's MessageBodyReader is never invoked so BodyPartEntity is never created",
+      "artifact": "reports/reconstruction-report.md"
+    },
+    {
+      "claim": "Lark forensic validation failed three times with Invocation limit reached — not a code defect",
+      "artifact": "lark/reproduction-evidence.json"
+    },
+    {
+      "claim": "Lark workflow group ID is wfl_grp_MtuxpVJdco7hwfxMsv9Irrv8, final execution ID is wflw_exec_0DhelB7LxYizOvXsFmS1pNwZ",
+      "artifact": "lark/reproduction-evidence.json"
+    },
+    {
+      "claim": "Case status is leads_exhausted / Partial; Lark verification never ran",
+      "artifact": "case-state.json"
+    },
+    {
+      "claim": "jersey-server is on the classpath only to satisfy RuntimeDelegate SPI lookup; not exercised by test logic",
+      "artifact": "reports/reconstruction-report.md"
+    }
+  ],
+  "artifacts": [
+    "original/original-question.md",
+    "repro/pom.xml",
+    "repro/src/main/java/repro/MultiPartReader.java",
+    "repro/src/test/java/repro/MultiPartReaderTest.java",
+    "reports/reconstruction-report.md",
+    "reports/technical-report.md",
+    "lark/reproduction-evidence.json",
+    "lark/reproduction-output.md",
+    "logs/repro-run.log",
+    "case-state.json",
+    "case.json"
+  ]
+}

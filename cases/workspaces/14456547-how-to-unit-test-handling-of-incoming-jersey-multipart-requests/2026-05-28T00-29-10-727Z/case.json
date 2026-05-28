@@ -3,7 +3,7 @@
   "run_id": "2026-05-28T00-29-10-727Z",
   "status": "publishing_reproduction",
   "created_at": "2026-05-28T00:29:10.764Z",
-  "updated_at": "2026-05-28T00:36:08.417Z",
+  "updated_at": "2026-05-28T01:03:01.408Z",
   "workspace": "cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z",
   "original": {
     "title": "How to Unit Test handling of incoming Jersey MultiPart requests",
@@ -39,20 +39,24 @@
     "group_id": "wfl_grp_MtuxpVJdco7hwfxMsv9Irrv8",
     "workflow_ids": [
       "wflw_oXZ30PKkgIkcyuDermJFmLkx",
-      "wflw_CZL6UiUhhBkCp41sClfECeS5"
+      "wflw_CZL6UiUhhBkCp41sClfECeS5",
+      "wflw_p6WShiojwy0asINY9eLZ3Hhy"
     ],
     "execution_ids": [
       "wflw_exec_8bRjTPgk54Ya1XF86g3VRjqO",
-      "wflw_exec_V7l5O6oWKrIYQsZMEC7xotEd"
+      "wflw_exec_V7l5O6oWKrIYQsZMEC7xotEd",
+      "wflw_exec_0DhelB7LxYizOvXsFmS1pNwZ"
     ],
     "reproduction": {
-      "workflow_id": "wflw_CZL6UiUhhBkCp41sClfECeS5",
-      "execution_ids": [
-        "wflw_exec_V7l5O6oWKrIYQsZMEC7xotEd"
-      ],
+      "workflow_id": "wflw_p6WShiojwy0asINY9eLZ3Hhy",
+      "execution_ids": [],
       "passed": false,
       "output": "lark/reproduction-output.md",
-      "evidence": "lark/reproduction-evidence.json"
+      "evidence": "lark/reproduction-evidence.json",
+      "provisioned": false,
+      "blocked_reason": null,
+      "transient": false,
+      "transient_reason": null
     },
     "verification": {
       "workflow_id": null,
@@ -88,10 +92,11 @@
   "writer": {
     "provider": "kiro-cli",
     "quality": {
-      "accepted": false,
-      "attempts": 0,
-      "issues": []
-    }
+      "accepted": true,
+      "issues": [],
+      "attempts": 1
+    },
+    "used_kiro_writer": true
   },
   "artifacts": {
     "original_question": "original/original-question.md",
@@ -210,9 +215,66 @@
       "at": "2026-05-28T00:36:08.417Z",
       "type": "publishing_reproduction",
       "message": "Publishing reproduction workspace for Lark access."
+    },
+    {
+      "at": "2026-05-28T00:36:13.128Z",
+      "type": "publishing_reproduction_done",
+      "message": "Published workspace to GitHub."
+    },
+    {
+      "at": "2026-05-28T00:36:13.133Z",
+      "type": "lark_reproduction_running",
+      "message": "Lark forensic reproduction workflow started. Attempt 1 of 3."
+    },
+    {
+      "at": "2026-05-28T00:36:24.860Z",
+      "type": "partial",
+      "message": "Lark did not confirm the failing reproduction. Repair is paused to avoid unsupported closure."
+    },
+    {
+      "at": "2026-05-28T00:36:24.861Z",
+      "type": "leads_exhausted",
+      "message": "Lark did not validate the reconstructed scene after the retry limit."
+    },
+    {
+      "at": "2026-05-28T00:38:37.829Z",
+      "type": "reports_ready",
+      "message": "Kiro writer reports are ready."
+    },
+    {
+      "at": "2026-05-28T00:38:37.831Z",
+      "type": "leads_exhausted",
+      "message": "Final status restored to leads_exhausted after report generation."
+    },
+    {
+      "at": "2026-05-28T00:59:13.183Z",
+      "type": "publishing_reproduction",
+      "message": "Publishing existing reproduction workspace for Lark access."
+    },
+    {
+      "at": "2026-05-28T00:59:13.191Z",
+      "type": "local_only",
+      "message": "GitHub publish unavailable; continuing with local evidence only."
+    },
+    {
+      "at": "2026-05-28T00:59:13.203Z",
+      "type": "lark_reproduction_running",
+      "message": "Lark forensic reproduction workflow started. Attempt 1 of 3."
+    },
+    {
+      "at": "2026-05-28T00:59:13.221Z",
+      "type": "blocked",
+      "message": "Lark reproduction could not run. Casework is paused until Lark is available."
+    },
+    {
+      "at": "2026-05-28T01:03:01.408Z",
+      "type": "publishing_reproduction",
+      "message": "Publishing existing reproduction workspace for Lark access."
     }
   ],
   "retries": {
-    "total": 2
+    "total": 2,
+    "exhausted": true,
+    "exhausted_at": "2026-05-28T00:36:24.861Z"
   }
 }
