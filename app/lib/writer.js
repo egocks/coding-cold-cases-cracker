@@ -221,11 +221,9 @@ ${evidence.larkVerificationEvidence || evidence.larkVerification || larkStatus}
 
   const caseFile = `# ${run.original.title}
 
-The case is not ready for a literary close-up yet.
+The case file is pending a clean narrative pass.
 
-The evidence desk has preserved the original question, the Kiro reconstruction trail, the Lark forensic outputs, and the repair notes that exist so far. The creative writer did not pass the narrative quality gate, so this file refuses to pretend that a templated technical report is a case story.
-
-Reason: ${reason}
+The evidence desk has preserved the original question, the reconstruction trail, the forensic outputs, and the repair notes that exist so far. This file is intentionally sparse so a writer failure is not blended into the final case narrative. See \`reports/writer-note.md\` for the retry record and failure details.
 
 Lark status: ${larkStatus}
 

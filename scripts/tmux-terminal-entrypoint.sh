@@ -24,7 +24,9 @@ fi
 if ! tmux has-session -t "$session" 2>/dev/null; then
   tmux new-session -d -s "$session" -c /workspace "bash /workspace/scripts/terminal-menu.sh"
 fi
+tmux set-option -g mouse on
+tmux set-option -g history-limit 50000
 
 TERMINAL_CONTROL_PORT="$control_port" node /workspace/scripts/terminal-control-server.js &
 
-exec ttyd -W -p 7681 -t titleFixed="Coding Cold Cases Cracker" tmux attach-session -t "$session"
+exec ttyd -W -p 7681 -b /terminal -t titleFixed="Coding Cold Cases Cracker" tmux attach-session -t "$session"

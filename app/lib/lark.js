@@ -62,17 +62,16 @@ async function runLarkPhase(run, kind, { onData } = {}) {
     return result;
   }
 
-  const invocation = await runCommand(`getlark workflows invoke --workflow-ids ${shellQuote(workflow.workflowId)} --wait --timeout ${Number(process.env.LARK_TIMEOUT_SECONDS || 600)} --verbose`, {
-    cwd: run.workspaceDir,
-    env,
-    timeoutMs: Number(process.env.LARK_TIMEOUT_SECONDS || 600) * 1000 + 30_000,
-    onData
-  });
+  const invocation = await invokeWorkflowWithRetry(run, workflow.workflowId, env, onData);
+  const blockedReason = classifyLarkBlock(invocation);
 
   const result = {
     code: invocation.code,
     output: [group.output, workflow.output, invocation.output].join("\n"),
-    provisioned: true,
+    provisioned: !invocation.transient && !blockedReason,
+    transient: Boolean(invocation.transient),
+    transientReason: invocation.transientReason || null,
+    blockedReason,
     passed: larkInvocationPassed(invocation, kind),
     groupId: group.groupId,
     workflowId: workflow.workflowId,
@@ -80,6 +79,44 @@ async function runLarkPhase(run, kind, { onData } = {}) {
   };
   await writePhaseArtifacts(run, kind, result);
   return result;
+}
+
+async function invokeWorkflowWithRetry(run, workflowId, env, onData) {
+  const timeoutSeconds = Number(process.env.LARK_TIMEOUT_SECONDS || 600);
+  const attempts = positiveInteger(process.env.LARK_TRANSIENT_RETRIES, 6);
+  const baseDelayMs = positiveInteger(process.env.LARK_TRANSIENT_RETRY_DELAY_MS, 15_000);
+  const outputs = [];
+  let last = null;
+
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    const invocation = await runCommand(`getlark workflows invoke --workflow-ids ${shellQuote(workflowId)} --wait --timeout ${timeoutSeconds} --verbose`, {
+      cwd: run.workspaceDir,
+      env,
+      timeoutMs: timeoutSeconds * 1000 + 30_000,
+      onData
+    });
+    last = invocation;
+    outputs.push(invocation.output);
+
+    if (!isTransientLarkConflict(invocation.output)) {
+      return { ...invocation, output: outputs.join("\n") };
+    }
+
+    if (attempt < attempts) {
+      const delayMs = Math.min(baseDelayMs * attempt, 90_000);
+      const note = `Lark workflow ${workflowId} is still generating; retrying invocation in ${Math.round(delayMs / 1000)}s (${attempt}/${attempts}).`;
+      outputs.push(note);
+      onData?.(`${note}\n`, "lark");
+      await sleep(delayMs);
+    }
+  }
+
+  return {
+    ...last,
+    output: outputs.join("\n"),
+    transient: true,
+    transientReason: "workflow_generation_in_flight"
+  };
 }
 
 async function ensureWorkflowGroup(run, env, onData) {
@@ -166,6 +203,9 @@ async function writePhaseArtifacts(run, kind, result) {
     phase: kind,
     passed: Boolean(result.passed),
     provisioned: Boolean(result.provisioned),
+    transient: Boolean(result.transient),
+    transient_reason: result.transientReason || null,
+    blocked_reason: result.blockedReason || null,
     group_id: result.groupId || null,
     workflow_id: result.workflowId || null,
     execution_ids: result.executionIds || [],
@@ -239,9 +279,33 @@ function normalizeCommand(command) {
 }
 
 function phaseVerdict(kind, result) {
+  if (result.blockedReason === "lark_invocation_limit") return "Lark could not run this phase because the invocation limit was reached.";
+  if (result.blockedReason === "lark_rate_limit") return "Lark could not run this phase because rate or quota limits were reached.";
+  if (result.transient) return "Lark workflow generation is still in flight; retry validation after provisioning settles.";
   if (!result.provisioned) return "Lark could not be provisioned for this phase.";
   if (!result.passed) return kind === "verification" ? "Repair not verified by Lark." : "Reproduction evidence not confirmed by Lark.";
   return kind === "verification" ? "Repair verified by Lark." : "Failure reproduction evidence captured by Lark.";
+}
+
+function isTransientLarkConflict(output) {
+  return /HTTP 409 Conflict/i.test(output || "") && /in-flight generation|already has an in-flight generation|pending_generation/i.test(output || "");
+}
+
+function classifyLarkBlock(invocation) {
+  if (!invocation || invocation.code === 0) return null;
+  const text = invocation.output || "";
+  if (/Invocation limit reached/i.test(text)) return "lark_invocation_limit";
+  if (/HTTP 429|rate limit|quota exceeded|too many requests/i.test(text)) return "lark_rate_limit";
+  return null;
+}
+
+function positiveInteger(value, fallback) {
+  const parsed = Number(value || fallback);
+  return Number.isFinite(parsed) && parsed > 0 ? Math.floor(parsed) : fallback;
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 function excerpt(output, maxChars = 3000) {

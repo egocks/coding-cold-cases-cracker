@@ -5,7 +5,8 @@ services:
       dockerfile: docker/app/Dockerfile
     environment:
       APP_PORT: "3000"
-      TERMINAL_URL: "http://localhost:${HOST_TERMINAL_PORT:-7681}"
+      TERMINAL_URL: "/terminal/"
+      TERMINAL_BACKEND_URL: "http://terminal:7681"
       TERMINAL_CONTROL_URL: "http://terminal:7682"
     ports:
       - "${HOST_APP_PORT:-3000}:3000"
@@ -29,8 +30,8 @@ services:
       TERM: xterm-256color
       TMUX_SESSION: coldcase
       TERMINAL_CONTROL_PORT: "7682"
-    ports:
-      - "${HOST_TERMINAL_PORT:-7681}:7681"
+    expose:
+      - "7681"
     working_dir: /workspace
     command: ["bash", "-lc", "set -a; [ -f .env ] && source .env; set +a; exec bash /workspace/scripts/tmux-terminal-entrypoint.sh"]
     volumes:

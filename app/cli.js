@@ -491,7 +491,7 @@ async function printLogs(run) {
 function nextRunHint(run) {
   if (run.status === "prepared" || run.status === "workspace_created") return "Press `s` to start the investigation pipeline.";
   if (run.status === "awaiting_kiro_supervision") return "Confer with the agent for supervised continuation.";
-  if (run.status === "partial" || run.status === "blocked") return "Open the Evidence Board and confer before ordering further action.";
+  if (run.status === "partial" || run.status === "blocked" || run.status === "leads_exhausted") return "Open the Evidence Board and confer before ordering further action.";
   if (run.status === "resolution_validated") return "Approve closure, examine evidence, download archive, or confer.";
   if (run.status === "closed") return "Case is Closed; inspect the case file, evidence, or debrief command.";
   return "Read-only monitor. Watch the timeline and logs for the active phase.";

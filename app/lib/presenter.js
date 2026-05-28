@@ -25,7 +25,7 @@ const CASEWORK_STARTED = new Set([
   "local_only"
 ]);
 
-const UNPROVEN = new Set(["partial", "blocked", "awaiting_kiro_supervision"]);
+const UNPROVEN = new Set(["partial", "blocked", "awaiting_kiro_supervision", "leads_exhausted"]);
 
 export function publicStatus(run) {
   if (!run) return "Cold Case";
@@ -70,7 +70,7 @@ export function larkVerdict(run) {
 
 export function isActiveRun(run) {
   if (!run) return false;
-  return !["resolution_validated", "closed", "partial", "blocked", "awaiting_kiro_supervision"].includes(run.status);
+  return !["resolution_validated", "closed", "partial", "blocked", "awaiting_kiro_supervision", "leads_exhausted"].includes(run.status);
 }
 
 export async function evidencePayload(run) {

@@ -11,10 +11,12 @@ import { runCommand } from "./lib/runner.js";
 import { availableActions, bulletinInbox, evidencePayload, latestNonClosedRun, larkVerdict, publicStatus, publicStatusReason, updateBulletinState } from "./lib/presenter.js";
 
 const port = Number.parseInt(process.env.APP_PORT || "3000", 10);
-const terminalUrl = process.env.TERMINAL_URL || "http://localhost:7681";
+const terminalUrl = process.env.TERMINAL_URL || "/terminal/";
+const terminalBackendUrl = process.env.TERMINAL_BACKEND_URL || "http://terminal:7681";
 const terminalControlUrl = process.env.TERMINAL_CONTROL_URL || "http://terminal:7682";
 const terminalActions = new Set(["enter", "up", "down", "back"]);
 const retroInvestigatorPath = path.join(projectRoot, "public", "retro_investigator.png");
+let kiroAuthSession = null;
 
 await buildCaseIndex();
 
@@ -22,8 +24,27 @@ const server = http.createServer(async (request, response) => {
   try {
     const url = new URL(request.url, `http://${request.headers.host || "localhost"}`);
 
+    if (url.pathname === "/terminal") {
+      response.writeHead(308, { location: "/terminal/" });
+      response.end();
+      return;
+    }
+
+    if (url.pathname.startsWith("/terminal/")) {
+      return proxyTerminalRequest(request, response);
+    }
+
     if (request.method === "GET" && url.pathname === "/api/status") {
       return sendJson(response, await statusPayload());
+    }
+
+    if (request.method === "POST" && url.pathname === "/api/kiro/auth/start") {
+      const payload = await readJson(request);
+      return sendJson(response, await startKiroAuth(Boolean(payload.reauthenticate)));
+    }
+
+    if (request.method === "GET" && url.pathname === "/api/kiro/auth/session") {
+      return sendJson(response, await kiroAuthPayload());
     }
 
     if (request.method === "GET" && url.pathname === "/assets/retro_investigator.png") {
@@ -61,14 +82,15 @@ const server = http.createServer(async (request, response) => {
     const startMatch = url.pathname.match(/^\/api\/runs\/([^/]+)\/start$/);
     if (request.method === "POST" && startMatch) {
       const run = await findRunById(decodeURIComponent(startMatch[1]));
-      const child = spawn("node", ["app/cli.js", "run-pipeline", run.workspaceDir], {
-        cwd: projectRoot,
-        detached: true,
-        stdio: "ignore",
-        env: process.env
-      });
-      child.unref();
+      spawnAppRun("run-pipeline", run.workspaceDir);
       return sendJson(response, { ok: true, run: publicRun(run), message: "Pipeline started in the background." }, 202);
+    }
+
+    const resumeMatch = url.pathname.match(/^\/api\/runs\/([^/]+)\/resume$/);
+    if (request.method === "POST" && resumeMatch) {
+      const run = await findRunById(decodeURIComponent(resumeMatch[1]));
+      spawnAppRun("advance-run", run.workspaceDir);
+      return sendJson(response, { ok: true, run: publicRun(run), message: "Resume started in the background." }, 202);
     }
 
     const approveMatch = url.pathname.match(/^\/api\/runs\/([^/]+)\/approve$/);
@@ -152,6 +174,15 @@ server.listen(port, () => {
   console.log(`Coding Cold Cases Cracker shell: http://localhost:${port}`);
 });
 
+server.on("upgrade", (request, socket, head) => {
+  const url = new URL(request.url || "/", `http://${request.headers.host || "localhost"}`);
+  if (!url.pathname.startsWith("/terminal/")) {
+    socket.destroy();
+    return;
+  }
+  proxyTerminalUpgrade(request, socket, head);
+});
+
 async function statusPayload() {
   const status = await getKiroStatus();
   const index = await loadCaseIndex();
@@ -182,19 +213,262 @@ async function statusPayload() {
 
 function getKiroStatus() {
   return new Promise((resolve) => {
-    execFile("bash", ["scripts/kiro-status.sh", "--json"], { cwd: projectRoot, env: process.env }, (error, stdout, stderr) => {
+    execFile("bash", ["scripts/kiro-status.sh", "--json"], { cwd: projectRoot, env: process.env }, async (error, stdout, stderr) => {
       try {
-        resolve(JSON.parse(stdout));
+        const status = JSON.parse(stdout);
+        const identity = await getKiroIdentity();
+        resolve({ ...status, identity });
       } catch {
         resolve({
           mode: process.env.KIRO_API_KEY ? "autopilot-ready" : "unknown",
           ok: !error,
+          identity: await getKiroIdentity(),
           stdout,
           stderr
         });
       }
     });
   });
+}
+
+function getKiroIdentity() {
+  return new Promise((resolve) => {
+    execFile("kiro-cli", ["whoami", "--format", "json"], { cwd: projectRoot, env: process.env, timeout: 30_000 }, (error, stdout, stderr) => {
+      if (error) {
+        resolve({
+          ok: false,
+          email: null,
+          accountType: null,
+          region: null,
+          startUrl: null,
+          error: stripAnsi(stderr || stdout || error.message).trim()
+        });
+        return;
+      }
+      try {
+        const parsed = JSON.parse(stdout);
+        resolve({
+          ok: true,
+          email: parsed.email || null,
+          accountType: parsed.accountType || null,
+          region: parsed.region || null,
+          startUrl: parsed.startUrl || null
+        });
+      } catch {
+        resolve({
+          ok: true,
+          email: extractEmail(stdout),
+          accountType: /Builder ID/i.test(stdout) ? "BuilderId" : null,
+          region: null,
+          startUrl: null,
+          raw: stripAnsi(stdout).trim()
+        });
+      }
+    });
+  });
+}
+
+function terminalBackendTarget(requestUrl = "/terminal/") {
+  const backend = new URL(terminalBackendUrl);
+  const incoming = new URL(requestUrl, "http://app.local");
+  backend.pathname = incoming.pathname;
+  backend.search = incoming.search;
+  return backend;
+}
+
+function terminalProxyHeaders(request, target) {
+  const headers = { ...request.headers };
+  headers.host = target.host;
+  headers["x-forwarded-host"] = request.headers.host || "";
+  headers["x-forwarded-proto"] = request.headers["x-forwarded-proto"] || "http";
+  return headers;
+}
+
+function proxyTerminalRequest(request, response) {
+  const target = terminalBackendTarget(request.url);
+  const proxy = http.request(target, {
+    method: request.method,
+    headers: terminalProxyHeaders(request, target)
+  }, (proxyResponse) => {
+    response.writeHead(proxyResponse.statusCode || 502, proxyResponse.headers);
+    proxyResponse.pipe(response);
+  });
+
+  proxy.on("error", (error) => {
+    if (!response.headersSent) {
+      response.writeHead(502, { "content-type": "text/plain; charset=utf-8" });
+    }
+    response.end(`Terminal proxy is unavailable: ${error.message}\n`);
+  });
+
+  request.pipe(proxy);
+}
+
+function proxyTerminalUpgrade(request, socket, head) {
+  const target = terminalBackendTarget(request.url);
+  const proxy = http.request(target, {
+    method: request.method,
+    headers: terminalProxyHeaders(request, target)
+  });
+
+  proxy.on("upgrade", (proxyResponse, proxySocket, proxyHead) => {
+    socket.write(
+      `HTTP/${proxyResponse.httpVersion} ${proxyResponse.statusCode} ${proxyResponse.statusMessage}\r\n` +
+      Object.entries(proxyResponse.headers)
+        .flatMap(([key, value]) => Array.isArray(value) ? value.map((item) => [key, item]) : [[key, value]])
+        .map(([key, value]) => `${key}: ${value}`)
+        .join("\r\n") +
+      "\r\n\r\n"
+    );
+    if (proxyHead?.length) socket.write(proxyHead);
+    if (head?.length) proxySocket.write(head);
+    proxySocket.pipe(socket);
+    socket.pipe(proxySocket);
+  });
+
+  proxy.on("error", () => {
+    socket.destroy();
+  });
+
+  proxy.end();
+}
+
+function spawnAppRun(command, workspaceDir) {
+  const child = spawn("node", ["app/cli.js", command, workspaceDir], {
+    cwd: projectRoot,
+    detached: true,
+    stdio: "ignore",
+    env: process.env
+  });
+  child.unref();
+  return child;
+}
+
+async function startKiroAuth(reauthenticate = false) {
+  if (kiroAuthSession?.status === "running") {
+    return kiroAuthPayload();
+  }
+
+  const id = `kiro-auth-${Date.now()}`;
+  const beforeIdentity = await getKiroIdentity();
+  const command = `${reauthenticate ? "echo '[kiro-auth] Logging out existing Kiro CLI session...'; kiro-cli logout || true; " : ""}echo '[kiro-auth] Starting Kiro device authentication...'; exec kiro-cli login --use-device-flow`;
+  const child = spawn("bash", ["-lc", command], {
+    cwd: projectRoot,
+    env: process.env,
+    stdio: ["ignore", "pipe", "pipe"]
+  });
+
+  kiroAuthSession = {
+    id,
+    status: "running",
+    startedAt: new Date().toISOString(),
+    finishedAt: null,
+    exitCode: null,
+    output: "",
+    authUrl: null,
+    userCode: null,
+    reauthenticate,
+    beforeIdentity,
+    afterIdentity: null,
+    child
+  };
+
+  const timer = setTimeout(() => {
+    if (kiroAuthSession?.id === id && kiroAuthSession.status === "running") {
+      child.kill("SIGTERM");
+      kiroAuthSession.status = "timeout";
+      kiroAuthSession.finishedAt = new Date().toISOString();
+      kiroAuthSession.output += "\n[timeout] Kiro authentication did not complete within 15 minutes.\n";
+    }
+  }, 15 * 60 * 1000);
+
+  const collect = (chunk) => {
+    if (!kiroAuthSession || kiroAuthSession.id !== id) return;
+    kiroAuthSession.output += chunk.toString();
+    parseKiroAuthOutput(kiroAuthSession);
+  };
+  child.stdout.on("data", collect);
+  child.stderr.on("data", collect);
+  child.on("close", (code) => {
+    clearTimeout(timer);
+    if (!kiroAuthSession || kiroAuthSession.id !== id || kiroAuthSession.status === "timeout") return;
+    kiroAuthSession.status = code === 0 ? "exited" : "failed";
+    kiroAuthSession.exitCode = code;
+    kiroAuthSession.finishedAt = new Date().toISOString();
+    parseKiroAuthOutput(kiroAuthSession);
+  });
+  child.on("error", (error) => {
+    clearTimeout(timer);
+    if (!kiroAuthSession || kiroAuthSession.id !== id) return;
+    kiroAuthSession.status = "failed";
+    kiroAuthSession.output += `\n${error.stack || error.message}\n`;
+    kiroAuthSession.finishedAt = new Date().toISOString();
+  });
+
+  await wait(1200);
+  return kiroAuthPayload();
+}
+
+async function kiroAuthPayload() {
+  const status = await getKiroStatus();
+  if (kiroAuthSession?.status === "running" && status.ok && !kiroAuthSession.reauthenticate) {
+    kiroAuthSession.status = "authenticated";
+    kiroAuthSession.finishedAt = new Date().toISOString();
+  }
+  if (kiroAuthSession?.status === "exited" && status.ok) {
+    kiroAuthSession.afterIdentity = status.identity || await getKiroIdentity();
+    kiroAuthSession.status = "authenticated";
+    kiroAuthSession.finishedAt = new Date().toISOString();
+  }
+  const reauthenticationInProgress = Boolean(
+    kiroAuthSession?.reauthenticate
+    && ["running", "exited"].includes(kiroAuthSession.status)
+  );
+  return {
+    ok: true,
+    session: kiroAuthSession ? publicKiroAuthSession(kiroAuthSession) : null,
+    authenticated: reauthenticationInProgress ? false : Boolean(status.ok),
+    currentAuthenticated: Boolean(status.ok),
+    identity: status.identity || null,
+    kiro: status
+  };
+}
+
+function publicKiroAuthSession(session) {
+  return {
+    id: session.id,
+    status: session.status,
+    startedAt: session.startedAt,
+    finishedAt: session.finishedAt,
+    exitCode: session.exitCode,
+    authUrl: session.authUrl,
+    userCode: session.userCode,
+    reauthenticate: session.reauthenticate,
+    beforeIdentity: session.beforeIdentity || null,
+    afterIdentity: session.afterIdentity || null,
+    output: stripAnsi(session.output).trim().slice(-3000)
+  };
+}
+
+function parseKiroAuthOutput(session) {
+  const text = stripAnsi(session.output);
+  const urls = text.match(/https?:\/\/[^\s"'<>]+/g) || [];
+  session.authUrl = urls.find((item) => /device|authorize|signin|login|auth|amazon|aws|kiro|code/i.test(item)) || urls[0] || session.authUrl;
+  const code = text.match(/(?:code|verification code|user code)\s*[:=]?\s*([A-Z0-9-]{4,})/i)
+    || text.match(/\b([A-Z0-9]{4}-[A-Z0-9]{4}|[A-Z0-9]{6,12})\b/);
+  session.userCode = code?.[1] || session.userCode;
+}
+
+function stripAnsi(value) {
+  return String(value || "").replace(/\x1b\[[0-9;?]*[ -/]*[@-~]/g, "");
+}
+
+function extractEmail(value) {
+  return stripAnsi(value).match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i)?.[0] || null;
+}
+
+function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function zipRun(run) {
@@ -373,6 +647,8 @@ function renderHome(initialPath = "/") {
       .option-row.disabled .terminal-button { pointer-events: none; }
       .option-action { min-width: 158px; min-height: 36px; border-color: rgba(194,169,106,.34); }
       .option-note { min-height: 20px; color: var(--muted); }
+      .option-note a { color: var(--green); }
+      .auth-output { margin-top: 10px; max-height: 180px; overflow: auto; white-space: pre-wrap; color: var(--muted); border-top: 1px solid rgba(194,169,106,.22); padding-top: 10px; }
       .eyebrow { color: var(--green); font-size: 13px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; }
       h1 { margin: 0; font-size: clamp(34px, 8vw, 76px); line-height: 1; text-shadow: 0 4px 28px rgba(0,0,0,.9); }
       .subtitle { color: var(--ink); margin: 18px auto 30px; max-width: 620px; line-height: 1.55; text-shadow: 0 2px 18px rgba(0,0,0,.86); }
@@ -452,8 +728,8 @@ function renderHome(initialPath = "/") {
         <p class="subtitle">Reconstruct the failure, work the fix, prove the close.</p>
         <nav class="menu" aria-label="Title menu">
           <a class="terminal-button selected" data-title-menu="0" href="/desk"><span class="button-label">Go to Desk</span></a>
-          <a class="terminal-button" data-title-menu="1" href="/options"><span class="button-label">Options</span></a>
-          <a class="terminal-button" data-title-menu="2" href="/about"><span class="button-label">About</span></a>
+          <!--<a class="terminal-button" data-title-menu="1" href="/options"><span class="button-label">Options</span></a>
+          <a class="terminal-button" data-title-menu="2" href="/about"><span class="button-label">About</span></a>-->
         </nav>
         <label class="skip"><input id="skipTitle" type="checkbox"> Skip title next time</label>
       </section>
@@ -555,6 +831,7 @@ function renderHome(initialPath = "/") {
       const terminalUrl = ${terminalUrlJson};
       const initialPath = ${initialPathJson};
       const skipTitle = document.getElementById('skipTitle');
+      const terminalFrame = document.getElementById('terminal');
       const titleButtons = [...document.querySelectorAll('[data-title-menu]')];
       let titleCursor = 0;
       skipTitle.checked = localStorage.getItem('ccc.skipTitle') === 'yes';
@@ -598,7 +875,8 @@ function renderHome(initialPath = "/") {
         document.getElementById('desk').classList.add('active');
         requestAnimationFrame(() => {
           resizeTerminal();
-          document.getElementById('terminal').focus();
+          styleTerminalFrame();
+          terminalFrame.focus();
         });
       }
       function showTitle() {
@@ -621,26 +899,86 @@ function renderHome(initialPath = "/") {
         const data = await fetch('/api/status').then((response) => response.json());
         const options = [
           {
-            label: data.kiro.ok ? 'Kiro Authenticated' : 'Kiro',
-            action: data.kiro.ok ? 'Re-Authenticate' : 'Authenticate Kiro'
+            label: data.kiro.ok ? 'Kiro Authenticated' + (data.kiro.identity?.email ? ' (' + data.kiro.identity.email + ')' : '') : 'Kiro',
+            action: data.kiro.ok ? 'Re-Authenticate' : 'Authenticate Kiro',
+            onclick: 'startKiroAuth(' + (data.kiro.ok ? 'true' : 'false') + ')'
           },
           {
             label: data.env.hasLarkApiKey ? 'Lark Connected' : 'Lark',
-            action: data.env.hasLarkApiKey ? 'Re-Connect' : 'Connect Lark'
+            action: data.env.hasLarkApiKey ? 'Re-Connect' : 'Connect Lark',
+            onclick: "showOptionNotice('Lark connection is configured for this deployment.')"
           },
           {
             label: data.env.hasGithubToken ? 'GitHub Connected' : 'GitHub',
-            action: data.env.hasGithubToken ? 'Re-Connect' : 'Connect GitHub'
+            action: data.env.hasGithubToken ? 'Re-Connect' : 'Connect GitHub',
+            onclick: "showOptionNotice('GitHub connection is configured for this deployment.')"
           }
         ];
         document.getElementById('optionList').innerHTML = [
-          ...options.map((item) => '<div class="option-row"><span class="option-label">' + item.label + '</span><button class="terminal-button option-action" type="button" onclick="showOptionNotice()"><span class="button-label">' + item.action + '</span></button></div>'),
+          ...options.map((item) => '<div class="option-row"><span class="option-label">' + item.label + '</span><button class="terminal-button option-action" type="button" onclick="' + item.onclick + '"><span class="button-label">' + item.action + '</span></button></div>'),
           '<div class="option-row disabled"><span class="option-label">Placeholder #1</span><button class="terminal-button option-action" type="button" disabled><span class="button-label">Locked</span></button></div>',
           '<div class="option-row disabled"><span class="option-label">Placeholder #2</span><button class="terminal-button option-action" type="button" disabled><span class="button-label">Locked</span></button></div>'
         ].join('');
       }
-      function showOptionNotice() {
-        document.getElementById('optionNote').textContent = 'Connections are managed by this deployment.';
+      function showOptionNotice(message) {
+        document.getElementById('optionNote').textContent = message;
+      }
+      async function startKiroAuth(reauthenticate) {
+        const note = document.getElementById('optionNote');
+        note.textContent = 'Starting Kiro device authentication...';
+        const response = await fetch('/api/kiro/auth/start', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ reauthenticate })
+        });
+        const payload = await response.json();
+        renderKiroAuth(payload);
+        pollKiroAuth();
+      }
+      let kiroAuthPoll = null;
+      function pollKiroAuth() {
+        if (kiroAuthPoll) clearInterval(kiroAuthPoll);
+        kiroAuthPoll = setInterval(async () => {
+          const payload = await fetch('/api/kiro/auth/session').then((response) => response.json());
+          renderKiroAuth(payload);
+          const activeSession = payload.session && ['running', 'exited'].includes(payload.session.status);
+          if (!activeSession) {
+            clearInterval(kiroAuthPoll);
+            kiroAuthPoll = null;
+            showOptions();
+          }
+        }, 3000);
+      }
+      function renderKiroAuth(payload) {
+        const note = document.getElementById('optionNote');
+        const session = payload.session;
+        if (payload.authenticated && session?.status === 'authenticated') {
+          const email = session.afterIdentity?.email || payload.identity?.email || '';
+          note.textContent = email ? 'Kiro authenticated as ' + email + '.' : 'Kiro authenticated.';
+          return;
+        }
+        if (!session) {
+          const email = payload.identity?.email || '';
+          note.textContent = payload.authenticated ? (email ? 'Kiro authenticated as ' + email + '.' : 'Kiro authenticated.') : 'Kiro authentication has not started.';
+          return;
+        }
+        const before = session.beforeIdentity?.email ? '<p>Before: <strong>' + escapeHtml(session.beforeIdentity.email) + '</strong></p>' : '';
+        const after = session.afterIdentity?.email ? '<p>After: <strong>' + escapeHtml(session.afterIdentity.email) + '</strong></p>' : '';
+        const link = session.authUrl
+          ? '<p><a href="' + escapeHtml(session.authUrl) + '" target="_blank" rel="noreferrer" onclick="pollKiroAuth()">Open Kiro device authentication</a></p>'
+          : '<p>Waiting for Kiro to provide the device authentication link...</p>';
+        const code = session.userCode ? '<p>Code: <strong>' + escapeHtml(session.userCode) + '</strong></p>' : '';
+        const output = session.output ? '<div class="auth-output">' + escapeHtml(session.output) + '</div>' : '';
+        note.innerHTML = before + after + link + code + output;
+      }
+      function escapeHtml(value) {
+        return String(value || '').replace(/[&<>"']/g, (char) => ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;'
+        })[char]);
       }
       function showAbout() {
         hideScreens();
@@ -725,7 +1063,6 @@ function renderHome(initialPath = "/") {
         }
       }
       function resizeTerminal() {
-        const iframe = document.querySelector('iframe');
         const bezel = document.querySelector('.bezel');
         if (!document.getElementById('desk').classList.contains('active')) return;
         const rect = bezel.getBoundingClientRect();
@@ -733,14 +1070,33 @@ function renderHome(initialPath = "/") {
         const style = getComputedStyle(bezel);
         const paddingY = parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
         const height = Math.max(320, rect.height - paddingY);
-        iframe.style.transform = 'scale(' + zoom + ')';
-        iframe.style.transformOrigin = 'top left';
-        iframe.style.width = (100 / zoom) + '%';
-        iframe.style.height = (height / zoom) + 'px';
+        terminalFrame.style.transform = 'scale(' + zoom + ')';
+        terminalFrame.style.transformOrigin = 'top left';
+        terminalFrame.style.width = (100 / zoom) + '%';
+        terminalFrame.style.height = (height / zoom) + 'px';
+      }
+      function styleTerminalFrame() {
+        try {
+          const doc = terminalFrame.contentDocument;
+          if (!doc || doc.getElementById('coldcase-terminal-scrollbar')) return;
+          const style = doc.createElement('style');
+          style.id = 'coldcase-terminal-scrollbar';
+          style.textContent = [
+            'html, body { background: #000 !important; }',
+            '.xterm .xterm-viewport { overflow-y: hidden !important; scrollbar-width: none; }',
+            '.xterm .xterm-viewport { scrollbar-color: #33483a #090d0b; }',
+            '.xterm .xterm-viewport::-webkit-scrollbar { width: 10px; background: #090d0b; }',
+            '.xterm .xterm-viewport::-webkit-scrollbar-track { background: #090d0b; border-left: 1px solid #1c2a22; }',
+            '.xterm .xterm-viewport::-webkit-scrollbar-thumb { background: #33483a; border: 2px solid #090d0b; border-radius: 0; }',
+            '.xterm .xterm-viewport::-webkit-scrollbar-thumb:hover { background: #6ee787; }'
+          ].join('\\n');
+          (doc.head || doc.documentElement).appendChild(style);
+        } catch {}
       }
       document.addEventListener('fullscreenchange', updateFullscreenButton);
       document.addEventListener('keydown', handleDeskKeyboard);
       document.addEventListener('keydown', handleTitleKeyboard);
+      terminalFrame.addEventListener('load', () => requestAnimationFrame(styleTerminalFrame));
       window.addEventListener('resize', resizeTerminal);
       window.addEventListener('load', () => requestAnimationFrame(resizeTerminal));
       updateFullscreenButton();
