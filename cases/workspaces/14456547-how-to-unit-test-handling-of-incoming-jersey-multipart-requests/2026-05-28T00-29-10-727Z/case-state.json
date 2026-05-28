@@ -1,0 +1,137 @@
+{
+  "case_id": "14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests",
+  "run_id": "2026-05-28T00-29-10-727Z",
+  "status": "publishing_reproduction",
+  "created_at": "2026-05-28T00:29:10.764Z",
+  "updated_at": "2026-05-28T00:32:10.013Z",
+  "workspace": "cases/workspaces/14456547-how-to-unit-test-handling-of-incoming-jersey-multipart-requests/2026-05-28T00-29-10-727Z",
+  "original": {
+    "title": "How to Unit Test handling of incoming Jersey MultiPart requests",
+    "url": "https://stackoverflow.com/questions/14456547/how-to-unit-test-handling-of-incoming-jersey-multipart-requests",
+    "posted": "2013-01-22",
+    "score": 9,
+    "views": 5859,
+    "answers": 1,
+    "tags": [
+      "java",
+      "rest",
+      "testing",
+      "jersey",
+      "multipart"
+    ],
+    "cold_signal": "Answers exist; top score 0",
+    "why_interesting": "We have a REST service that accepts [code] POST requests containing [code] that hold [code] s. Inside the REST service a file might be created based on the provided data.",
+    "narrative_teaser": "Pete's Jersey multipart test looks like the live client, but in the lab the first body part stays a raw `byte[]` instead of becoming the server-side `BodyPartEntity` his file handler expects. He does not want Jersey-Test or Grizzly because the Spring context matters; he wants a true unit test for the multipart reader that still passes through whatever parsing Jersey performs in production. Larkule Quirot's file has `MultiPart`, `BodyPart`, `MultiPartWriter`, `getEntityAs(BodyPartEntity.class)`, and the damning line `[B cannot be cast`; the unresolved question is how to reproduce the incoming request shape without starting the whole web machine.",
+    "fetched_source": "https://api.stackexchange.com/2.3/questions/14456547?order=desc&sort=activity&site=stackoverflow&filter=withbody",
+    "fetched": true,
+    "owner": {
+      "display_name": "Pete",
+      "user_id": 872975,
+      "link": "https://stackoverflow.com/users/872975/pete"
+    }
+  },
+  "commands": {
+    "reproduce": "cd repro && mvn test",
+    "verify": "TO_BE_DISCOVERED_BY_KIRO"
+  },
+  "assumptions": [],
+  "lark": {
+    "group_id": null,
+    "workflow_ids": [],
+    "execution_ids": [],
+    "reproduction": {
+      "workflow_id": null,
+      "execution_ids": [],
+      "passed": false,
+      "output": "lark/reproduction-output.md",
+      "evidence": "lark/reproduction-evidence.json"
+    },
+    "verification": {
+      "workflow_id": null,
+      "execution_ids": [],
+      "passed": false,
+      "output": "lark/verification-output.md",
+      "evidence": "lark/verification-evidence.json"
+    },
+    "verification_passed": false
+  },
+  "kiro": {
+    "reconstruction": {
+      "agent": ".kiro/agents/case-reconstructor.json",
+      "prompt": "prompts/kiro-reconstruction.md",
+      "report": "reports/reconstruction-report.md",
+      "passed": true,
+      "log": "logs/kiro-reconstruction.log",
+      "command": "kiro-cli chat --no-interactive --agent case-reconstructor --trust-tools=read,write,shell,grep,glob,web_fetch,web_search \"$(cat prompts/kiro-reconstruction.md)\""
+    },
+    "repair": {
+      "agent": ".kiro/agents/case-repairer.json",
+      "prompt": "prompts/kiro-repair-from-lark.md",
+      "report": "reports/technical-report.md"
+    },
+    "debrief": {
+      "agent": ".kiro/agents/case-debriefer.json"
+    }
+  },
+  "github": {
+    "branch": null,
+    "remote_url": null
+  },
+  "writer": {
+    "provider": "kiro-cli",
+    "quality": {
+      "accepted": false,
+      "attempts": 0,
+      "issues": []
+    }
+  },
+  "artifacts": {
+    "original_question": "original/original-question.md",
+    "kiro_reconstruction_prompt": "prompts/kiro-reconstruction.md",
+    "kiro_repair_prompt": "prompts/kiro-repair-from-lark.md",
+    "lark_reproduction_workflow": "lark/reproduction-workflow.json",
+    "lark_verification_workflow": "lark/verification-workflow.json",
+    "lark_reproduction_output": "lark/reproduction-output.md",
+    "lark_verification_output": "lark/verification-output.md",
+    "lark_test_coverage_summary": "lark/test-coverage-summary.md",
+    "lark_red_replay": "tests/lark/red/replay-reproduction.sh",
+    "lark_green_replay": "tests/lark/green/replay-verification.sh",
+    "reconstruction_report": "reports/reconstruction-report.md",
+    "technical_report": "reports/technical-report.md",
+    "case_file": "reports/case-file.md",
+    "user_summary": "reports/user-summary.md",
+    "evidence_map": "reports/evidence-map.json"
+  },
+  "timeline": [
+    {
+      "at": "2026-05-28T00:29:10.765Z",
+      "type": "workspace_created",
+      "message": "Created isolated investigation workspace."
+    },
+    {
+      "at": "2026-05-28T00:29:12.135Z",
+      "type": "source_fetched",
+      "message": "Fetched original Stack Overflow question body via Stack Exchange API."
+    },
+    {
+      "at": "2026-05-28T00:29:12.182Z",
+      "type": "prepared",
+      "message": "Generated phase-specific Kiro agent pack and Lark workflow payloads."
+    },
+    {
+      "at": "2026-05-28T00:29:28.887Z",
+      "type": "kiro_reconstruction_started",
+      "message": "Kiro reconstruction started. Attempt 1 of 3."
+    },
+    {
+      "at": "2026-05-28T00:32:09.996Z",
+      "type": "reproduction_ready",
+      "message": "Kiro produced a failing reproduction for Lark forensic review."
+    },
+    {
+      "at": "2026-05-28T00:32:10.013Z",
+      "type": "publishing_reproduction",
+      "message": "Publishing reproduction workspace for Lark access."
+    }
+  ]
+}
